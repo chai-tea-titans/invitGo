@@ -1,55 +1,44 @@
 "use strict";
 
-const {
-  db,
-  models: { User },
-} = require("../InviteGo/server/database/database");
+const db= require("./server/database/database");
+const User= require("./server/models/User");
 const Event = require("./server/models/Event");
 const Video = require("./server/models/Video");
 const Expense = require("./server/models/Expense");
 
-/**
- * seed - this function clears the database, updates tables to
- *      match the models, and populates the database.
- */
-async function seed() {
-  await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
 
   // Creating Users
-  const users = await Promise.all([
-    User.create(
+ 
+    const userDataArray=[
       {
         username: "carlosz",
         name: "carlos",
         password: "123",
         email: "lcz.market@gmail.com",
-        videosSent: "10",
-        eventsCreated: "10",
-        numEvents: "10",
-        numVideos: "10",
-        inviteesConfirmed: "10",
-        coolnessTracker: "30",
+        videosSent: 10,
+        eventsCreated: 10,
+        numEvents: 10,
+        numVideos: 10,
+        inviteesConfirmed: 10,
+        coolnessTracker: 30,
         history: "",
       },
       {
         username: "leeroy",
         name: "leeroy",
         password: "123",
-        email: "lcz.market@gmail.com",
-        videosSent: "5",
-        eventsCreated: "5",
-        numEvents: "5",
-        numVideos: "5",
-        inviteesConfirmed: "5",
-        coolnessTracker: "15",
+        email: "leroy.market@gmail.com",
+        videosSent: 5,
+        eventsCreated: 5,
+        numEvents: 5,
+        numVideos: 5,
+        inviteesConfirmed: 5,
+        coolnessTracker: 15,
         history: "",
       }
-    ),
-  ]);
-
-  const events = await Promise.all([
-    Event.create(
+    ];
+    
+    const eventDataArray=[
       {
         title: "apple",
         date: "04/22/23",
@@ -60,12 +49,12 @@ async function seed() {
         paymentType: "Group",
         // what should the payment types be???
         paymentStatus: "Paid",
-        totalCost: "$100",
+        totalCost: 100,
         paidBy: "Monica",
         paidFor: "Party",
-        numConfirmed: "10",
+        numConfirmed: 10,
         tags: "party, promotion, Jim",
-        userId: "1",
+        // userId: 1,
       },
       {
         title: "apple",
@@ -77,85 +66,66 @@ async function seed() {
         paymentType: "Event",
         // what should the payment types be???
         paymentStatus: "Paid",
-        totalCost: "$200",
+        totalCost: 200,
         paidBy: "Kelley",
         paidFor: "baby shower",
-        numConfirmed: "7",
+        numConfirmed: 7,
         tags: "party, preggers, Pam",
-        userId: "2",
+        // userId: 2,
       }
-    ),
-  ]);
-
-  const expenses = await Promise.all([
-    Expense.create(
+    ];
+    
+    const expenseDataArray = [
       {
         title: "Party Party",
-        amount: "$100",
+        amount: 100,
         paidBy: "Monica",
         paidFor: "simple description to be input here",
         tags: "Jim party",
-        eventId: "1",
+        eventId: 1,
       },
       {
         title: "Preggers party",
-        amount: "$50",
+        amount: 50,
         paidBy: "Kelley",
         paidFor: "simple description to be input here",
         tags: "Pam party",
-        eventId: "2",
+        eventId: 2,
       }
-    ),
-  ]);
+    ];
+    
+    const videoDataArray = [
+      {
+        eventId: 4,
+        userId: 1,
+        url: "https://youtube.com/shorts/rTx4G39R1YA?feature=share",
+      }
+    ];
+ 
 
-  const videos = await Promise.all([
-    Video.create({
-      eventId: "4",
-      userId: "1",
-      URL: "https://youtube.com/shorts/rTx4G39R1YA?feature=share",
-    }),
-  ]);
+  async function seed() {
+    try{
+      await db.sync({force: true})
+       await Event.bulkCreate(eventDataArray)
+       await User.bulkCreate(userDataArray)
+       await Video.bulkCreate(videoDataArray)
+       await Expense.bulkCreate(expenseDataArray)
 
-  console.log(`seeded ${users.length} users`);
-  console.log(`seeded ${events.length} iphones`);
-  console.log(`seeded ${expenses.length} androids`);
-  console.log(`seeded ${videos.length} retro phones`);
-  console.log(`seeded successfully`);
-  return {
-    users: {
-      carlosz: users[0],
-      leeroy: users[1],
-    },
-  };
-}
+       
+       console.log('seeding successful')
+    }
+    catch(err){
+      console.error(err);
+      db.close()
+    }
+    }
+     
+  
+  
+  seed()
+  .then(()=>{
+      process.exit();
+  
+  });
+  
 
-/*
-     We've separated the `seed` function from the `runSeed` function.
-     This way we can isolate the error handling and exit trapping.
-     The `seed` function is concerned only with modifying the database.
-    */
-async function runSeed() {
-  console.log("seeding...");
-  try {
-    await seed();
-  } catch (err) {
-    console.error(err);
-    process.exitCode = 1;
-  } finally {
-    console.log("closing db connection");
-    await db.close();
-    console.log("db connection closed");
-  }
-}
-
-/*
-      Execute the `seed` function, IF we ran this module directly (`node seed`).
-      `Async` functions always return a promise, so we can use `catch` to handle
-      any errors that might occur inside of `seed`.
-    */
-if (module === require.main) {
-  runSeed();
-}
-
-// we export the seed function for testing purposes (see `./seed.spec.js`)
-module.exports = seed;

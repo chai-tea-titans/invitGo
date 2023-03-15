@@ -7,7 +7,7 @@ const Expense = db.define("expense", {
     allowNull: false,
   },
   amount: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   paidBy: {
@@ -15,11 +15,11 @@ const Expense = db.define("expense", {
     allowNull: false,
   },
   paidFor: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.STRING,
     allowNull: false,
   },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type:Sequelize.STRING,
     allowNull: true,
   },
   eventId: {

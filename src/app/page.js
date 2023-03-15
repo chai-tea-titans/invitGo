@@ -1,7 +1,7 @@
 
 import styles from './page.module.css'
 import Link from 'next/link'
-
+import SignIn from './sign-in/page'
 
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
         </div>
 
         <div>
-         <Link href="/calendar">Calendar</Link><br/>
+         {/* <Link href="/calendar">Calendar</Link><br/>
          <Link href="/contacts">Contacts</Link><br/>
          <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
          <Link href="/event-reply">EventReply</Link><br/>
@@ -21,7 +21,8 @@ export default function Home() {
          <Link href="/user-info">My Info</Link><br/>
          <Link href="/sign-up">Sign up</Link><br/>
          <Link href="/about">about</Link><br/>
-         <Link href="/sign-in">Sign in</Link><br/>
+         <Link href="/sign-in">Sign in</Link><br/> */}
+         <SignIn/>
         </div>
 
 

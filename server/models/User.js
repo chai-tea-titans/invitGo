@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const db = require('../db')
+const db = require('../database/database')
 
 const User = db.define('user', {
   username: {
@@ -47,7 +47,7 @@ const User = db.define('user', {
     defaultValue: 0
   },
   history: {
-    type: Sequelize.ARRAY(Sequelize.JSONB),
+    type: Sequelize.STRING,
     allowNull: true
   }
 })

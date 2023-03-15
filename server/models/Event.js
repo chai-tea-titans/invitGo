@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../database/database");
+// const User=require("./User");
 
 const Event = db.define("event", {
   title: {
@@ -15,7 +16,7 @@ const Event = db.define("event", {
     allowNull: true,
   },
   invitees: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.STRING,
     allowNull: false,
   },
   videoMessage: {
@@ -35,7 +36,7 @@ const Event = db.define("event", {
     allowNull: true,
   },
   totalCost: {
-    type: Sequelize.FLOAT,
+    type: Sequelize.INTEGER,
     allowNull: true,
   },
   paidBy: {
@@ -43,7 +44,7 @@ const Event = db.define("event", {
     allowNull: true,
   },
   paidFor: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   numConfirmed: {
@@ -52,17 +53,17 @@ const Event = db.define("event", {
     defaultValue: 0
 },
   tags: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: Sequelize.STRING,
     allowNull: true,
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    } 
-   }
+  // userId: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: false,
+  //   references: {
+  //     model: User,
+  //     key: 'id'
+  //   } 
+  //  }
 });
 
 module.exports = Event;

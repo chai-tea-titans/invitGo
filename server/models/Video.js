@@ -7,7 +7,7 @@ const Video = db.define("video", {
     allowNull: false,
   },
   userId: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   eventId: {

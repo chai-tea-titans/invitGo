@@ -23,6 +23,7 @@ export default function Home() {
          <Link href="/about">about</Link><br/>
          <Link href="/sign-in">Sign in</Link><br/> */}
          <SignIn/>
+         <Video />
         </div>
 
 

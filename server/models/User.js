@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../database/database')
+const CoolScore = require('./CoolScore');
 
 const User = db.define('user', {
   username: {
@@ -52,8 +53,9 @@ const User = db.define('user', {
   }
 })
 
-// User.hasMany(Event);
-// User.hasMany(Video);
+User.hasMany(Event);
+User.hasMany(Video);
+User.hasMany(Expense);
 
 module.exports = User
 

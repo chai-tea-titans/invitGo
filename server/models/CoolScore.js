@@ -16,6 +16,7 @@ const CoolScore = db.define('coolnessScore', {
     }
   });
   
-//   CoolScore.belongsTo(User);
-
+  User.hasOne(CoolScore);
+  CoolScore.belongsTo(User);
+  
   module.exports = CoolScore;

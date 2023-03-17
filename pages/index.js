@@ -58,6 +58,7 @@ export default function Home() {
          <Link href="/event-reply">EventReply</Link><br/>
         
          <Link href="/user-info">My Info</Link><br/>
+         <Donate/>
 
     </main>
   )

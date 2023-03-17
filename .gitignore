@@ -31,3 +31,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# keys and authentication  (3/16/23)
+secrets/

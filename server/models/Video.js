@@ -16,4 +16,8 @@ const Video = db.define("video", {
   },
 });
 
+Video.belongsTo(User);
+Video.belongsTo(Event);
+
+
 module.exports = Video;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import DisplaytickerNote from "../display-sticker-note/DisplayStickerNote";
+import DisplaytickerNote from "./display-sticker-note/DisplayStickerNote";
 
 const Calendar = () => {
   const [showingNote, setShowingNote] = useState(false);

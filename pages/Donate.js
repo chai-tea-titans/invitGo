@@ -1,5 +1,5 @@
 import React from "react";
-import { checkout } from "../../../checkout";
+import { checkout } from "../checkout";
 const Donate = () => {
   return (
     <button

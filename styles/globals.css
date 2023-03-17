@@ -79,29 +79,21 @@
   margin: 0;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+body{
+  text-align: center;
+  background-color: antiquewhite;
 }
-
-a {
-  color: inherit;
+a{
   text-decoration: none;
+  color: black;
+}
+a:hover{
+  color:rgb(110, 181, 209);
+  height: 21px;
+  font-weight: bold;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
+
+
+

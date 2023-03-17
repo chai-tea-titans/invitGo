@@ -1,7 +1,7 @@
 "use client";
-
+import Head from 'next/head';
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import Link from 'next/link';
 
 
@@ -45,11 +45,13 @@ function SignUp() {
   
 
   return (
+    
     <div className='createactdiv'>
+      <Head><title>Sign Up</title></Head>
       <div className='formcreate'>
     {/* <form  onSubmit={handleSubmit}> */}
       
-    <Link className='createlinks' href={'/'}>🔙Store</Link>
+    
 
       <h1 className='createhappy'> Create Acount</h1>
 
@@ -81,7 +83,7 @@ function SignUp() {
        
       
       <button className='inputcreateact' type="submit">Create User</button>
-      <p>Already have a Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
+      <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
      
     {/* </form> */}
     

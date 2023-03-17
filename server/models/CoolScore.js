@@ -1,3 +1,5 @@
+const User = require('./User');
+
 const CoolScore = db.define('coolnessScore', {
     eventScore: {
       type: Sequelize.INTEGER,
@@ -18,5 +20,5 @@ const CoolScore = db.define('coolnessScore', {
   
   User.hasOne(CoolScore);
   CoolScore.belongsTo(User);
-  
+
   module.exports = CoolScore;

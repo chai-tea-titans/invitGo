@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../database/database");
+const Event = require('./Event');
+
 
 const Expense = db.define("expense", {
   title: {

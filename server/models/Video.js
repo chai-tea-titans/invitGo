@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../database/database");
+const Event = require('./Event');
+const User = require('./User');
 
 const Video = db.define("video", {
   url: {

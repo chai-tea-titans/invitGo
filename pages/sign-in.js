@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useState, useEffect} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"
 import {signIn, signOut } from "next-auth/react"
+import Donate from './Donate';
 
 
 
@@ -39,11 +40,27 @@ const SignIn = () => {
           
           <button  className='signinarea'  type="submit">Sign in</button><br/>
           <br/>
+
+
           <button type="button"onClick={handleGoogleSignin}> Sign in with Google</button><br/>
+
+
           <button type="button" > Sign in with Github</button><br/>
           <p>Dont have an account with us?<Link className='createlinks' href={'/sign-up'}> 🔒Sign Up </Link></p>
-          
-       
+          <br/>
+          <br/>
+          <br/>
+        <div>
+         <Link href="/calendar">Calendar</Link><br/>
+         <Link href="/contacts">Contacts</Link><br/>
+         <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
+         <Link href="/event-reply">EventReply</Link><br/>
+         <Link href="/user-info">My Info</Link><br/>
+         
+         <Link href="/about">about</Link><br/>
+        
+        <Donate/>
+        </div>
       </div>
        
           

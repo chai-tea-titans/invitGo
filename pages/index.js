@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { useSession } from "next-auth/react"
+import { getSession, useSession, signOut } from "next-auth/react"
 import Donate from './Donate';
 
 
@@ -12,7 +12,11 @@ import Donate from './Donate';
 
 
 export default function Home() {
-  const {data:session} = useSession
+  const {data:session} = useSession()
+
+  function handleSignOut(){
+    signOut()
+  }
   return (
       <div >
        <Head><title>Home</title></Head>
@@ -20,20 +24,9 @@ export default function Home() {
           <Link className='Logo' href="/">InviteGo</Link>
         </div>
 
-        <div>
-         <Link href="/calendar">Calendar</Link><br/>
-         <Link href="/contacts">Contacts</Link><br/>
-         <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
-         <Link href="/event-reply">EventReply</Link><br/>
-         <Link href="/Main-event">My Social Media</Link><br/>
-         <Link href="/user-info">My Info</Link><br/>
-         <Link href="/sign-up">Sign up</Link><br/>
-         <Link href="/about">about</Link><br/>
-         <Link href="/sign-in">Sign in</Link><br/>
-        <Donate/>
-        </div>
+       
 
-        {session ? AuthorizedUser({session}) :Guest()}
+        {session ? AuthorizedUser({session, handleSignOut}) :Guest()}
 
       </div>
       
@@ -51,21 +44,39 @@ export default function Home() {
  }
  
  //Authorized User
- const AuthorizedUser = ({session})=>{
+ const AuthorizedUser = ({session, handleSignOut})=>{
   return(
     <main>
-      <h1>Authorized User Homepage</h1>
-      <h5>session.user.name</h5>
-      <h5>session.user.email</h5>
-         <button>Sign Out</button>
+      <h3>Welcome {session.user.name} </h3>
+      
+      <h5>{session.user.email}</h5>
+         <button onClick={handleSignOut}>Sign Out</button><br/>
          <Link href="/about">about</Link><br/>
          <Link href="/calendar">Calendar</Link><br/>
          <Link href="/contacts">Contacts</Link><br/>
          <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
          <Link href="/event-reply">EventReply</Link><br/>
-         <Link href="/Main-event">My Social Media</Link><br/>
+        
          <Link href="/user-info">My Info</Link><br/>
 
     </main>
   )
+ }
+
+ export async function getServerSideProps ({req}) {
+const session = await getSession({req})
+
+if(!session){
+  return {
+    redirect: {
+      permanent:false,
+      destination:'/sign-in',
+      
+    },
+  }
+}
+
+return{
+  props:{session}
+}
  }

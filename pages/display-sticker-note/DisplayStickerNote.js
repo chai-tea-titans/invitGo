@@ -1,21 +1,34 @@
 import React, { useState } from "react";
-const DisplaytickerNote = ({
-  dayOfMonth,
-  monthName,
-  currentYear,
-  onClose,
-  onSave,
-}) => {
-  const [note, setNote] = useState("");
 
-  const handleNoteChange = event => {
-    setNote(event.target.value);
+const DisplaytickerNote = ({ dayOfMonth, monthName, currentYear }) => {
+  // Define state variables for input value and saved values
+  const [inputValue, setInputValue] = useState("");
+  const [savedValues, setSavedValues] = useState([]);
+  // Define event handler for input change
+  const handleInputChange = event => {
+    setInputValue(event.target.value);
   };
-
+  // Define event handler for save button click
   const handleSaveClick = () => {
-    onSave(note);
-    onClose();
+  // Generate a unique key for the saved value using the current date and time
+    const now = new Date().toISOString();
+    const key = `savedValue-${now}`;
+    // Store the input value in local storage with the generated key
+    localStorage.setItem(key, inputValue);
+    // Add the input value to the array of saved values
+    setSavedValues([...savedValues, inputValue]);
+    // Clear the input value
+    setInputValue("");
   };
+  // Define event handler for remove button click
+  const handleRemoveClick = index => {
+    // Create a copy of the saved values array
+    const newValues = [...savedValues];
+    newValues.splice(index, 1);
+     // Update the saved values state with the new array
+    setSavedValues(newValues);
+  };
+  // Format the date for display
   const date = new Date(`${monthName} ${dayOfMonth}, ${currentYear}`);
   const formattedDate = `${(date.getMonth() + 1)
     .toString()
@@ -23,14 +36,30 @@ const DisplaytickerNote = ({
     .getFullYear()
     .toString()
     .slice(-2)}`;
-  return (
-    <div>
-      <p>{formattedDate}</p>
-      <input type="text" value={note} onChange={handleNoteChange} />
-      <button onClick={handleSaveClick}>Save</button>
-      <button onClick={onClose}>Close</button>
-    </div>
-  );
+// Render the component with the formatted date, input field, save button, and saved values list
+return (
+  <div>
+    {/* Display the formatted date */}
+    <p>{formattedDate}</p>
+
+    {/* Render the input field with the current input value and change event handler */}
+    <input type="text" value={inputValue} onChange={handleInputChange} />
+
+    {/* Render the save button with the save click event handler */}
+    <button onClick={handleSaveClick}>Save</button>
+
+    {/* Render the saved values list */}
+    {savedValues.map((value, index) => (
+      <div key={index}>
+        {/* Display the saved value */}
+        <p>Stored Value: {value}</p>
+
+        {/* Render the remove button with the remove click event handler */}
+        <button onClick={() => handleRemoveClick(index)}>Remove</button>
+      </div>
+    ))}
+  </div>
+);
 };
 
 export default DisplaytickerNote;

@@ -79,21 +79,29 @@
   margin: 0;
 }
 
-
-body{
-  text-align: center;
-  background-color: antiquewhite;
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
 }
-a{
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+a {
+  color: inherit;
   text-decoration: none;
-  color: black;
-}
-a:hover{
-  color:rgb(110, 181, 209);
-  height: 21px;
-  font-weight: bold;
 }
 
-
-
-
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}

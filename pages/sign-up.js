@@ -51,7 +51,7 @@ function SignUp() {
       <div className='formcreate'>
     {/* <form  onSubmit={handleSubmit}> */}
       
-    <Link className='createlinks' href={'/'}>🔙Home</Link>
+    
 
       <h1 className='createhappy'> Create Acount</h1>
 
@@ -83,7 +83,7 @@ function SignUp() {
        
       
       <button className='inputcreateact' type="submit">Create User</button>
-      <p>Already have a Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
+      <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
      
     {/* </form> */}
     

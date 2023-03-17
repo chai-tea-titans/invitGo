@@ -46,7 +46,7 @@ const SignIn = () => {
 
 
           <button type="button" > Sign in with Github</button><br/>
-          <p>Dont have an account with us?<Link className='createlinks' href={'/sign-up'}> 🔒Sign Up </Link></p>
+          <p>Don't have an account?<Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
           <br/>
           <br/>
           <br/>
@@ -58,6 +58,7 @@ const SignIn = () => {
          <Link href="/user-info">My Info</Link><br/>
          
          <Link href="/about">about</Link><br/>
+         <Link className='createlinks' href={'/'}>🔙Home</Link><br/>
         
         <Donate/>
         </div>

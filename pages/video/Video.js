@@ -1,10 +1,14 @@
 "use client";
 import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addNotification } from '../server/notificationsSlice';
+
 
 const Video = () => {
   const videoRef = useRef(null);
   const [recording, setRecording] = useState(false);
   const [recordChunks, setRecordChunks] = useState([]);
+  const dispatch = useDispatch();
 
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -35,7 +39,19 @@ const Video = () => {
 
     videoRef.current.srcObject = null;
     setRecording(false);
-  };
+
+  dispatch(addNotification({
+    id: 'unique identifier',
+    type: 'reply',
+    reply: {
+      id: replyid,
+      invite: inviteid,
+      sender: senderEmail,
+      videoReceived: false
+    },
+    read: false
+  }));
+};
 
   const handlePlayRecording = () => {
     const videoBlob = new Blob(recordChunks, {

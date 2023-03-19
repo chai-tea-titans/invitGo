@@ -55,9 +55,7 @@ const User = db.define('user', {
   }
 })
 
-User.hasMany(Event);
-User.hasMany(Video);
-User.hasMany(Expense);
+
 
 module.exports = User
 

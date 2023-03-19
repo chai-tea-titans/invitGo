@@ -7,14 +7,17 @@ const Video = require("./server/models/Video");
 const Expense = require("./server/models/Expense");
 
 
+async function seed() {
+  await db.sync(); // clears db and matches models to tables
+  console.log("db synced!");
   // Creating Users
  
-    const userDataArray=[
-      {
-        username: "carlosz",
-        name: "carlos",
+    const users = await Promise.all([
+      User.create({
+        username: "carlz",
+        name: "carl",
         password: "123",
-        email: "lcz.market@gmail.com",
+        email: "charlie.market@gmail.com",
         videosSent: 10,
         eventsCreated: 10,
         numEvents: 10,
@@ -22,8 +25,8 @@ const Expense = require("./server/models/Expense");
         inviteesConfirmed: 10,
         coolnessTracker: 30,
         history: "",
-      },
-      {
+      }),
+      User.create({
         username: "leeroy",
         name: "leeroy",
         password: "123",
@@ -35,11 +38,11 @@ const Expense = require("./server/models/Expense");
         inviteesConfirmed: 5,
         coolnessTracker: 15,
         history: "",
-      }
-    ];
+      })
+    ]);
     
-    const eventDataArray=[
-      {
+    const events= await Promise.all([
+      Event.create({
         title: "apple",
         date: "04/22/23",
         message: "be there or suck",
@@ -55,9 +58,9 @@ const Expense = require("./server/models/Expense");
         numConfirmed: 10,
         tags: "party, promotion, Jim",
         // userId: 1,
-      },
-      {
-        title: "apple",
+      }),
+      Event.create({
+        title: "apple2",
         date: "03/30/23",
         message: "It's a surprise, don't tell Kelley or Pam",
         invitees: "Creed, Ryan, Michael, Kelley, Toby, Phylis, Angela",
@@ -72,60 +75,67 @@ const Expense = require("./server/models/Expense");
         numConfirmed: 7,
         tags: "party, preggers, Pam",
         // userId: 2,
-      }
-    ];
+      })
+    ]);
     
-    const expenseDataArray = [
-      {
+    const expenses = await Promise.all([
+      Expense.create({
         title: "Party Party",
         amount: 100,
         paidBy: "Monica",
         paidFor: "simple description to be input here",
         tags: "Jim party",
         eventId: 1,
-      },
-      {
+      }),
+      Expense.create({
         title: "Preggers party",
         amount: 50,
         paidBy: "Kelley",
         paidFor: "simple description to be input here",
         tags: "Pam party",
         eventId: 2,
-      }
-    ];
+      })
+    ]);
     
-    const videoDataArray = [
-      {
+    const videos = await Promise.all([
+      Video.create({
         eventId: 4,
         userId: 1,
         url: "https://youtube.com/shorts/rTx4G39R1YA?feature=share",
-      }
-    ];
- 
-
-  async function seed() {
-    try{
-      await db.sync({force: true})
-       await Event.bulkCreate(eventDataArray)
-       await User.bulkCreate(userDataArray)
-       await Video.bulkCreate(videoDataArray)
-       await Expense.bulkCreate(expenseDataArray)
-
-       
-       console.log('seeding successful')
-    }
-    catch(err){
-      console.error(err);
-      db.close()
-    }
-    }
+      })
+    ]);
+    console.log(`seeded ${users.length} users`);
+    console.log(`seeded ${events.length} products`);
+    console.log(`seeded ${expenses.length} products`);
+    console.log(`seeded ${videos.length} products`);
+    console.log(`seeded successfully`);
+    return {
+      users, events, expenses, videos
+    };
+  }
      
   
   
-  seed()
-  .then(()=>{
-      process.exit();
+  // seed()
+  // .then(()=>{
+  //     process.exit();
   
-  });
+  // });
   
+  async function runSeed() {
+    console.log("seeding...");
+    try {
+      await seed();
+    } catch (err) {
+      console.error(err);
+      process.exitCode = 1;
+    } finally {
+      console.log("closing db connection");
+      await db.close();
+      console.log("db connection closed");
+    }
+  }
 
+  if (module === require.main) {
+    runSeed();
+  }

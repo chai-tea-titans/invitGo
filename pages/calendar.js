@@ -99,37 +99,70 @@ const Calendar = () => {
     setShowNote(true);
   };
 
-  return (
-    <div className="calendar">
-      <div className="calendar-header">
-        <button onClick={onPrevButtonClick}>{"<"}</button>
-        <div className="calendar-month-year">
-          {monthName} {year}
-        </div>
-        <button onClick={onNextButtonClick}>{">"}</button>
-      </div>
-      <table className="calendar-grid">
-        <thead>
-          <tr>
-            {weekdaysShort.map(weekday => (
-              <th key={weekday}>{weekday}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>{renderCalendarCells()}</tbody>
-      </table>
-      <div>
-        {showNote && (
-          <PopupWindow
-            dayOfMonth={createNote.dayOfMonth}
-            monthName={createNote.monthName}
-            currentYear={createNote.currentYear}
-            onClose={() => setShowNote(false)}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="calendar">
+//       <div className="calendar-header">
+//         <button onClick={onPrevButtonClick}>{"<"}</button>
+//         <div className="calendar-month-year">
+//           {monthName} {year}
+//         </div>
+//         <button onClick={onNextButtonClick}>{">"}</button>
+//       </div>
+//       <table className="calendar-grid">
+//         <thead>
+//           <tr>
+//             {weekdaysShort.map(weekday => (
+//               <th key={weekday}>{weekday}</th>
+//             ))}
+//           </tr>
+//         </thead>
+//         <tbody>{renderCalendarCells()}</tbody>
+//       </table>
+//       <div>
+//         {showNote && (
+//           <PopupWindow
+//             dayOfMonth={createNote.dayOfMonth}
+//             monthName={createNote.monthName}
+//             currentYear={createNote.currentYear}
+//             onClose={() => setShowNote(false)}
+//           />
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
 
+return (
+  <div className="calendar">
+    <div className="calendar-header">
+      <button onClick={onPrevButtonClick}>{"<"}</button>
+      <div className="calendar-month-year">
+        {monthName} {year}
+      </div>
+      <button onClick={onNextButtonClick}>{">"}</button>
+    </div>
+    <table className="calendar-grid">
+      <thead>
+        <tr>
+          {weekdaysShort.map((weekday) => (
+            <th key={weekday}>{weekday}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>{renderCalendarCells()}</tbody>
+    </table>
+    {showNote && (
+      <div className="popup-background">
+        <PopupWindow
+          onClose={() => setShowNote(false)}
+          dayOfMonth={createNote.dayOfMonth}
+          monthName={createNote.monthName}
+          currentYear={createNote.currentYear}
+        />
+      </div>
+    )}
+  </div>
+);
+    }
+    
 export default Calendar;

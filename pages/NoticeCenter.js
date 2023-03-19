@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Donate from './Donate';  // for payments made
+import Donate from './Payment';  // for payments made
 import EventReply from './event-reply';  // for calendar replies
 
 

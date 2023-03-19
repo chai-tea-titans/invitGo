@@ -1,12 +1,21 @@
 "use client";
 import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+// import { addEventNotification } from '../server/store/notificationsSlice';
+import { addEventNotification } from '../server/store/notificationsSlice.js';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Video = () => {
   const videoRef = useRef(null);
   const [recording, setRecording] = useState(false);
   const [recordChunks, setRecordChunks] = useState([]);
+  const dispatch = useDispatch();
+
+
 
   const handleStartRecording = async () => {
+    try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     videoRef.current.srcObject = stream;
 
@@ -24,25 +33,55 @@ const Video = () => {
     };
 
     setTimeout(() => {
-        handleStopRecording();
-      }, 10000); // 10000 milliseconds = 10 seconds
-    };
+      handleStopRecording();
+    }, 10000); // 10000 milliseconds = 10 seconds
+  } catch (error) {
+    console.error('Failed to start recording', error);
+  }
+};
 
-  const handleStopRecording = () => {
+const handleStopRecording = () => {
+  if (videoRef.current && videoRef.current.srcObject) {
     const stream = videoRef.current.srcObject;
     const tracks = stream.getTracks();
     tracks.forEach((track) => track.stop());
-
+  }
+  if (videoRef.current) {
     videoRef.current.srcObject = null;
-    setRecording(false);
-  };
+  }
+  setRecording(false);
+};
+
+  dispatch(addEventNotification({
+    id: 'unique-identifier',
+    type: 'reply',
+    reply: {
+      id: 'reply-id',
+      invite: 'invite-id',
+      sender: 'sender-email',
+      videoReceived: false
+    },
+    read: false
+  }));
 
   const handlePlayRecording = () => {
     const videoBlob = new Blob(recordChunks, {
-      type: 'video/webm',
+      type: ['video/mp4', 'video/webm']
     });
     videoRef.current.src = URL.createObjectURL(videoBlob);
     videoRef.current.play();
+    dispatch(addEventNotification({
+      id: uuidv4(),
+      type: 'event',
+      event: {
+        id: 'event-id',
+        name: 'event-name',
+        date: 'event-date',
+        expenses: 'event-expenses'
+      },
+      videoSent: true,
+      read: false
+    }));
   };
 
 

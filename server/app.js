@@ -1,13 +1,12 @@
-const path = require('path')
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const apiRoutes = require('./routes/api');
+const morgan = require('morgan');
 
 const app = express();
-
 app.use(cors());
-app.use(bodyParser.json());
 
 // logging middleware
 app.use(morgan('dev'))
@@ -20,3 +19,4 @@ app.use('/auth', require('./auth'))
 app.use('/api', require('./api'))
 app.use('/api', apiRoutes);
 
+module.exports = app;

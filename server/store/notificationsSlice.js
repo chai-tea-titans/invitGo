@@ -1,5 +1,7 @@
 // server/notificationsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const notificationsSlice = createSlice({
     name: 'notifications',
@@ -7,7 +9,7 @@ const notificationsSlice = createSlice({
     reducers: {
       addEventNotification(state, action) {
         state.notifications.push({
-          id: uuid(),
+          id: uuidv4(),
           type: 'event',
           event: action.payload,
           read: false
@@ -15,7 +17,7 @@ const notificationsSlice = createSlice({
       },
       addInviteNotification(state, action) {
         state.notifications.push({
-          id: uuid(),
+          id: uuidv4(),
           type: 'invite',
           invite: action.payload,
           read: false
@@ -23,7 +25,7 @@ const notificationsSlice = createSlice({
       },
       addReplyNotification(state, action) {
         state.notifications.push({
-          id: uuid(),
+          id: uuidv4(),
           type: 'reply',
           reply: action.payload,
           read: false
@@ -31,7 +33,7 @@ const notificationsSlice = createSlice({
       },
       addPaymentNotification(state, action) {
         state.notifications.push({
-          id: uuid(),
+          id: uuidv4(),
           type: 'payment',
           payment: action.payload,
           read: false
@@ -49,10 +51,26 @@ const notificationsSlice = createSlice({
           state.notifications.splice(index, 1);
         }
       }
-    }
+    },
+    addEventNotification(state, action) {
+        state.notifications.push({
+          id: uuidv4(),
+          type: 'event',
+          event: action.payload,
+          videoSent: action.payload.videoSent,
+          read: false
+        });
+      },
   });
 
 
-export const { addNotification, markNotificationAsRead, removeNotification } = notificationsSlice.actions;
+  export const {
+    addEventNotification,
+    addInviteNotification,
+    addReplyNotification,
+    addPaymentNotification,
+    markNotificationAsRead,
+    removeNotification
+  } = notificationsSlice.actions;
 
 export default notificationsSlice;

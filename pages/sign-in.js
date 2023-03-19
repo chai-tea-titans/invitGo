@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useState, useEffect} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"
 import {signIn, signOut } from "next-auth/react"
-import Donate from './Donate';
+import Donate from './Payment';
 
 
 

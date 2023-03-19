@@ -24,6 +24,22 @@ const Expense = db.define("expense", {
     type:Sequelize.STRING,
     allowNull: true,
   },
+  paymentType: {
+    type: Sequelize.ENUM('stripe', 'venmo', 'plaid', 'cash'),
+    allowNull: true,
+  },
+  paymentStatus: {
+    type: Sequelize.ENUM('pending', 'completed', 'failed'),
+    allowNull: true,
+  },
+  paymentId: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  paymentUsername: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   eventId: {
     type: Sequelize.INTEGER,
     allowNull: false,

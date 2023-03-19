@@ -1,6 +1,7 @@
 const { Storage } = require('@google-cloud/storage');
 const path = require('path');
 
+
 const storage = new Storage({
   keyFilename: path.join(__dirname, '../secrets/service-account-key.json'),
 });
@@ -12,8 +13,7 @@ async function uploadVideo(filePath, fileName) {
     destination: `videos/${fileName}`,
     public: true, // Set the uploaded file to be publicly accessible
     metadata: {
-      contentType: 'video/mp4',
-    //   contentType: 'video/webm'
+        contentType: ['video/mp4', 'video/webm'],   //   contentType: 'video/webm'
     },
   };
 

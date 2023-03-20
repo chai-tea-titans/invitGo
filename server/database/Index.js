@@ -7,6 +7,7 @@ const Expense = require('./Expense');
 const Video = require('./Video');
 const CoolScore = require('./CoolScore');
 
+
 // Define models and relationships here
 User.hasOne(CoolScore);
 CoolScore.belongsTo(User);

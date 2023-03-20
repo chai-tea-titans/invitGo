@@ -8,10 +8,13 @@ const notificationsSlice = createSlice({
     initialState: { notifications: [] },
     reducers: {
       addEventNotification(state, action) {
+        const { event, videoSent } = action.payload;
         state.notifications.push({
           id: uuidv4(),
           type: 'event',
-          event: action.payload,
+          // event: action.payload,
+          event,
+          videoSent,      
           read: false
         });
       },
@@ -32,10 +35,12 @@ const notificationsSlice = createSlice({
         });
       },
       addPaymentNotification(state, action) {
+        const { payment } = action.payload;
         state.notifications.push({
           id: uuidv4(),
           type: 'payment',
-          payment: action.payload,
+          // payment: action.payload,
+          payment,
           read: false
         });
       },
@@ -50,17 +55,13 @@ const notificationsSlice = createSlice({
         if (index !== -1) {
           state.notifications.splice(index, 1);
         }
-      }
-    },
-    addEventNotification(state, action) {
-        state.notifications.push({
-          id: uuidv4(),
-          type: 'event',
-          event: action.payload,
-          videoSent: action.payload.videoSent,
-          read: false
-        });
       },
+    },
+  });
+
+  export const setNotifications = (notifications) => ({
+    type: 'notifications/setNotifications',
+    payload: notifications,
   });
 
 

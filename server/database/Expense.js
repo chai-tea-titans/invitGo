@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("../database/database");
+const db = require("./_db");
 
 const Expense = db.define("expense", {
   title: {
@@ -28,7 +28,7 @@ const Expense = db.define("expense", {
   },
 });
 
-Expense.belongsTo(Event);
+// Expense.belongsTo(Event);
 
 
 module.exports = Expense;

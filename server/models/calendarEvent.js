@@ -1,23 +1,23 @@
 const Sequelize = require("sequelize");
 const db = require("../database/database");
 
-const Video = db.define("video", {
-  url: {
+const calendarEvent = db.define("calendarevent", {
+  month: {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  userId: {
+  day: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  eventId: {
+  year: {
     type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  addeditems: {
+    type: Sequelize.STRING,
     allowNull: false,
   },
 });
 
-// Video.belongsTo(User);
-// Video.belongsTo(Event);
-
-
-module.exports = Video;
+module.exports = calendarEvent;

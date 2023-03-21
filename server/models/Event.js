@@ -67,8 +67,8 @@ const Event = db.define("event", {
 });
 
 
-Event.belongsTo(User);
-Event.hasMany(Expense);
-Event.hasMany(Video);
+// Event.belongsTo(User);
+// Event.hasMany(Expense);
+// Event.hasMany(Video);
 
 module.exports = Event;

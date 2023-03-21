@@ -28,7 +28,7 @@ const Expense = db.define("expense", {
   },
 });
 
-Expense.belongsTo(Event);
+// Expense.belongsTo(Event);
 
 
 module.exports = Expense;

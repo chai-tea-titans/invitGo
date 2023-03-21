@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import DisplaytickerNote from "./display-sticker-note/DisplayStickerNote";
+import PopupWindow from "./PopupWindow";
+//test case ******************* remember to delete after uses
+
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -60,43 +62,12 @@ const Calendar = () => {
           calendarRow.push(
             <td key={`${i}-${j}`}>
               <button
-                onClick={() => {
-                  const currentDate = new Date();
-                  const currentYear = currentDate.getFullYear();
-                  const dayOfMonth = i * 7 + j + 1 - startingDay;
-                  console.log(
-                    `Clicked on day ${dayOfMonth} of ${monthName}, ${currentYear}`
-                  );
-                  setNotes(prevNotes => [
-                    ...prevNotes,
-                    { dayOfMonth, monthName, currentYear },
-                  ]);
-
-                  setShowNote(true);
-                }}
+                onClick={() =>
+                  handleNoteClick(i * 7 + j + 1 - startingDay, monthName)
+                }
               >
                 {day}
               </button>
-              {notes
-                .filter(
-                  note =>
-                    note.dayOfMonth === day &&
-                    note.monthName === monthName &&
-                    note.currentYear === currentYear
-                )
-                .map(note => (
-                  <DisplaytickerNote
-                    key={`${day}-${monthName}-${currentYear}`}
-                    dayOfMonth={note.dayOfMonth}
-                    monthName={note.monthName}
-                    currentYear={note.currentYear}
-                    onClose={() =>
-                      setNotes(prevNotes =>
-                        prevNotes.filter(prevNote => prevNote !== note)
-                      )
-                    }
-                  />
-                ))}
             </td>
           );
           day++;
@@ -121,6 +92,15 @@ const Calendar = () => {
     );
   };
 
+  const handleNoteClick = (dayOfMonth, monthName, currentYear) => {
+    setCreateNote({
+      dayOfMonth: dayOfMonth,
+      monthName: monthName,
+      currentYear: currentYear,
+    });
+    setShowNote(true);
+  };
+
   return (
     <div className="calendar">
       <div className="calendar-header">
@@ -140,6 +120,16 @@ const Calendar = () => {
         </thead>
         <tbody>{renderCalendarCells()}</tbody>
       </table>
+      <div>
+        {showNote && (
+          <PopupWindow
+            dayOfMonth={createNote.dayOfMonth}
+            monthName={createNote.monthName}
+            currentYear={createNote.currentYear}
+            onClose={() => setShowNote(false)}
+          />
+        )}
+      </div>
     </div>
   );
 };

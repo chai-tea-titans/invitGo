@@ -1,11 +1,32 @@
 "use strict";
 
-const db= require("./server/database/database");
-const User= require("./server/models/User");
-const Event = require("./server/models/Event");
-const Video = require("./server/models/Video");
-const Expense = require("./server/models/Expense");
+const db= require("./server/database/_db");
+const User= require("./server/database/User");
+const Event = require("./server/database/Event");
+const Video = require("./server/database/Video");
+const Expense = require("./server/database/Expense");
+const calendarEvent = require("./server/database/calendar");
 
+const calendarEventDataArray = [
+  {
+    month: "January",
+    day: 1,
+    year: 2023,
+    addeditems: "New Year's Day",
+  },
+  {
+    month: "February",
+    day: 14,
+    year: 2023,
+    addeditems: "Valentine's Day",
+  },
+  {
+    month: "March",
+    day: 17,
+    year: 2023,
+    addeditems: "St. Patrick's Day",
+  },
+];
 
   // Creating Users
  
@@ -110,6 +131,7 @@ const Expense = require("./server/models/Expense");
        await User.bulkCreate(userDataArray)
        await Video.bulkCreate(videoDataArray)
        await Expense.bulkCreate(expenseDataArray)
+       await calendarEvent.bulkCreate(calendarEventDataArray);
 
        
        console.log('seeding successful')

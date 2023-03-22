@@ -3,42 +3,36 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 // import axios from 'axios';
 import Link from 'next/link';
+import {useFormik} from 'formik';
+import { resgisterValidate } from '../library/validate';
+import RegisterSubmit from '../library/register';
 
 
 
 
 
 function SignUp() {
-  const [fName, setFName] = useState('');
-  const [lName, setLName] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword]= useState('');
-  const [rePassword, setRePassword]= useState('');
-  const [email, setEmail] = useState('');
+
+
+  const formik = useFormik({
+    initialValues:{
+      username:'',
+      name:'',
+      password:'',
+      email:''
+
+    },
+    validate:resgisterValidate,
+    onSubmit
+  })
+
+  async function onSubmit(values){
+    console.log(values)
+  }
   
   
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const formData = {
-//       fName: fName,
-//       lName: lName,
-//       username: username,
-//       password:password,
-//       email: email
-//      
-//     };
-//     axios.post('/api/users/addUsers', formData)
-//       .then(response => {
-//         console.log('User created:', response.data);
-//         // handle success response here
-//       })
-//       .catch(error => {
-        
-//         console.error('Error creating user:', error);
-//         // handle error response here
-//       });
-      
+
         
          
       
@@ -49,46 +43,46 @@ function SignUp() {
     <div className='createactdiv'>
       <Head><title>Sign Up</title></Head>
       <div className='formcreate'>
-    {/* <form  onSubmit={handleSubmit}> */}
+    <form  onSubmit={formik.handleSubmit}>
       
     
 
       <h1 className='createhappy'> Create Acount</h1>
 
         <div>
-        <input className='inputcreateact clear' type="text" placeholder='First name' value={fName} onChange={(e) => setFName(e.target.value)} />
-        </div>
-
-       <div>
-        <input className='inputcreateact clear' type="text" placeholder='Last name' value={lName} onChange={(e) => setLName(e.target.value)} />
+        <p className='signinarea'>{formik.errors.name ? formik.errors.name : "Full name"}</p>
+        <input className='inputcreate' name='name' type="text" placeholder='Full name'  {...formik.getFieldProps('name')} />
         </div>
 
         <div>
-        <input className='inputcreateact clear' type="text" placeholder='Username' value={username} onChange={(e) => setUsername(e.target.value) } />
+        <p className='signinarea'>{formik.errors.username ? formik.errors.username : "Username"}</p>
+        <input className='inputcreate' type="text" name='username' placeholder='Username'  {...formik.getFieldProps('username')} />
         </div>
       
         <div>
-        <input className='inputcreateact clear' type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+        <p className='signinarea'>{formik.errors.password ? formik.errors.password : "Password "}</p>
+        <input className='inputcreate'name='password' type="password" placeholder='Password'  {...formik.getFieldProps('password')} />
         </div>
         
-        <div>
-        <input className='inputcreateact clear' type="password" placeholder='Re-enter password' value={rePassword} onChange={(e) => setRePassword(e.target.value)} />
-        </div>
+        {/* <div>
+        <input className='inputcreat' type="password" placeholder='Re-enter password' value={rePassword} onChange={(e) => setRePassword(e.target.value)} />
+        </div> */}
 
         <div>
-        <input className='inputcreateact clear' type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+        <p className='signinarea'>{formik.errors.email ? formik.errors.email : " Email"}</p>
+        <input className='inputcreate' type="email" placeholder='Email'  {...formik.getFieldProps('email')} />
         </div>
       
      
        
       
       <button className='inputcreateact' type="submit">Create User</button>
-      <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
      
-    {/* </form> */}
+     
+    </form>
     
     </div>
-   
+    <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
      </div>
   
   );

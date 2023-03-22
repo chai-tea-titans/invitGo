@@ -1,7 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("../database/database");
-const Event = require('./Event');
-const User = require('./User');
+const db = require("./_db");
 
 const Video = db.define("video", {
   url: {
@@ -18,8 +16,8 @@ const Video = db.define("video", {
   },
 });
 
-Video.belongsTo(User);
-Video.belongsTo(Event);
+// Video.belongsTo(User);
+// Video.belongsTo(Event);
 
 
 module.exports = Video;

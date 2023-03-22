@@ -1,8 +1,6 @@
 const Sequelize = require("sequelize");
-const db = require("../database/database");
+const db = require("./_db");
 const User=require("./User");
-const Video = require('./Video');
-const Expense = require('./Expense');
 
 const Event = db.define("event", {
   title: {
@@ -69,8 +67,8 @@ const Event = db.define("event", {
 });
 
 
-Event.belongsTo(User);
-Event.hasMany(Expense);
-Event.hasMany(Video);
+// Event.belongsTo(User);
+// Event.hasMany(Expense);
+// Event.hasMany(Video);
 
 module.exports = Event;

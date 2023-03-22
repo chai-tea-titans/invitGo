@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('./_db')
-const CoolScore = require('./CoolScore');
+// const CoolScore = require('./CoolScore');
 
 const User = db.define('user', {
   username: {

@@ -56,7 +56,10 @@ export default function Home() {
          <Link href="/contacts">Contacts</Link><br/>
          <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
          <Link href="/event-reply">EventReply</Link><br/>
-        
+
+         <Link href="/Video">Video</Link><br/>
+         {/* TEMPORARY LINK FOR VIDEO */}
+         
          <Link href="/user-info">My Info</Link><br/>
          <Donate/>
 

@@ -5,6 +5,8 @@ import React, { useState, useEffect} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"
 import {signIn, signOut } from "next-auth/react"
 import Donate from './Donate';
+import {useFormik} from 'formik';
+import login_validate from '../library/validate';
 
 
 
@@ -12,9 +14,24 @@ import Donate from './Donate';
 
 
 const SignIn = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [user, setUser] = useState(null);
+
+  
+    
+
+
+    const formik = useFormik({
+      initialValues:{
+        username:'',
+        password:''
+      },
+      validate:login_validate,
+      onSubmit
+    })
+   
+
+    async function onSubmit(values){
+      console.log(values)
+    }
   
   // Google Handler function
   async function handleGoogleSignin(){
@@ -22,35 +39,38 @@ const SignIn = () => {
   }
   
     return (
-    //     <form onSubmit={handleSubmit}>
-    //   <div className='signindiv'>
-    //       <Link className='createlinks' to={'/'}>🔙Store</Link>
-    //       {user ? (
-    //       <div>
-    //         <p>Welcome, {user.username}!</p>
-    //         <p>Your address is {user.address}.</p>
-    //       </div>
-    //     ) : (
+        
+    
           <div>
+            <form onSubmit={formik.handleSubmit}>
           <h1 className='createhappy'>Sign in to your account</h1>
-          <p className='signinarea'>Username</p>
-          <input type="text" value={username} onChange={(event) => setUsername(event.target.value)}/><br/>
-          <p className='signinarea'>Password</p>
-          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} /><br/>
+
+
+          <p className='signinarea'>{formik.errors.username ? formik.errors.username : "Username"}</p>
+
+          <input type="text" name='username' placeholder='@username' value={formik.values.username} onChange={formik.handleChange}/><br/>
+
+
+  
+          <p className='signinarea'>{formik.errors.password ? formik.errors.password : "Password"}</p>
+        
+          <input type="password" name='password' placeholder='password' value={formik.values.password} onChange={formik.handleChange} /><br/>
           
           <button  className='signinarea'  type="submit">Sign in</button><br/>
           <br/>
 
 
-          <button type="button"onClick={handleGoogleSignin}> Sign in with Google</button><br/>
-
-
-          <button type="button" > Sign in with Github</button><br/>
-          <p>Don't have an account?<Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
-          <br/>
-          <br/>
-          <br/>
+          </form>
         <div>
+          
+        <button type="button"onClick={handleGoogleSignin}> Sign in with Google</button><br/>
+
+
+<button type="button" > Sign in with Github</button><br/>
+<p>Don't have an account?<Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
+<br/>
+<br/>
+<br/>
          <Link href="/calendar">Calendar</Link><br/>
          <Link href="/contacts">Contacts</Link><br/>
          <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
@@ -66,9 +86,8 @@ const SignIn = () => {
        
           
           
-    //   </div>
-     // )}
-    //   </form>
+  
+      
 
   
     )

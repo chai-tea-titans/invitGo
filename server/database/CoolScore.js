@@ -1,4 +1,5 @@
-const User = require('./User');
+const Sequelize = require("sequelize");
+const db = require("./_db");
 
 const CoolScore = db.define('coolnessScore', {
     eventScore: {
@@ -18,7 +19,7 @@ const CoolScore = db.define('coolnessScore', {
     }
   });
   
-  User.hasOne(CoolScore);
-  CoolScore.belongsTo(User);
-
+  // User.hasOne(CoolScore);
+  // CoolScore.belongsTo(User);
+  
   module.exports = CoolScore;

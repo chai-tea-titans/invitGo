@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useState, useEffect} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"
 import {signIn, signOut } from "next-auth/react"
-import Donate from './Donate';
+
 import {useFormik} from 'formik';
 import login_validate from '../library/validate';
 
@@ -79,8 +79,8 @@ const SignIn = () => {
          
          <Link href="/about">about</Link><br/>
          <Link className='createlinks' href={'/'}>🔙Home</Link><br/>
-        
-        <Donate/>
+         <Link href="/NoticeCenter">Center</Link><br/>
+    
         </div>
       </div>
        

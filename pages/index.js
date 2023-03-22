@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
-import Donate from './Donate';
+
 
 
 

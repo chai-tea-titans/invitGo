@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const db = require("../database/database");
+const db = require("../database/_db");
 const Event = require('./Event');
 const User = require('./User');
 

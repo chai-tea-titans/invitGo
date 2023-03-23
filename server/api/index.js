@@ -1,5 +1,5 @@
 const router = require('express').Router()
-router.use("/user", require("./users"));
+router.use("/users", require("./users"));
 router.use('/calendar', require('./calendar'));
 // router.use('/video', require('./video'))
 
@@ -8,3 +8,4 @@ router.use('/calendar', require('./calendar'));
 
 
 module.exports = router;
+//

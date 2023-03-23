@@ -1,6 +1,6 @@
 const PORT = 8080;
 const server = require("./index");
-const  {db}  = require("./database/Index");
+const  {db}  = require("./database/Index")
 
 
 db.sync().then(() => {

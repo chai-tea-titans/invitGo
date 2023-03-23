@@ -3,20 +3,25 @@ const db = require('./_db')
 // const CoolScore = require('./CoolScore');
 
 const User = db.define('user', {
+  id:{
+    primaryKey:true,
+    type:Sequelize.INTEGER,
+    unique:true,
+    autoIncrement: true,
+    allowNull:false,
+},
   username: {
     type: Sequelize.STRING,
     allowNull: false,
     unique: true
+    
   },
   password: {
     type: Sequelize.STRING,
     allowNull: false
   },
-  email: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
-  },
+  email: { type: Sequelize.STRING, allowNull: false, notEmpty: true,  
+    validate:{isEmail: true} },
   // videosSent: {
   //   type: Sequelize.INTEGER,
   //   allowNull: false,
@@ -57,5 +62,5 @@ const User = db.define('user', {
 // User.hasMany(Video);
 // User.hasMany(Expense);
 
-module.exports = User
+module.exports = User;
 

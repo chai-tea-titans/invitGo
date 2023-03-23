@@ -19,7 +19,7 @@ export default function Home() {
   }
   return (
       <div >
-       <Head><title>Home</title></Head>
+       <Head><title>InviteGo</title></Head>
         <div>
           <Link className='Logo' href="/">InviteGo</Link>
         </div>
@@ -49,19 +49,38 @@ export default function Home() {
     <main>
       <h3>Welcome {session.user.name} </h3>
       
-      <h5>{session.user.email}</h5>
-         <button onClick={handleSignOut}>Sign Out</button><br/>
-         <Link href="/about">about</Link><br/>
-         <Link href="/calendar">Calendar</Link><br/>
-         <Link href="/contacts">Contacts</Link><br/>
-         <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
-         <Link href="/event-reply">EventReply</Link><br/>
+    
+      <div class="dropdown">
+   <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">bout</Link></div>
 
-         <Link href="/Video">Video</Link><br/>
-         {/* TEMPORARY LINK FOR VIDEO */}
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
          
-         <Link href="/user-info">My Info</Link><br/>
-         <Donate/>
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
+
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
+
+         <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
+
+         {/* TEMPORARY LINK FOR VIDEO */}
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/event-reply">Event Reply</Link></div>
+
+      
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/user-info">Profile</Link></div>
+
+         <div className='dropdownlinksdiv'><a className='dropdownlinks' onClick={handleSignOut}>Sign Out</a></div>
+         
+         </div>
+    </div>
+  
+      
+        
+
+        
+         
+    
+      
 
     </main>
   )

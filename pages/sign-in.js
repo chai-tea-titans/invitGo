@@ -1,37 +1,45 @@
 "use client";
-import Head from 'next/head';
+// import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState, useEffect} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"
-import {signIn, signOut } from "next-auth/react"
-
-import {useFormik} from 'formik';
-import login_validate from '../library/validate';
-
+import {signIn } from "next-auth/react"
+// import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 
 // import axios from 'axios';
 
 
+
 const SignIn = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const result = await signIn('credentials', {
+      redirect: false,
+      username,
+      password,
+    });
+
+    if (result.error) {
+      console.error(result.error);
+    } else {
+      // Redirect to home page or wherever you want to go after successful sign-in
+      router.push('/');
+    }
+  };
+
+
+
     
-
-
-    const formik = useFormik({
-      initialValues:{
-        username:'',
-        password:''
-      },
-      validate:login_validate,
-      onSubmit
-    })
    
 
-    async function onSubmit(values){
-      console.log(values)
-    }
+   
   
   // Google Handler function
   async function handleGoogleSignin(){
@@ -42,45 +50,48 @@ const SignIn = () => {
         
     
           <div>
-            <form onSubmit={formik.handleSubmit}>
-          <h1 className='createhappy'>Sign in to your account</h1>
-
-
-          <p className='signinarea'>{formik.errors.username ? formik.errors.username : "Username"}</p>
-
-          <input type="text" name='username' placeholder='@username' value={formik.values.username} onChange={formik.handleChange}/><br/>
-
-
-  
-          <p className='signinarea'>{formik.errors.password ? formik.errors.password : "Password"}</p>
-        
-          <input type="password" name='password' placeholder='password' value={formik.values.password} onChange={formik.handleChange} /><br/>
-          
-          <button  className='signinarea'  type="submit">Sign in</button><br/>
-          <br/>
-
-
-          </form>
+           <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="username">Username:</label>
+        <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
         <div>
           
         <button type="button"onClick={handleGoogleSignin}> Sign in with Google</button><br/>
 
-
-<button type="button" > Sign in with Github</button><br/>
+{/* 
+<button type="button" > Sign in with Github</button><br/> */}
 <p>Don't have an account?<Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
-<br/>
-<br/>
-<br/>
-         <Link href="/calendar">Calendar</Link><br/>
-         <Link href="/contacts">Contacts</Link><br/>
-         <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
-         <Link href="/event-reply">EventReply</Link><br/>
-         <Link href="/user-info">My Info</Link><br/>
+        
+      <div class="dropdown">
+   <button class="dropbtn">Menu</button>
+    <div class="dropdown-content">
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">bout</Link></div>
+
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
          
-         <Link href="/about">about</Link><br/>
-         <Link className='createlinks' href={'/'}>🔙Home</Link><br/>
-         <Link href="/NoticeCenter">Center</Link><br/>
-    
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
+
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
+
+         <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
+
+         {/* TEMPORARY LINK FOR VIDEO */}
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/event-reply">Event Reply</Link></div>
+
+      
+         <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/user-info">Profile</Link></div>
+
+         
+         
+         </div>
+    </div>
         </div>
       </div>
        

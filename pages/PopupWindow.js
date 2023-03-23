@@ -1,5 +1,5 @@
 "use client";
-
+import ExpenseTracker from "./ExpenseTracker";
 import React, { useState } from "react";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
@@ -46,9 +46,11 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   return (
     <div className="popup-window">
       <div className="popup-header">
-        <button className="popup-close" onClick={onClose}>
-          CLOSE
-        </button>
+        <div>
+          <button className="popup-close" onClick={onClose}>
+            CLOSE
+          </button>
+        </div>
       </div>
       <div className="popup-content">
         <p>
@@ -58,8 +60,9 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         <input type="text" value={inputValue} onChange={handleInputChange} />
 
         {/* Render the save button with the save click event handler */}
-        <button onClick={handleSaveClick}>Save</button>
-
+        <span>
+          <button onClick={handleSaveClick}>Save</button>
+        </span>
         {/* Render the saved values list */}
         {savedValues.map((value, index) => (
           <div key={index}>
@@ -71,6 +74,7 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
           </div>
         ))}
       </div>
+      <ExpenseTracker />
     </div>
   );
 };

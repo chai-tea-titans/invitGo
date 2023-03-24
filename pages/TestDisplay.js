@@ -1,25 +1,38 @@
+"use client";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchTestAsync, selectTest } from "./features/testSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCalendar } from "./store/testSlice";
+import { fetchCalendarAsync } from"./store/testSlice"; 
 
-const testDisplay = () => {
+
+function Calendar()  {
   const dispatch = useDispatch();
-  const test = useSelector(selectTest);
-
+  const calendarData = useSelector(selectCalendar)
+  console.log(calendarData);
+  const isLoading = useSelector((state) => state.loading);
   useEffect(() => {
-    dispatch(fetchTestAsync());
-  }, []);
+    dispatch(fetchCalendarAsync());
+  }, [dispatch]);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (!calendarData || calendarData.length === 0) {
+    return <div>No data available</div>;
+  }
   return (
-    <div>
-      {test.map(event => (
+    <>
+      {calendarData.map((event) => (
         <div key={event.id}>
-          <h2>{event.day}</h2>
-          <p>{event.month}</p>
-          <p>{event.years}</p>
+          <h3>{event.month}</h3>
+          <p>{event.day}</p>
+          <p>{event.year}</p>
+          <p>{event.addeditems}</p>
         </div>
       ))}
-    </div>
+    </>
   );
 };
-export default testDisplay;
+
+
+export default Calendar;

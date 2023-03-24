@@ -10,4 +10,15 @@ router.get("/", async (req, res, next) => {
     }
   });
 
+  router.get('/:Id', async (req, res, next) => {
+    try {
+        const calendarEvents = await calendarEvent.findByPk(req.params.Id)
+        res.json(calendarEvents)
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+})
+
 module.exports = router;

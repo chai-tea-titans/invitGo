@@ -15,8 +15,9 @@
 // NEW CODE FOR USING REDUX / STORE
 import '../styles/globals.css'
 import { SessionProvider } from "next-auth/react"
+
 import { Provider } from 'react-redux';
-import store from '../server/store/store'
+import store from './store/store'
 
 export default function App({Component, pageProps }) {
   return (
@@ -25,6 +26,7 @@ export default function App({Component, pageProps }) {
       <Component {...pageProps} />
     </SessionProvider>
     </Provider>
+   
 
   )
 }

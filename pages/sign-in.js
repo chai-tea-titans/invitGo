@@ -77,9 +77,9 @@ const SignIn = () => {
          <Link href="/event-reply">EventReply</Link><br/>
          <Link href="/user-info">My Info</Link><br/>
          
-         <Link href="/about">about</Link><br/>
+         <Link href="/about">About</Link><br/>
+         <Link href="/NoticeCenter">Notifications Center</Link><br/>
          <Link className='createlinks' href={'/'}>🔙Home</Link><br/>
-         <Link href="/NoticeCenter">Center</Link><br/>
     
         </div>
       </div>

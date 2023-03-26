@@ -3,7 +3,7 @@
 import Head from 'next/head'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect  } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
 
 import NoticeCenter from './NoticeCenter';
@@ -44,14 +44,26 @@ export default function Home() {
  }
  
  //Authorized User
- const AuthorizedUser = ({session, handleSignOut})=>{
+ const AuthorizedUser = ({session, handleSignOut })=>{
+  const { data: usersession } = useSession();
+  const [authUrl, setAuthUrl] = useState("");
+
+  useEffect(() => {
+    async function fetchAuthUrl() {
+      const res = await fetch("/api/oauth2");
+      const data = await res.json();
+      setAuthUrl(data.authUrl);
+    }
+
+    fetchAuthUrl();
+  }, []);
   return(
     <main>
-      <h3>Welcome {session.user.name} </h3>
+      <h3>Welcome {usersession.user.name} </h3>
       
-      <h5>{session.user.email}</h5>
+      <h5>{usersession.user.email}</h5>
          <button onClick={handleSignOut}>Sign Out</button><br/>
-         <Link href="/about">about</Link><br/>
+         <Link href="/about">About</Link><br/>
          <Link href="/calendar">Calendar</Link><br/>
          <Link href="/contacts">Contacts</Link><br/>
          <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
@@ -63,6 +75,10 @@ export default function Home() {
          <Link href="/user-info">My Info</Link><br/>
          <Payment />
          <NoticeCenter /> 
+         <br />
+      <a href={authUrl}>
+        <button>Log in with Gmail</button>
+      </a>
 
     </main>
   )

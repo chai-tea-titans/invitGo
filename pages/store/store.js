@@ -1,7 +1,7 @@
 "use client"
 import { configureStore } from "@reduxjs/toolkit";
 import CalendarSlice from "./testSlice";
-import notificationsSlice from "../../server/store/notificationsSlice";
+import notificationsSlice from "./notificationsSlice";
 
 const store = configureStore({
   reducer: { 

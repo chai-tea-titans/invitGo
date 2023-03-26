@@ -40,7 +40,9 @@ function ExpenseTracker() {
     newExpenses.splice(index, 1);
     setExpenses(newExpenses);
   };
-
+  const totalAmount = expenses.reduce((total, expense) => {
+    return total + parseFloat(expense.amount);
+  }, 0);
   // Render form and list of expenses
   return (
     <div>
@@ -82,6 +84,9 @@ function ExpenseTracker() {
               <button onClick={() => handleDelete(index)}>Delete</button>
             </div>
           ))}
+      </div>
+      <div style={{ marginTop: "10px" }}>
+        Total amount spent: ${totalAmount.toFixed(2)}
       </div>
     </div>
   );

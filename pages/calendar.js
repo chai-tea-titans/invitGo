@@ -3,13 +3,12 @@
 import { useState } from "react";
 import PopupWindow from "./PopupWindow";
 //test case ******************* remember to delete after uses
-
+// import TestDisplay from "./TestDisplay";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentYear] = useState(new Date().getFullYear());
   const [showNote, setShowNote] = useState(false);
-  const [notes, setNotes] = useState([]);
   const [createNote, setCreateNote] = useState("");
 
   const weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -92,7 +91,7 @@ const Calendar = () => {
     );
   };
 
-  const handleNoteClick = (dayOfMonth, monthName, currentYear) => {
+  const handleNoteClick = (dayOfMonth, monthName) => {
     setCreateNote({
       dayOfMonth: dayOfMonth,
       monthName: monthName,
@@ -130,6 +129,7 @@ const Calendar = () => {
           />
         )}
       </div>
+      {/* <TestDisplay /> */}
     </div>
   );
 };

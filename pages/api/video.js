@@ -1,13 +1,21 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { uploadVideo } = require('../database/googleCloudStore');
-import { addNotification } from '../notificationsSlice';
-const { Event, Video } = require('../database/Event');
-
+const { uploadVideo } = require("../../server/database/googleCloudStore");
+//import { addNotification } from '../notificationsSlice';
+const { Video } = require("../../server/database/Index");
+const { events } = require("../../server/database/Index");
 
 // Define API routes here
+router.get("/", async (req, res, next) => {
+  try {
+    const Videos = await Video.findAll();
+    res.json(Videos);
+  } catch (err) {
+    next(err);
+  }
+});
 
-router.post('/upload-video', async (req, res) => {
+router.post("/upload-video", async (req, res) => {
   // 1. Receive the video file from the frontend
   // 2. Save the video file to a temporary location
   // 3. Call the uploadVideo function with the temporary file path and desired file name
@@ -18,11 +26,10 @@ router.post('/upload-video', async (req, res) => {
     const videoUrl = await uploadVideo(file, filename);
 
     // // Save the video URL to the event model
-    const event = await Event.findByPk(eventId);
+    const event = await events.findByPk(eventId);
     event.videoMessage = videoUrl;
     await event.save();
 
- 
     // Save the video URL to the video model
     await Video.create({
       url: videoUrl,
@@ -31,12 +38,12 @@ router.post('/upload-video', async (req, res) => {
 
     res.status(200).json({ videoUrl });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Server error' });
-    }
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
-router.post('/save-video-url', async (req, res) => {
+router.post("/save-video-url", async (req, res) => {
   try {
     const { eventId, videoMessage } = req.body;
 
@@ -48,9 +55,8 @@ router.post('/save-video-url', async (req, res) => {
     res.status(200).send(video);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal server error');
+    res.status(500).send("Internal server error");
   }
 });
-
 
 module.exports = router;

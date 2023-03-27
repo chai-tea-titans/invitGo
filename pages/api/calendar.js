@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Calendar: calendarEvent } = require("../database/Index");
+const { Calendar: calendarEvent } = require("../../server/database/Index");
 
 router.get("/", async (req, res, next) => {
   try {

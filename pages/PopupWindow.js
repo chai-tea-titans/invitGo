@@ -8,6 +8,7 @@ import {
   createEventAsync,
   deleteEventAsync,
 } from "./store/testSlice";
+import Video from "./Video";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   // console.log(dayOfMonth);
@@ -41,8 +42,14 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   });
 
   //******************************************** */ */
+
+  const [videoUrl, setVideoUrl] = useState("");    
+  const [recordChunks, setRecordChunks] = useState(null); // New state for video recording object or URL
+  const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(false);
+  //  modified by Carlos, added to set state for VIDEO
+
   // Define event handler for input change
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
 
@@ -87,6 +94,61 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   const handleRemoveClick = async id => {
     dispatch(deleteEventAsync(id));
   };
+
+  // const handleRemoveClick = (index) => {
+  //   // Create a copy of the saved values array
+  //   const newValues = [...savedValues];
+  //   newValues.splice(index, 1);
+  //   // Update the saved values state with the new array
+  //   setSavedValues(newValues);
+  // };
+
+    // Define event handler for video upload
+    // const handleVideoUpload = url => {
+    //   setVideoUrl(url);
+    // };
+    const handleVideoUpload = (chunks) => {
+      setRecordChunks(chunks); // Set the recordChunks state with the video recording object
+      setVideoUrl(""); // Clear the videoUrl state
+    };
+//  modified by Carlos, added to handle VIDEO
+
+    // Define event handler for closing video
+    const handleVideoClose = () => {
+      setVideoUrl("");
+    };
+    // const handleVideoClose = () => {
+    //   setRecordChunks(null); // Clear the recordChunks state
+    // };
+//  modified by Carlos, added to handle VIDEO
+
+
+  // Define event handler for attaching video to invite
+  const handleAttachVideo = () => {
+    setVideoUrl(recordChunks); // Set the videoUrl state with the recordChunks
+    setRecordChunks(null); // Clear the recordChunks state
+  };
+
+  // Function to handle video upload and attach to event
+  // const handleVideoUpload = () => {
+  //   const newEvent = Event.findByPk(eventId);
+  //   newEvent.videoMessage = videoUrl;
+  //   newEvent.save();
+  //   setVideoUrl("");
+  //   setShowVideoRecordingScreen(false);
+  // };
+  //  modified by Carlos, added to handle VIDEO
+
+
+
+  // Format the date for display
+  const date = new Date(`${monthName} ${dayOfMonth}, ${currentYear}`);
+  const formattedDate = `${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}/${date
+    .getFullYear()
+    .toString()
+    .slice(-2)}`;
 
   return (
     <div className="popup-window">
@@ -135,10 +197,44 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
             <button onClick={() => handleRemoveClick(index)}>Remove</button>
           </div>
         ))}
+
+{videoUrl ? (
+          <div>
+            {/* <video src={videoUrl} controls width="300" height="auto" /> */}
+            <button onClick={handleVideoClose}>Close Video</button>
+          </div>
+        ) : (
+          <div>
+            <button onClick={() => setVideoUrl("start")}>Record Video</button>
+          </div>
+        )}
       </div>
+      {videoUrl === "start" && (
+        <Video
+        onVideoUpload={(video) => {
+          setVideoUrl(video);
+          setShowVideoRecordingScreen(false);
+        }}
+        // eventId={eventId}
+        />
+      )}       
       <ExpenseTracker />
     </div>
   );
 };
 
 export default PopupWindow;
+
+
+// Old code above
+// {eventId && (
+//   <Video
+//     onVideoUpload={(video) => {
+//       // add the video to the event with the given ID
+//       Event.update(
+//         { videoUrl: video },
+//         { where: { id: eventId } }
+//       );
+//     }}
+//   />
+// )}

@@ -11,12 +11,19 @@ import {
 import Video from "./Video";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
-  // console.log(dayOfMonth);
-  // console.log(monthName);
+  console.log(dayOfMonth);
+  console.log(monthName);
   console.log(currentYear); //issue pass prop as undefine******
   // Define state variables for input value and saved values
   const [inputValue, setInputValue] = useState("");
   const [savedValues, setSavedValues] = useState([]);
+  //******************************************** */ */
+
+  const [recordChunks, setRecordChunks] = useState(null); // New state for video recording object or URL
+  const [videoUrl, setVideoUrl] = useState("");
+  const [showVideoRecordingScreen, setShowVideoRecordingScreen] =
+    useState(false);
+  // modified by Carlos, added to set state for VIDEO
 
   //******************************************** */ */
   const dispatch = useDispatch();
@@ -41,15 +48,8 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
     );
   });
 
-  //******************************************** */ */
-
-  const [videoUrl, setVideoUrl] = useState("");    
-  const [recordChunks, setRecordChunks] = useState(null); // New state for video recording object or URL
-  const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(false);
-  //  modified by Carlos, added to set state for VIDEO
-
   // Define event handler for input change
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     setInputValue(event.target.value);
   };
 
@@ -103,25 +103,24 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   //   setSavedValues(newValues);
   // };
 
-    // Define event handler for video upload
-    // const handleVideoUpload = url => {
-    //   setVideoUrl(url);
-    // };
-    const handleVideoUpload = (chunks) => {
-      setRecordChunks(chunks); // Set the recordChunks state with the video recording object
-      setVideoUrl(""); // Clear the videoUrl state
-    };
-//  modified by Carlos, added to handle VIDEO
+  // Define event handler for video upload
+  // const handleVideoUpload = url => {
+  //   setVideoUrl(url);
+  // };
+  const handleVideoUpload = chunks => {
+    setRecordChunks(chunks); // Set the recordChunks state with the video recording object
+    setVideoUrl(""); // Clear the videoUrl state
+  };
+  //  modified by Carlos, added to handle VIDEO
 
-    // Define event handler for closing video
-    const handleVideoClose = () => {
-      setVideoUrl("");
-    };
-    // const handleVideoClose = () => {
-    //   setRecordChunks(null); // Clear the recordChunks state
-    // };
-//  modified by Carlos, added to handle VIDEO
-
+  // Define event handler for closing video
+  const handleVideoClose = () => {
+    setVideoUrl("");
+  };
+  // const handleVideoClose = () => {
+  //   setRecordChunks(null); // Clear the recordChunks state
+  // };
+  //  modified by Carlos, added to handle VIDEO
 
   // Define event handler for attaching video to invite
   const handleAttachVideo = () => {
@@ -138,18 +137,6 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   //   setShowVideoRecordingScreen(false);
   // };
   //  modified by Carlos, added to handle VIDEO
-
-
-
-  // Format the date for display
-  const date = new Date(`${monthName} ${dayOfMonth}, ${currentYear}`);
-  const formattedDate = `${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}/${date
-    .getFullYear()
-    .toString()
-    .slice(-2)}`;
-
   return (
     <div className="popup-window">
       <div className="popup-header">
@@ -198,7 +185,7 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
           </div>
         ))}
 
-{videoUrl ? (
+        {videoUrl ? (
           <div>
             {/* <video src={videoUrl} controls width="300" height="auto" /> */}
             <button onClick={handleVideoClose}>Close Video</button>
@@ -211,20 +198,19 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
       </div>
       {videoUrl === "start" && (
         <Video
-        onVideoUpload={(video) => {
-          setVideoUrl(video);
-          setShowVideoRecordingScreen(false);
-        }}
-        // eventId={eventId}
+          onVideoUpload={video => {
+            setVideoUrl(video);
+            setShowVideoRecordingScreen(false);
+          }}
+          // eventId={eventId}
         />
-      )}       
+      )}
       <ExpenseTracker />
     </div>
   );
 };
 
 export default PopupWindow;
-
 
 // Old code above
 // {eventId && (

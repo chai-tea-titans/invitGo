@@ -31,6 +31,20 @@ export const createEventAsync = createAsyncThunk(
   }
 );
 
+export const deleteEventAsync = createAsyncThunk(
+  "calendar/delete",
+  async id => {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:8080/api/calendar/${id}`
+      );
+      return data;
+    } catch (error) {
+      console.error("Error deleting event: ", error);
+    }
+  }
+);
+
 const CalendarSlice = createSlice({
   name: "calendar",
   initialState: [],
@@ -41,6 +55,9 @@ const CalendarSlice = createSlice({
     });
     builder.addCase(createEventAsync.fulfilled, (state, action) => {
       state.push(action.payload);
+    });
+    builder.addCase(deleteEventAsync.fulfilled, (state, action) => {
+      return state.filter(calendar => calendar.id !== action.payload.id);
     });
   },
 });

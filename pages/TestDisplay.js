@@ -2,14 +2,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCalendar } from "./store/testSlice";
-import { fetchCalendarAsync } from"./store/testSlice"; 
+import { fetchCalendarAsync } from "./store/testSlice";
 
-
-function Calendar()  {
+function Calendar() {
   const dispatch = useDispatch();
-  const calendarData = useSelector(selectCalendar)
+  const calendarData = useSelector(selectCalendar);
   console.log(calendarData);
-  const isLoading = useSelector((state) => state.loading);
+  const isLoading = useSelector(state => state.loading);
   useEffect(() => {
     dispatch(fetchCalendarAsync());
   }, [dispatch]);
@@ -22,7 +21,7 @@ function Calendar()  {
   }
   return (
     <>
-      {calendarData.map((event) => (
+      {calendarData.map(event => (
         <div key={event.id}>
           <h3>{event.month}</h3>
           <p>{event.day}</p>
@@ -32,7 +31,6 @@ function Calendar()  {
       ))}
     </>
   );
-};
-
+}
 
 export default Calendar;

@@ -5,10 +5,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
-
-
-
-
+import NoticeCenter from './NoticeCenter';
+import Payment  from '../pages/Payment'
 
 
 export default function Home() {
@@ -61,7 +59,8 @@ export default function Home() {
          {/* TEMPORARY LINK FOR VIDEO */}
          
          <Link href="/user-info">My Info</Link><br/>
-         <Donate/>
+         <Payment />
+         <NoticeCenter />
 
     </main>
   )

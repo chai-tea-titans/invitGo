@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "public")));
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
-app.use("/api", require("./api"));
+app.use("/api", require("../pages/api/index"));
 
 // This middleware will catch any URLs resembling a file extension
 // for example: .js, .html, .css

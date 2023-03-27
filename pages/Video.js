@@ -55,7 +55,7 @@ const Video = ({ onVideoUpload, eventId }) => {
 
       // Save the video URL to the event model
       const res2 = await axios.put(
-        `http://localhost:8080/api/event/uploadVideo/${eventId}`,
+        `http://localhost:8080/api/events/uploadVideo/${eventId}`,
         {
           videoMessage: res.data.videoUrl,
         }

@@ -3,13 +3,12 @@
 import { useState } from "react";
 import PopupWindow from "./PopupWindow";
 //test case ******************* remember to delete after uses
-
+// import Event from "./../server/database/Event"
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentYear] = useState(new Date().getFullYear());
   const [showNote, setShowNote] = useState(false);
-  const [notes, setNotes] = useState([]);
   const [createNote, setCreateNote] = useState("");
 
   const weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -65,6 +64,15 @@ const Calendar = () => {
                 onClick={() =>
                   handleNoteClick(i * 7 + j + 1 - startingDay, monthName)
                 }
+                // onClick={() =>
+                //   handleNoteClick(
+                //     i * 7 + j + 1 - startingDay,
+                //     monthName,
+                //     currentYear,
+                //     // pass the eventId as an argument
+                //     event ? event.id : null
+                //   )
+                // }
               >
                 {day}
               </button>
@@ -92,11 +100,19 @@ const Calendar = () => {
     );
   };
 
-  const handleNoteClick = (dayOfMonth, monthName, currentYear) => {
+  const handleNoteClick = async (dayOfMonth, monthName, currentYear) => {
+  //    // create a new event with the current date and time
+  // const newEvent = await Event.create({
+  //   date: new Date(),
+  //   // add any other event properties as needed
+  // });
+
     setCreateNote({
       dayOfMonth: dayOfMonth,
       monthName: monthName,
       currentYear: currentYear,
+      // eventId: newEvent.id, // pass the new event's ID to PopupWindow
+
     });
     setShowNote(true);
   };

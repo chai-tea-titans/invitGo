@@ -39,9 +39,16 @@ const SignIn = () => {
   }
   
     return (
+
         
     
-          <div>
+          <div className='sign-inpage'>
+           <Head> <title>Sign In</title></Head>
+         
+      <h1 className='mainpagearea'>Plan, Budget, Share with your friends</h1>
+  
+           
+            <div className='sign-inarea'>
             <form onSubmit={formik.handleSubmit}>
           <h1 className='createhappy'>Sign in to your account</h1>
 
@@ -63,12 +70,13 @@ const SignIn = () => {
           </form>
         <div>
           
-        <button type="button"onClick={handleGoogleSignin}> Sign in with Google</button><br/>
+        <button type="button"onClick={handleGoogleSignin}> <img className='GoogleSignIn' src='https://www.sociomark.in/assets/img/button/signin_google_logo.png'/></button><br/>
 
 
-<button type="button" > Sign in with Github</button><br/>
-<p>Don't have an account?<Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
-<br/>
+
+<p>Don't have an account? <Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
+
+{/* <br/>
 <br/>
 <br/>
          <Link href="/calendar">Calendar</Link><br/>
@@ -80,8 +88,11 @@ const SignIn = () => {
          <Link href="/about">about</Link><br/>
          <Link className='createlinks' href={'/'}>🔙Home</Link><br/>
          <Link href="/NoticeCenter">Center</Link><br/>
-    
+     */}
         </div>
+        
+        </div>
+        
       </div>
        
           

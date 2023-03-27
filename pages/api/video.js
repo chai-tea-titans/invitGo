@@ -42,7 +42,6 @@ router.post("/upload-video", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
 router.post("/save-video-url", async (req, res) => {
   try {
     const { eventId, videoMessage } = req.body;
@@ -51,6 +50,7 @@ router.post("/save-video-url", async (req, res) => {
     const video = await Video.findOne({ where: { eventId } });
     video.url = videoMessage;
     await video.save();
+
 
     res.status(200).send(video);
   } catch (error) {

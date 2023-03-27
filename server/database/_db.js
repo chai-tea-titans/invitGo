@@ -1,8 +1,7 @@
 const Sequelize = require("sequelize");
 //set local db name to 'grace_shopper' to avoid errors when syncing
-const { DATABASE_URL } = process.env;
 const db = new Sequelize(
-  process.env.DATABASE_URL || "postgres://localhost:5432/invitego",
+  process.env.DATABASE_URL || "postgres://postgres:123@localhost:5432/invitego",
   { logging: false }
 );
 
@@ -15,15 +14,7 @@ db.authenticate()
     console.error("Unable to connect to the database:", err);
   });
 
-const sequelize = new Sequelize(DATABASE_URL, {
-  dialect: "postgres",
-  dialectOptions: {
-    ssl: process.env.NODE_ENV === "production",
-  },
-});
-
 module.exports = db;
-module.exports = sequelize;
 
 //OLD CODE ---- anything that needs to be kept?
 // const Sequelize = require('sequelize')

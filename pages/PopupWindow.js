@@ -3,15 +3,20 @@ import ExpenseTracker from "./ExpenseTracker";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCalendar } from "./store/testSlice";
-import { fetchCalendarAsync } from "./store/testSlice";
+import {
+  fetchCalendarAsync,
+  createEventAsync,
+  deleteEventAsync,
+} from "./store/testSlice";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
-  console.log(dayOfMonth);
-  console.log(monthName);
+  // console.log(dayOfMonth);
+  // console.log(monthName);
   console.log(currentYear); //issue pass prop as undefine******
   // Define state variables for input value and saved values
   const [inputValue, setInputValue] = useState("");
   const [savedValues, setSavedValues] = useState([]);
+
   //******************************************** */ */
   const dispatch = useDispatch();
   const calendarData = useSelector(selectCalendar);
@@ -72,12 +77,15 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   };
 
   // Define event handler for remove button click
-  const handleRemoveClick = index => {
-    // Create a copy of the saved values array
-    const newValues = [...savedValues];
-    newValues.splice(index, 1);
-    // Update the saved values state with the new array
-    setSavedValues(newValues);
+  // const handleRemoveClick = index => {
+  //   // Create a copy of the saved values array
+  //   const newValues = [...savedValues];
+  //   newValues.splice(index, 1);
+  //   // Update the saved values state with the new array
+  //   setSavedValues(newValues);
+  // };
+  const handleRemoveClick = async id => {
+    dispatch(deleteEventAsync(id));
   };
 
   return (
@@ -97,12 +105,16 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         <input type="text" value={inputValue} onChange={handleInputChange} />
         <>
           {filteredData.length > 0 ? (
-            filteredData.map(event => (
+            filteredData.map((event, index) => (
               <div key={event.id}>
                 <h3>{event.month}</h3>
                 <p>{event.day}</p>
                 <p>{event.year}</p>
                 <p>{event.addeditems}</p>
+                <p>{event.id}</p>
+                <button onClick={() => handleRemoveClick(event.id)}>
+                  Remove
+                </button>
               </div>
             ))
           ) : (

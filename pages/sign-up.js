@@ -90,6 +90,9 @@ const router = useRouter();
         {/* <div>
         <input className='inputcreat' type="password" placeholder='Re-enter password' value={rePassword} onChange={(e) => setRePassword(e.target.value)} />
         </div> */}
+        {/* <div>
+        <input className='inputcreat' type="password" placeholder='Re-enter password' value={rePassword} onChange={(e) => setRePassword(e.target.value)} />
+        </div> */}
 
         <div>
         
@@ -105,6 +108,7 @@ const router = useRouter();
   
     
     </div>
+    <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
     <p>Already have an Account? <Link className='createlinks' href='/sign-in'>🔒Log in</Link></p>
      </div>
   

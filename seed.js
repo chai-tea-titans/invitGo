@@ -3,7 +3,7 @@
 const db = require("./server/database/_db");
 const User = require("./server/database/User");
 const Event = require("./server/database/Event");
-const Video = require("./server/database/Video");
+//const Video = require("./server/database/Video");
 const Expense = require("./server/database/Expense");
 const calendarEvent = require("./server/database/calendar");
 const spending = require("./server/database/spending");
@@ -140,20 +140,20 @@ const expenseDataArray = [
   },
 ];
 
-const videoDataArray = [
-  {
-    eventId: 4,
-    userId: 1,
-    url: "https://youtube.com/shorts/rTx4G39R1YA?feature=share",
-  },
-];
+// const videoDataArray = [
+//   {
+//     eventId: 4,
+//     userId: 1,
+//     url: "https://youtube.com/shorts/rTx4G39R1YA?feature=share",
+//   },
+// ];
 
 async function seed() {
   try {
     await db.sync({ force: true });
     await Event.bulkCreate(eventDataArray);
     await User.bulkCreate(userDataArray);
-    await Video.bulkCreate(videoDataArray);
+    //await Video.bulkCreate(videoDataArray);
     await Expense.bulkCreate(expenseDataArray);
     await calendarEvent.bulkCreate(calendarEventDataArray);
     await spending.bulkCreate(spendingDataArray);

@@ -11,21 +11,12 @@ import {
 import Video from "./Video";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
-  console.log(dayOfMonth);
-  console.log(monthName);
-  console.log(currentYear); //issue pass prop as undefine******
-  // Define state variables for input value and saved values
   const [inputValue, setInputValue] = useState("");
   const [savedValues, setSavedValues] = useState([]);
-  //******************************************** */ */
-
-  const [recordChunks, setRecordChunks] = useState(null); // New state for video recording object or URL
+  const [recordChunks, setRecordChunks] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [showVideoRecordingScreen, setShowVideoRecordingScreen] =
     useState(false);
-  // modified by Carlos, added to set state for VIDEO
-
-  //******************************************** */ */
   const dispatch = useDispatch();
   const calendarData = useSelector(selectCalendar);
   const isLoading = useSelector(state => state.loading);
@@ -174,17 +165,6 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         <span>
           <button onClick={handleSaveClick}>Save</button>
         </span>
-        {/* Render the saved values list */}
-        {savedValues.map((value, index) => (
-          <div key={index}>
-            {/* Display the saved value */}
-            <p>Items: {value}</p>
-
-            {/* Render the remove button with the remove click event handler */}
-            <button onClick={() => handleRemoveClick(index)}>Remove</button>
-          </div>
-        ))}
-
         {videoUrl ? (
           <div>
             {/* <video src={videoUrl} controls width="300" height="auto" /> */}
@@ -205,7 +185,11 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
           // eventId={eventId}
         />
       )}
-      <ExpenseTracker />
+      <ExpenseTracker
+        dayOfMonth={dayOfMonth}
+        monthName={monthName}
+        currentYear={currentYear}
+      />
     </div>
   );
 };

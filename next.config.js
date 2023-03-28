@@ -11,5 +11,12 @@ const nextConfig = {
 
 
 module.exports = {
-  nextConfig
+  nextConfig,
+  
 }
+module.exports = withTM({
+  reactStrictMode:true,
+  experimental:{
+    esmExternals:'loose'
+  }
+})

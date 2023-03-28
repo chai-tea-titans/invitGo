@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSpendingAsync } from "./store/spendingSlice";
 import LineChart from "./graph/LineChar";
 
-function App() {
+function Graph() {
   const dispatch = useDispatch();
   const spending = useSelector(state => state.spending);
 
@@ -146,4 +146,4 @@ function App() {
   );
 }
 
-export default App;
+export default Graph;

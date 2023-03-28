@@ -1,4 +1,5 @@
 
+
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
@@ -54,6 +55,7 @@ const Video = ({ onVideoUpload }) => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     videoRef.current.srcObject = stream;
   
+  
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = (e) => {
       if (e.data.size > 0) {
@@ -68,8 +70,15 @@ const Video = ({ onVideoUpload }) => {
         videoRef.current.play();
       };
     }
+    if (videoRef.current) {
+      videoRef.current.onloadedmetadata = () => {
+        videoRef.current.play();
+      };
+    }
 
     setTimeout(() => {
+      handleStopRecording();
+      handleUploadVideo();
       handleStopRecording();
       handleUploadVideo();
       }, 10000); // 10000 milliseconds = 10 seconds
@@ -141,6 +150,13 @@ const Video = ({ onVideoUpload }) => {
   }
 }
 };
+
+
+// const handleAttachVideo = () => {
+//   setShowVideoRecordingScreen(false);
+//   onVideoUpload(recordChunks);
+// };
+
 
 // const handleAttachVideo = () => {
 //   setShowVideoRecordingScreen(false);

@@ -138,5 +138,20 @@ router.get("/profile", authenticateToken, async (req, res, next) => {
     res.status(500).json({ error: "nothing server error" });
   }
 });
+router.post("/logout", async (req, res, next) => {
+  const refreshToken = req.body.token;
+  if (!refreshToken) {
+    return res.status(401).json({ error: "Refresh token is required" });
+  }
+
+  try {
+    // Invalidate the refresh token by removing it from the database
+    await RefreshTokens.destroy({ where: { token: refreshToken } });
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 module.exports = router;

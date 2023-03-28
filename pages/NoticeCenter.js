@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 // import EventReply from './event-reply';  // for calendar replies
 import { useDispatch } from 'react-redux';
 import { setNotifications } from '../store/notificationsSlice';
-
+import Head from 'next/head';
 
 
 const NoticeCenter = () => {
@@ -30,7 +30,8 @@ const NoticeCenter = () => {
 
   return (
     <div>
-      <h3>Notifications</h3>
+      <Head><title>Notifications</title></Head>
+      <h3><span>(0)</span>Notifications</h3>
       {notifications.length > 0 ? (
   notifications.map((notification) => (
     <div key={notification.id}>

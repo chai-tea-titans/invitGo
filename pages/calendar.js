@@ -3,6 +3,7 @@
 import { useState } from "react";
 import PopupWindow from "./PopupWindow";
 //test case ******************* remember to delete after uses
+// import TestDisplay from "./TestDisplay";
 // import Event from "./../server/database/Event"
 
 const Calendar = () => {
@@ -100,13 +101,7 @@ const Calendar = () => {
     );
   };
 
-  const handleNoteClick = async (dayOfMonth, monthName, currentYear) => {
-  //    // create a new event with the current date and time
-  // const newEvent = await Event.create({
-  //   date: new Date(),
-  //   // add any other event properties as needed
-  // });
-
+  const handleNoteClick = (dayOfMonth, monthName) => {
     setCreateNote({
       dayOfMonth: dayOfMonth,
       monthName: monthName,
@@ -146,6 +141,7 @@ const Calendar = () => {
           />
         )}
       </div>
+      {/* <TestDisplay /> */}
     </div>
   );
 };

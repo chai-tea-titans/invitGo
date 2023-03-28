@@ -1,6 +1,11 @@
+
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
+// import { fetchVideoAsync, createEventAsync } from './store/videoslice';
+// import { useDispatch, useSelector } from 'react-redux';
+
+
 
 // const Video = ({ onVideoUpload, eventId }) => {
 const Video = ({ onVideoUpload }) => {
@@ -23,6 +28,27 @@ const Video = ({ onVideoUpload }) => {
     };
     fetchVideos();
   }, []);
+
+  const Video = ({ onVideoUpload }) => {
+    const videoRef = useRef(null);
+    const [recording, setRecording] = useState(false);
+    const [recordChunks, setRecordChunks] = useState([]);
+    const [key, setKey] = useState(0);
+    const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
+    const [videos, setVideos] = useState([]);
+  
+    // useEffect(() => {
+    //   fetchVideos();
+    // }, []);
+  
+    // const fetchVideos = async () => {
+    //   try {
+    //     const res = await axios.get(`/api/video`);
+    //     setVideos(res.data.videos);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // };
 
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -52,15 +78,13 @@ const Video = ({ onVideoUpload }) => {
 
   const handleUploadVideo = async () => {
     const blob = new Blob(recordChunks, { type: 'video/webm' });
+    
 
-    const formData = new FormData();
-    formData.append('file', blob);
-    // formData.append('filename', `${eventId}.webm`);
-    formData.append('filename', `${Date.now()}.webm`);
+    const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
 
     try {
       // Send the video to the server to be uploaded
-      const res = await axios.post('/api/video/upload-video', formData, {
+      const res = await axios.post('http://localhost:8080/api/video/upload-video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -77,10 +101,15 @@ const Video = ({ onVideoUpload }) => {
 
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
+
+      // Update the list of videos
+      setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
     } catch (error) {
       console.error(error);
     }
   };
+
+  
 
   const handlePlayRecording = () => {
     if (videoRef.current) {
@@ -113,10 +142,11 @@ const Video = ({ onVideoUpload }) => {
 }
 };
 
-const handleAttachVideo = () => {
-  setShowVideoRecordingScreen(false);
-  onVideoUpload(recordChunks);
-};
+// const handleAttachVideo = () => {
+//   setShowVideoRecordingScreen(false);
+//   onVideoUpload(recordChunks);
+// };
+
 
 
 
@@ -139,6 +169,9 @@ const handleAttachVideo = () => {
       <button onClick={handleRecordAgain}>Record Again</button>
     </>
   )}
+</div>
+<div>
+  <video src=''></video>
 </div>
 </div>
 )}

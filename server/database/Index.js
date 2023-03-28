@@ -1,11 +1,12 @@
-const db = require('./_db');
-const User = require('./User');
-const Calendar = require('./calendar');
+const db = require("./_db");
+const User = require("./User");
+const Calendar = require("./calendar");
 // const CoolCalc = require('./coolCalc');
-const Event = require('./Event');
-const Expense = require('./Expense');
-const Video = require('./Video');
-const CoolScore = require('./CoolScore');
+const Event = require("./Event");
+const Expense = require("./Expense");
+const Video = require("./Video");
+const CoolScore = require("./CoolScore");
+const Spending = require("./spending");
 // Define models and relationships here
 User.hasOne(CoolScore);
 CoolScore.belongsTo(User);
@@ -27,7 +28,8 @@ module.exports = {
   Event,
   Expense,
   Video,
-  CoolScore
+  CoolScore,
+  Spending,
 };
 // OLD CODE ---- DO NEED ANYTHING FROM HERE???
 

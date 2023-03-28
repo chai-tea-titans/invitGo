@@ -26,7 +26,7 @@ export const createEventAsync = createAsyncThunk(
       return data;
     } catch (error) {
       console.error("Error creating event fail: ", error);
-      throw error; // re-throw the error to trigger the rejected state of the thunk
+      throw error;
     }
   }
 );
@@ -57,6 +57,7 @@ const CalendarSlice = createSlice({
       state.push(action.payload);
     });
     builder.addCase(deleteEventAsync.fulfilled, (state, action) => {
+      console.log("this is the slicepage" + action.payload.id);
       return state.filter(calendar => calendar.id !== action.payload.id);
     });
   },

@@ -1,92 +1,97 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchSpendingAsync,
+  selectSpending,
+  createSpendingAsync,
+  deleteSpendingAsync,
+} from "./store/spendingSlice";
 
-function ExpenseTracker() {
-  // Define state for expenses and current expense
-  const [expenses, setExpenses] = useState([]);
-  const [currentExpense, setCurrentExpense] = useState({
-    name: "",
-    amount: "",
+function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
+  const [inputExpense, setInputExpense] = useState("");
+  const [inputAmount, setInputAmount] = useState("");
+  const dispatch = useDispatch();
+  const spending = useSelector(selectSpending);
+  useEffect(() => {
+    dispatch(fetchSpendingAsync());
+  }, [dispatch]);
+
+  const filteredExpenses = spending.filter(event => {
+    return (
+      event.month === monthName &&
+      event.day === dayOfMonth &&
+      event.year === currentYear
+    );
   });
 
-  // Define functions to handle changes in the name and amount input fields
   const handleNameChange = event => {
-    setCurrentExpense({ ...currentExpense, name: event.target.value });
+    setInputExpense(event.target.value);
   };
 
   const handleAmountChange = event => {
-    setCurrentExpense({ ...currentExpense, amount: event.target.value });
+    setInputAmount(event.target.value);
   };
 
-  // Define function to handle form submission
-  const handleSubmit = event => {
-    event.preventDefault();
-    // Check if either name or amount input fields are empty or whitespace
-    if (
-      currentExpense.name.trim() === "" ||
-      currentExpense.amount.trim() === ""
-    ) {
-      // If so, return without adding expense
+  const handleOnClick = async () => {
+    if (!inputAmount) {
+      console.log("Amount cannot be empty");
       return;
     }
-    // Add new expense to expenses state and reset currentExpense state
-    setExpenses([currentExpense, ...expenses]);
-    setCurrentExpense({ name: "", amount: "" });
+    try {
+      await dispatch(
+        createSpendingAsync({
+          month: monthName,
+          day: dayOfMonth,
+          year: currentYear,
+          spendingname: inputExpense,
+          spendingamount: inputAmount,
+        })
+      );
+      setInputExpense("");
+      setInputAmount("");
+    } catch (error) {
+      console.error("error", error);
+    }
   };
 
-  // Define function to handle deletion of expense
-  const handleDelete = index => {
-    // Create a copy of expenses state, remove the expense at the specified index, and update expenses state
-    const newExpenses = expenses.slice();
-    newExpenses.splice(index, 1);
-    setExpenses(newExpenses);
+  const handleRemoveClick = async id => {
+    //console.log("this is the id: " + id);
+    dispatch(deleteSpendingAsync(id));
   };
-  const totalAmount = expenses.reduce((total, expense) => {
-    return total + parseFloat(expense.amount);
-  }, 0);
-  // Render form and list of expenses
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <div>
         <label>
           Expense Name:
-          <input
-            type="text"
-            value={currentExpense.name}
-            onChange={handleNameChange}
-          />
+          <input type="text" value={inputExpense} onChange={handleNameChange} />
         </label>
         <label>
           Expense Amount:
           <input
             type="number"
-            value={currentExpense.amount}
+            value={inputAmount}
             onChange={handleAmountChange}
           />
         </label>
-        <button type="submit">Add Expense</button>
-      </form>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        {expenses
-          .slice()
-          .reverse()
-          .map((expense, index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                margin: "5px",
-              }}
-            >
-              <span>
-                {expense.name}: ${expense.amount}
-              </span>
-              <button onClick={() => handleDelete(index)}>Delete</button>
-            </div>
-          ))}
-      </div>
-      <div style={{ marginTop: "10px" }}>
-        Total amount spent: ${totalAmount.toFixed(2)}
+        <button onClick={handleOnClick}>Add Expense</button>
+        <>
+          {filteredExpenses.length > 0 ? (
+            filteredExpenses.map((event, index) => (
+              <div key={event.id}>
+                <p>
+                  {event.spendingname}: ${event.spendingamount}
+                </p>
+                <p>{event.id}</p>
+                <button onClick={() => handleRemoveClick(event.id)}>
+                  Remove
+                </button>
+              </div>
+            ))
+          ) : (
+            <div>No matching events found</div>
+          )}
+        </>
       </div>
     </div>
   );

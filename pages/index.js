@@ -18,9 +18,7 @@ export default function Home() {
   return (
       <div >
        <Head><title>Home</title></Head>
-        <div>
-          <Link className='Logo' href="/">InviteGo</Link>
-        </div>
+       
 
        
 
@@ -44,25 +42,48 @@ export default function Home() {
  //Authorized User
  const AuthorizedUser = ({session, handleSignOut})=>{
   return(
-    <main>
-      <h3>Welcome {session.user.name} </h3>
+    <main className='homepageimg'>
+    <div className='navbardesk navbarmobile'>
+    <Link className='Logo' href="/">InviteGo</Link>
+  
+    <div class="dropdown">
+ <button class="dropbtn">Menu</button>
+  <div class="dropdown-content">
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">About</Link></div>
+
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
+       
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
+
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
+
+       <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
+
+       {/* TEMPORARY LINK FOR VIDEO */}
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/event-reply">Event Reply</Link></div>
+
+    
+       <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/user-info">Profile</Link></div>
+
+       <div className='dropdownlinksdiv'><a className='dropdownlinks' onClick={handleSignOut}>Sign Out</a></div>
+        
+
+       </div>
+  </div>
+  <h3>Welcome {session.user.name} </h3>
+  <NoticeCenter />
+
+
+
       
-      <h5>{session.user.email}</h5>
-         <button onClick={handleSignOut}>Sign Out</button><br/>
-         <Link href="/about">about</Link><br/>
-         <Link href="/calendar">Calendar</Link><br/>
-         <Link href="/contacts">Contacts</Link><br/>
-         <Link href="/coolness-tracker">Coolness Tracker</Link><br/>
-         <Link href="/event-reply">EventReply</Link><br/>
 
-         <Link href="/Video">Video</Link><br/>
-         {/* TEMPORARY LINK FOR VIDEO */}
-         
-         <Link href="/user-info">My Info</Link><br/>
-         <Payment />
-         <NoticeCenter />
-
-    </main>
+      
+       
+  
+    
+  </div>
+  <img src='https://images.ctfassets.net/1nw4q0oohfju/5KX62i9wOsL9uVRzULSgeT/c8da4a544f6a553e6bd352e3110301f5/cash-app-pay-button.png'/>
+  </main>
   )
  }
 

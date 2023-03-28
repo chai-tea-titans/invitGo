@@ -67,8 +67,7 @@ export default function Home() {
 
        <div className='dropdownlinksdiv'><a className='dropdownlinks' onClick={handleSignOut}>Sign Out</a></div>
         
-       <div className='dropdownlinksdiv'><Payment /></div>
-       </div>
+       
   </div>
   <h3>Welcome {session.user.name} </h3>
   <NoticeCenter />

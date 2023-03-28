@@ -6,15 +6,31 @@ import {
   createSpendingAsync,
   deleteSpendingAsync,
 } from "./store/spendingSlice";
-
 function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   const [inputExpense, setInputExpense] = useState("");
   const [inputAmount, setInputAmount] = useState("");
+  const [totalAmount, setTotalAmount] = useState(0); // new state variable for total amount
   const dispatch = useDispatch();
   const spending = useSelector(selectSpending);
   useEffect(() => {
     dispatch(fetchSpendingAsync());
   }, [dispatch]);
+
+  useEffect(() => {
+    // update total amount whenever spending changes
+    const filteredExpenses = spending.filter(event => {
+      return (
+        event.month === monthName &&
+        event.day === dayOfMonth &&
+        event.year === currentYear
+      );
+    });
+    const total = filteredExpenses.reduce(
+      (acc, curr) => acc + parseFloat(curr.spendingamount),
+      0
+    );
+    setTotalAmount(total);
+  }, [spending, dayOfMonth, monthName, currentYear]);
 
   const filteredExpenses = spending.filter(event => {
     return (
@@ -92,6 +108,8 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
             <div>No matching events found</div>
           )}
         </>
+        <p>Total amount: ${totalAmount.toFixed(2)}</p>{" "}
+        {/* display total amount */}
       </div>
     </div>
   );

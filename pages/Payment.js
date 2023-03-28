@@ -89,7 +89,7 @@ const Payment = ({ expenseId, amount }) => {
       {paymentType === 'stripe' && (
         <label>
           Card details        
-          <CardElement options={cardElementOptions} />
+          {/* <CardElement options={cardElementOptions} /> */}
         </label>
       )}
 

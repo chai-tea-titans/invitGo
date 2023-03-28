@@ -1,10 +1,46 @@
+// const Sequelize = require('sequelize');
+// const { DATABASE_URL } = process.env;
+// const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
+
+// // Test the database connection
+// db.authenticate()
+//   .then(() => {
+//     console.log('Database connection successful');
+//   })
+//   .catch((err) => {
+//     console.error('Unable to connect to the database:', err);
+//   });
+
+
+
+//   const sequelize = new Sequelize(DATABASE_URL, {
+//     dialect: 'postgres',
+//     dialectOptions: {
+//       ssl: process.env.NODE_ENV === 'production'
+//     }
+//   });
+
+
+// module.exports = db;
+// module.exports = sequelize;
+
+// Pre-cloud code ^^^
+/////////////////////////////////////////////////
 const Sequelize = require('sequelize');
-//set local db name to 'grace_shopper' to avoid errors when syncing
-const { DATABASE_URL } = process.env;
-const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
+const { postgres, DB_NAME, DB_HOST, DB_PORT } = process.env;
+
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true,
+  },
+});
 
 // Test the database connection
-db.authenticate()
+sequelize
+  .authenticate()
   .then(() => {
     console.log('Database connection successful');
   })
@@ -12,45 +48,4 @@ db.authenticate()
     console.error('Unable to connect to the database:', err);
   });
 
-
-
-  const sequelize = new Sequelize(DATABASE_URL, {
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production'
-    }
-  });
-
-
-module.exports = db;
 module.exports = sequelize;
-
-
-
-//OLD CODE ---- anything that needs to be kept?
-// const Sequelize = require('sequelize')
-// const pkg = require('../../package.json')
-
-// const databaseName = pkg.name + (process.env.NODE_ENV === 'test' ? '-test' : '')
-
-// const config = {
-//   logging: false
-// };
-
-// if(process.env.LOGGING === 'true'){
-//   delete config.logging
-// }
-
-// if(process.env.DATABASE_URL){
-//   config.dialectOptions = {
-//     ssl: {
-//       rejectUnauthorized: false
-//     }
-//   };
-// }
-
-// const db = new Sequelize(
-//   // process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`, config)
-//   process.env.DATABASE_URL || `postgres://postgres@localhost:5432/invitego`, config)
-
-// module.exports = db

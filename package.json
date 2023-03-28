@@ -41,7 +41,8 @@
     "react-router-dom": "^6.9.0",
     "redux": "^4.2.1",
     "sequelize": "^6.30.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vercel": "^28.18.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"

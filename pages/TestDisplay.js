@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCalendar } from "./store/testSlice";
-import { fetchCalendarAsync } from"./store/testSlice"; 
+import { selectCalendar } from "../store/testSlice";
+import { fetchCalendarAsync } from"../store/testSlice"; 
 
 
 function Calendar()  {

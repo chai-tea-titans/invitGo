@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 import { addNotification } from '../notificationsSlice';
 const { Event } = require('../database/Event');
-import store from '../../pages/store/store';
+import store from '../../store/store';
 
 
 router.post('/createEvent', async (req, res) => {

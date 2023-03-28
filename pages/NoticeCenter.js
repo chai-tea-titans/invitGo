@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import Payment from './Payment';  // for payments made
-import EventReply from './event-reply';  // for calendar replies
+// import Payment from './Payment';  // for payments made
+// import EventReply from './event-reply';  // for calendar replies
 import { useDispatch } from 'react-redux';
-import { setNotifications } from '../pages/store/notificationsSlice';
+import { setNotifications } from '../store/notificationsSlice';
 
 
 

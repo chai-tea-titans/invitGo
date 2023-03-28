@@ -1,15 +1,28 @@
 "use client";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-const Video = ({ onVideoUpload, eventId }) => {
+// const Video = ({ onVideoUpload, eventId }) => {
+const Video = ({ onVideoUpload }) => {
   const videoRef = useRef(null);
   const [recording, setRecording] = useState(false);
   const [recordChunks, setRecordChunks] = useState([]);
   const [key, setKey] = useState(0);
   const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
+  const [ setRecordedVideos] = useState([]);
 
+  useEffect(() => {
+    // Fetch all recorded videos
+    const fetchVideos = async () => {
+      try {
+        const res = await axios.get(`/api/video`);
+        setRecordedVideos(res.data.videos);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchVideos();
+  }, []);
 
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -42,8 +55,8 @@ const Video = ({ onVideoUpload, eventId }) => {
 
     const formData = new FormData();
     formData.append('file', blob);
-    formData.append('filename', `${eventId}.webm`);
-    formData.append('eventId', eventId);
+    // formData.append('filename', `${eventId}.webm`);
+    formData.append('filename', `${Date.now()}.webm`);
 
     try {
       // Send the video to the server to be uploaded
@@ -51,16 +64,16 @@ const Video = ({ onVideoUpload, eventId }) => {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
-      // Save the video URL to the event model
-      const res2 = await axios.put(`/api/event/uploadVideo/${eventId}`, {
-        videoMessage: res.data.videoUrl,
-      });
+      // // Save the video URL to the event model
+      //  await axios.put(`/api/calendar`, {
+      //   videoMessage: res.data.videoUrl,
+      // });
 
-      // Save the video URL to the video model
-      await axios.post('/api/video/save-video-url', {
-        eventId,
-        videoMessage: res.data.videoUrl,
-      });
+      // // Save the video URL to the video model
+      // await axios.post('/api/video/save-video-url', {
+      //   eventId,
+      //   videoMessage: res.data.videoUrl,
+      // });
 
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);

@@ -30,11 +30,9 @@ try {
   console.error(error);
   throw new Error('Error uploading video to Google Cloud Storage');
 }
-} catch (error) {
-  console.error(error);
-  throw new Error('Error uploading video to Google Cloud Storage');
+
 }
-}
+
 
 
 

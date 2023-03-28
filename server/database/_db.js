@@ -78,8 +78,8 @@ module.exports = db;
 
 // module.exports = db
 
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+  // .catch((err) => {
+  //   console.error('Unable to connect to the database:', err);
+  // });
 
 module.exports = sequelize;

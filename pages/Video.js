@@ -176,7 +176,6 @@ const Video = ({ onVideoUpload }) => {
 </div>
 )}
 </>
-);
-};
+)};}
 
 export default Video;

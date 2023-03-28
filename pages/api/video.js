@@ -1,61 +1,49 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { uploadVideo } = require("../../server/database/googleCloudStore");
-//import { addNotification } from '../notificationsSlice';
-const { Video } = require("../../server/database/Index");
-const { events } = require("../../server/database/Index");
+const { uploadVideo } = require('../../server/database/googleCloudStore');
+// const { Event} = require('../database/Event');
+const { Video } = require('../../server/database/Index')
+const { Storage } = require('@google-cloud/storage');
 
-// Define API routes here
-router.get("/", async (req, res, next) => {
-  try {
-    const Videos = await Video.findAll();
-    res.json(Videos);
-  } catch (err) {
-    next(err);
-  }
+
+const storage = new Storage({
+  projectId: 'invitegoreflecting-surf-380816',
+  keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
 });
 
-router.post("/upload-video", async (req, res) => {
-  // 1. Receive the video file from the frontend
-  // 2. Save the video file to a temporary location
-  // 3. Call the uploadVideo function with the temporary file path and desired file name
-  // 4. Save the returned public URL to your PostgreSQL database
-  // 5. Send an appropriate response to the frontend
+router.post('/upload-video', async (req, res) => {
   try {
-    const { filename, file, eventId } = req.body;
-    const videoUrl = await uploadVideo(file, filename);
+    if (!req.files || !req.files.file) {
+      return res.status(400).send('No file uploaded');
+    }
 
-    // // Save the video URL to the event model
-    const event = await events.findByPk(eventId);
-    event.videoMessage = videoUrl;
-    await event.save();
+    const file = req.files.file;
+    const blob = file.data;
+    const fileName = `${Date.now()}.webm`;
 
-    // Save the video URL to the video model
-    await Video.create({
-      url: videoUrl,
-      eventId,
+    const bucketName = 'invitego';
+    const bucket = storage.bucket(bucketName);
+    const options = { resumable: false };
+
+    await bucket.upload(blob, {
+      destination: fileName,
+      metadata: {
+        contentType: file.mimetype,
+      },
     });
 
-    res.status(200).json({ videoUrl });
+    const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}}`;
+    
+    // Save the video URL and file data to the database
+    const video = await Video.create({
+      url: publicUrl,
+      file: blob,
+    });
+
+    res.json({ videoUrl: publicUrl });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Server error" });
-  }
-});
-
-router.post("/save-video-url", async (req, res) => {
-  try {
-    const { eventId, videoMessage } = req.body;
-
-    // Save the video URL to the video model
-    const video = await Video.findOne({ where: { eventId } });
-    video.url = videoMessage;
-    await video.save();
-
-    res.status(200).send(video);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal server error");
+    res.status(500).send('Error uploading video');
   }
 });
 

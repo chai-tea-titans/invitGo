@@ -6,16 +6,21 @@ const User = require("./User");
 const Video = db.define("video", {
   url: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull:true,
   },
   userId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   eventId: {
     type: Sequelize.INTEGER,
+    allowNull: true,
+  },
+  file: {
+    type: Sequelize.BLOB('long'),
     allowNull: false,
   },
+  
 });
 
 // Video.belongsTo(User);

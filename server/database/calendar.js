@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
-const db = require("./_db");
+// const db = require("./_db");
+const sequelize = require("./_db");
 
-const calendarEvent = db.define("calendarevent", {
+const calendarEvent = sequelize.define("calendarevent", {
+// const calendarEvent = db.define("calendarevent", {
   month: {
     type: Sequelize.STRING,
     allowNull: false,

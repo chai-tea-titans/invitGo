@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
-const db = require("./_db");
+// const db = require("./_db");
+const sequelize = require("./_db");
 
-const Expense = db.define("expense", {
+const Expense = sequelize.define("expense", {
+// const Expense = db.define("expense", {
   title: {
     type: Sequelize.STRING,
     allowNull: false,

@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize')
-const db = require('./_db')
+// const db = require('./_db')
 // const CoolScore = require('./CoolScore');
+const sequelize = require("./_db");
 
-const User = db.define('user', {
+const User = sequelize.define('user', {
+// const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     allowNull: false,

@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
-const db = require("./_db");
+// const db = require("./_db");
+const sequelize = require("./_db");
 
-const spendingEvent = db.define("spendingevent", {
+const spendingEvent = sequelize.define("spendingevent", {
+// const spendingEvent = db.define("spendingevent", {
   month: {
     type: Sequelize.STRING,
     allowNull: false,

@@ -1,7 +1,9 @@
 const Sequelize = require("sequelize");
-const db = require("./_db");
+// const db = require("./_db");
+const sequelize = require("./_db");
 
-const CoolScore = db.define('coolnessScore', {
+const CoolScore = sequelize.define('coolnessScore', {
+// const CoolScore = db.define('coolnessScore', {
     eventScore: {
       type: Sequelize.INTEGER,
       allowNull: false,

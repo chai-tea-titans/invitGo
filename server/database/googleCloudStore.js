@@ -34,8 +34,4 @@ try {
 }
 
 
-
-
-module.exports = { uploadVideo };
-
 module.exports = { uploadVideo };

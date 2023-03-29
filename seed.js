@@ -1,6 +1,8 @@
 "use strict";
 
-const db = require("./server/database/_db");
+// const db = require("./server/database/_db");
+const sequelize = require("./server/database/_db");
+
 const User = require("./server/database/User");
 const Event = require("./server/database/Event");
 //const Video = require("./server/database/Video");
@@ -32,26 +34,6 @@ const spendingDataArray = [
   },
 ];
 
-const calendarEventDataArray = [
-  {
-    month: "January",
-    day: 1,
-    year: 2023,
-    addeditems: "New Year's Day",
-  },
-  {
-    month: "February",
-    day: 14,
-    year: 2023,
-    addeditems: "Valentine's Day",
-  },
-  {
-    month: "March",
-    day: 17,
-    year: 2023,
-    addeditems: "St. Patrick's Day",
-  },
-];
 const calendarEventDataArray = [
   {
     month: "January",
@@ -170,7 +152,7 @@ const expenseDataArray = [
 
 async function seed() {
   try {
-    await db.sync({ force: true });
+    await sequelize.sync({ force: true });
     await Event.bulkCreate(eventDataArray);
     await User.bulkCreate(userDataArray);
     //await Video.bulkCreate(videoDataArray);
@@ -181,7 +163,7 @@ async function seed() {
     console.log("seeding successful");
   } catch (err) {
     console.error(err);
-    db.close();
+    sequelize.close();
   }
 }
 

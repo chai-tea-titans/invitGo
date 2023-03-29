@@ -1,5 +1,5 @@
 "use client";
-// import Head from 'next/head';
+import Head from 'next/head';
 import Link from 'next/link';
 import React, { useState} from 'react'
 // import {HiAtSymbol, HiFingerPrint} from "react-icons/hi"

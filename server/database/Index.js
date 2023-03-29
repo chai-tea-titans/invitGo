@@ -1,4 +1,4 @@
-// const db = require("./_db");
+const db = require("./_db");
 const sequelize = require("./_db");
 const User = require("./User");
 const Calendar = require("./calendar");

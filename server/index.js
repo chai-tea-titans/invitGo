@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 app.use("/api", require("../pages/api/index"));
 
 // Disable to handle favicon.ico in vercel
-app.get('/favicon.ico', (req, res) => res.status(204));
+app.use('/favicon.ico', (req, res) => res.status(204));
 
 // This middleware will catch any URLs resembling a file extension
 // for example: .js, .html, .css

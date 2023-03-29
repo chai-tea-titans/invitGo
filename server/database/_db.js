@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const { DATABASE_URL } = process.env;
 // const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
+const pg = require('pg');
+
 
   const db = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',

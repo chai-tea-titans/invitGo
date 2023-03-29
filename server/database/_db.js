@@ -27,7 +27,8 @@
 
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize({
+const sequelize = new Sequelize('postgres://postgres:invitego@34.145.245.30:5432/postgres',{
+  dialectModule: require('pg'),
   dialect: 'postgres',
   database: 'postgres',
   host: '34.145.245.30',

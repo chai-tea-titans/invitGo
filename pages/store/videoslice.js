@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchVideoAsync = createAsyncThunk("AllVideo", async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/video`);
+    const response = await axios.get(`/api/video`);
     const data = response.data;
     console.log(data);
     return data;
@@ -16,7 +16,7 @@ export const createEventAsync = createAsyncThunk(
     "video/add",
     async ({ month, day, year, addeditems }) => {
       try {
-        const { data } = await axios.post(`http://localhost:8080/api/upload-video`, {
+        const { data } = await axios.post(`/api/upload-video`, {
           url,
           eventId,
           userId,
@@ -35,7 +35,7 @@ export const createEventAsync = createAsyncThunk(
 //     async id => {
 //       try {
 //         const { data } = await axios.delete(
-//           `http://localhost:8080/api/video/${id}`
+//           `/api/video/${id}`
 //         );
 //         return data;
 //       } catch (error) {

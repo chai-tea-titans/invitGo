@@ -32,7 +32,7 @@ const router = useRouter();
       email: email,
       
     };
-    axios.post('http://localhost:8080/api/user/addUsers', formData)
+    axios.post('/api/user/addUsers', formData)
       .then(response => {
         console.log('User created:', response.data);
         router.push('/sign-in');

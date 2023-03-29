@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchSpendingAsync = createAsyncThunk("AllSpending", async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/spending`);
+    const response = await axios.get(`/api/spending`);
     const data = response.data;
     console.log(data);
     return data;
@@ -17,7 +17,7 @@ export const createSpendingAsync = createAsyncThunk(
   "spending/add",
   async ({ month, day, year, spendingname, spendingamount }) => {
     try {
-      const { data } = await axios.post(`http://localhost:8080/api/spending`, {
+      const { data } = await axios.post(`/api/spending`, {
         month,
         day,
         year,
@@ -37,7 +37,7 @@ export const deleteSpendingAsync = createAsyncThunk(
   async id => {
     try {
       const { data } = await axios.delete(
-        `http://localhost:8080/api/spending/${id}`
+        `/api/spending/${id}`
       );
       return data;
     } catch (error) {

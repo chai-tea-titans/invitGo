@@ -20,7 +20,6 @@ db.authenticate()
   console.error('Unable to connect to the database:', err);
 });
 
-
 module.exports = db
 //This creates an object with two properties, db and sequelize, and exports that object. This way, when you import the module, you can access both properties using dot notation like database.db and database.sequelize.
 

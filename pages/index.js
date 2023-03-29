@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
 import NoticeCenter from './NoticeCenter';
+import Squearepayment from './payments/Squearepayment';
 
 
 
@@ -82,7 +83,8 @@ export default function Home() {
   
     
   </div>
-  <img src='https://images.ctfassets.net/1nw4q0oohfju/5KX62i9wOsL9uVRzULSgeT/c8da4a544f6a553e6bd352e3110301f5/cash-app-pay-button.png'/>
+  
+      <Squearepayment/>
   </main>
   )
  }

@@ -5,6 +5,7 @@ const withTM= require('next-transpile-modules')(['@square/web-sdk', 'react-squar
 const nextConfig = {
   experimental: {
     appDir: true,
+    
   },
 }
 

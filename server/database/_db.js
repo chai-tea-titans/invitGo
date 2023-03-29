@@ -21,8 +21,12 @@ db.authenticate()
   });
 
 
-module.exports = db;
-module.exports = sequelize;
+
+module.exports = {
+  db,
+  sequelize
+};
+//This creates an object with two properties, db and sequelize, and exports that object. This way, when you import the module, you can access both properties using dot notation like database.db and database.sequelize.
 
 // Pre-cloud code ^^^
 /////////////////////////////////////////////////

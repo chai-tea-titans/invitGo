@@ -14,9 +14,6 @@ const NoticeCenter = () => {
   const notifications = useSelector((state) => state.notifications);
   const dispatch = useDispatch();
 
-  const notifications = useSelector((state) => state.notifications);
-  const dispatch = useDispatch();
-
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -39,30 +36,12 @@ const NoticeCenter = () => {
   
     fetchNotifications();
   }, [user, dispatch]);
-  }, [user, dispatch]);
 
   return (
     <div>
       <Head><title>Notifications</title></Head>
       <h3><span>(0)</span>Notifications</h3>
-      <Head><title>Notifications</title></Head>
-      <h3><span>(0)</span>Notifications</h3>
       {notifications.length > 0 ? (
-  notifications.map((notification) => (
-    <div key={notification.id}>
-      {notification.type === 'event' && (
-        <>
-          <p>Event: {notification.event.title}</p>
-          {notification.videoSent && <p>Video Sent!</p>}
-        </>
-      )}
-      {notification.type === 'payment' && (
-        <p>Payment of ${notification.payment.amount} received from {notification.payment.senderName}</p>
-      )}
-    </div>
-  ))
-) : (
-  <p>No new notifications</p>
   notifications.map((notification) => (
     <div key={notification.id}>
       {notification.type === 'event' && (

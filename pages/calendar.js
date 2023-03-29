@@ -11,6 +11,7 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [currentYear] = useState(new Date().getFullYear());
   const [showNote, setShowNote] = useState(false);
+  const [notes, setNotes] = useState([]);
   const [createNote, setCreateNote] = useState("");
 
   const weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -66,15 +67,6 @@ const Calendar = () => {
                 onClick={() =>
                   handleNoteClick(i * 7 + j + 1 - startingDay, monthName)
                 }
-                // onClick={() =>
-                //   handleNoteClick(
-                //     i * 7 + j + 1 - startingDay,
-                //     monthName,
-                //     currentYear,
-                //     // pass the eventId as an argument
-                //     event ? event.id : null
-                //   )
-                // }
               >
                 {day}
               </button>
@@ -102,12 +94,11 @@ const Calendar = () => {
     );
   };
 
-  const handleNoteClick = (dayOfMonth, monthName) => {
+  const handleNoteClick = (dayOfMonth, monthName, currentYear) => {
     setCreateNote({
       dayOfMonth: dayOfMonth,
       monthName: monthName,
       currentYear: currentYear,
-      // eventId: newEvent.id, // pass the new event's ID to PopupWindow
     });
     setShowNote(true);
   };

@@ -1,35 +1,8 @@
-
-
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-
-
-
-// const Video = ({ onVideoUpload, eventId }) => {
-const Video = ({ onVideoUpload }) => {
-  const videoRef = useRef(null);
-  const [recording, setRecording] = useState(false);
-  const [recordChunks, setRecordChunks] = useState([]);
-  const [key, setKey] = useState(0);
-  const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
-  const [ setRecordedVideos] = useState([]);
-
-  useEffect(() => {
-    // Fetch all recorded videos
-    const fetchVideos = async () => {
-      try {
-        const res = await axios.get(`/api/video`);
-        setRecordedVideos(res.data.videos);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchVideos();
-  }, []);
-
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
@@ -50,11 +23,9 @@ const Video = ({ onVideoUpload }) => {
     //     console.error(error);
     //   }
     // };
-
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     videoRef.current.srcObject = stream;
-  
   
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.ondataavailable = (e) => {
@@ -64,62 +35,34 @@ const Video = ({ onVideoUpload }) => {
     };
     mediaRecorder.start();
     setRecording(true);
-
     if (videoRef.current) {
       videoRef.current.onloadedmetadata = () => {
         videoRef.current.play();
       };
     }
-    if (videoRef.current) {
-      videoRef.current.onloadedmetadata = () => {
-        videoRef.current.play();
-      };
-    }
-
     setTimeout(() => {
-      handleStopRecording();
-      handleUploadVideo();
       handleStopRecording();
       handleUploadVideo();
       }, 10000); // 10000 milliseconds = 10 seconds
     };
-
-
   const handleUploadVideo = async () => {
     const blob = new Blob(recordChunks, { type: 'video/webm' });
     
-
     const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
-
     try {
       // Send the video to the server to be uploaded
       const res = await axios.post('http://localhost:8080/api/video/upload-video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-
-      // // Save the video URL to the event model
-      //  await axios.put(`/api/calendar`, {
-      //   videoMessage: res.data.videoUrl,
-      // });
-
-      // // Save the video URL to the video model
-      // await axios.post('/api/video/save-video-url', {
-      //   eventId,
-      //   videoMessage: res.data.videoUrl,
-      // });
-
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
-
       // Update the list of videos
       setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
     } catch (error) {
       console.error(error);
     }
   };
-
   
-
   const handlePlayRecording = () => {
     if (videoRef.current) {
       const videoBlob = new Blob(recordChunks, {
@@ -131,41 +74,26 @@ const Video = ({ onVideoUpload }) => {
       };
     }
   };
-
   const handleRecordAgain = () => {
     setRecording(false);
     setRecordChunks([]);
     setKey(key + 1);
   };
-
   const handleStopRecording = async () => {
     if (videoRef.current !== null) {
   const stream = videoRef.current.srcObject;
   if (stream !== null) {
     const tracks = stream.getTracks();
     tracks.forEach((track) => track.stop());
-
     videoRef.current.srcObject = null;
     setRecording(false);
   }
 }
 };
-
-
 // const handleAttachVideo = () => {
 //   setShowVideoRecordingScreen(false);
 //   onVideoUpload(recordChunks);
 // };
-
-
-// const handleAttachVideo = () => {
-//   setShowVideoRecordingScreen(false);
-//   onVideoUpload(recordChunks);
-// };
-
-
-
-
   return (
   <>
   {showVideoRecordingScreen && (
@@ -192,6 +120,18 @@ const Video = ({ onVideoUpload }) => {
 </div>
 )}
 </>
-)};}
-
+);
+};
 export default Video;
+
+
+
+
+
+
+
+
+
+
+
+

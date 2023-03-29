@@ -46,9 +46,9 @@ export default function Home() {
     <div className='navbardesk navbarmobile'>
     <Link className='Logo' href="/">InviteGo</Link>
   
-    <div class="dropdown">
- <button class="dropbtn">Menu</button>
-  <div class="dropdown-content">
+    <div className="dropdown">
+ <button className="dropbtn">Menu</button>
+  <div className="dropdown-content">
        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">About</Link></div>
 
        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>

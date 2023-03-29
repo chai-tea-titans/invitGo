@@ -1,31 +1,25 @@
 const Sequelize = require('sequelize');
 const { DATABASE_URL } = process.env;
-const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
+// const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
 
-// Test the database connection
-db.authenticate()
-  .then(() => {
-    console.log('Database connection successful');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-
-
-  const sequelize = new Sequelize(DATABASE_URL, {
+  const db = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',
     dialectOptions: {
       ssl: process.env.NODE_ENV === 'production'
     }
   });
 
+  // Test the database connection
+db.authenticate()
+.then(() => {
+  console.log('Database connection successful');
+})
+.catch((err) => {
+  console.error('Unable to connect to the database:', err);
+});
 
 
-module.exports = {
-  db,
-  sequelize
-};
+module.exports = db
 //This creates an object with two properties, db and sequelize, and exports that object. This way, when you import the module, you can access both properties using dot notation like database.db and database.sequelize.
 
 // Pre-cloud code ^^^

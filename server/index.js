@@ -14,6 +14,9 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 // /api so they are isolated from our GET /* wildcard.
 app.use("/api", require("../pages/api/index"));
 
+// Disable to handle favicon.ico in vercel
+app.use('/favicon.ico', (req, res) => res.status(204));
+
 // This middleware will catch any URLs resembling a file extension
 // for example: .js, .html, .css
 // This allows for proper 404s instead of the wildcard '#<{(|' catching

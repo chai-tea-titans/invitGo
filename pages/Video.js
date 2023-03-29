@@ -1,13 +1,8 @@
-
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-
-
-
-
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
@@ -28,7 +23,6 @@ import axios from 'axios';
     //     console.error(error);
     //   }
     // };
-
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     videoRef.current.srcObject = stream;
@@ -41,44 +35,34 @@ import axios from 'axios';
     };
     mediaRecorder.start();
     setRecording(true);
-
     if (videoRef.current) {
       videoRef.current.onloadedmetadata = () => {
         videoRef.current.play();
       };
     }
-
     setTimeout(() => {
       handleStopRecording();
       handleUploadVideo();
       }, 10000); // 10000 milliseconds = 10 seconds
     };
-
-
   const handleUploadVideo = async () => {
     const blob = new Blob(recordChunks, { type: 'video/webm' });
     
-
     const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
-
     try {
       // Send the video to the server to be uploaded
       const res = await axios.post('http://localhost:8080/api/video/upload-video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
-
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
-
       // Update the list of videos
       setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
     } catch (error) {
       console.error(error);
     }
   };
-
   
-
   const handlePlayRecording = () => {
     if (videoRef.current) {
       const videoBlob = new Blob(recordChunks, {
@@ -90,34 +74,26 @@ import axios from 'axios';
       };
     }
   };
-
   const handleRecordAgain = () => {
     setRecording(false);
     setRecordChunks([]);
     setKey(key + 1);
   };
-
   const handleStopRecording = async () => {
     if (videoRef.current !== null) {
   const stream = videoRef.current.srcObject;
   if (stream !== null) {
     const tracks = stream.getTracks();
     tracks.forEach((track) => track.stop());
-
     videoRef.current.srcObject = null;
     setRecording(false);
   }
 }
 };
-
 // const handleAttachVideo = () => {
 //   setShowVideoRecordingScreen(false);
 //   onVideoUpload(recordChunks);
 // };
-
-
-
-
   return (
   <>
   {showVideoRecordingScreen && (
@@ -146,5 +122,16 @@ import axios from 'axios';
 </>
 );
 };
-
 export default Video;
+
+
+
+
+
+
+
+
+
+
+
+

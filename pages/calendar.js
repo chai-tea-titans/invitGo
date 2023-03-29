@@ -5,6 +5,7 @@ import PopupWindow from "./PopupWindow";
 //test case ******************* remember to delete after uses
 // import TestDisplay from "./TestDisplay";
 // import Event from "./../server/database/Event"
+import Graph from "./Graph";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -107,7 +108,6 @@ const Calendar = () => {
       monthName: monthName,
       currentYear: currentYear,
       // eventId: newEvent.id, // pass the new event's ID to PopupWindow
-
     });
     setShowNote(true);
   };
@@ -141,7 +141,7 @@ const Calendar = () => {
           />
         )}
       </div>
-      {/* <TestDisplay /> */}
+      <Graph />
     </div>
   );
 };

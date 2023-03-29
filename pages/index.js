@@ -3,7 +3,7 @@
 import Head from 'next/head'
 
 import Link from 'next/link'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
 import NoticeCenter from './NoticeCenter';
 import Squearepayment from './payments/Squearepayment';
@@ -47,9 +47,9 @@ export default function Home() {
     <div className='navbardesk navbarmobile'>
     <Link className='Logo' href="/">InviteGo</Link>
   
-    <div class="dropdown">
- <button class="dropbtn">Menu</button>
-  <div class="dropdown-content">
+    <div className="dropdown">
+ <button className="dropbtn">Menu</button>
+  <div className="dropdown-content">
        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">About</Link></div>
 
        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>

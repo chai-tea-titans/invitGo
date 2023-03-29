@@ -29,7 +29,9 @@ yarn-error.log*
 .env*.local
 .env
 
+
 # vercel
 .vercel
 
-# keys and authentication  (3/16/23)
+# # keys and authentication  (3/16/23)
+# secrets/

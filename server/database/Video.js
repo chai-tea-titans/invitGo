@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../database/_db");
-const Event = require("./Event");
-const User = require("./User");
+// const Event = require('./Event');
+// const User = require('./User');
 
 const Video = db.define("video", {
   url: {
@@ -19,6 +19,7 @@ const Video = db.define("video", {
   file: {
     type: Sequelize.BLOB('long'),
     allowNull: false,
+    allowNull: true,
   },
   
 });

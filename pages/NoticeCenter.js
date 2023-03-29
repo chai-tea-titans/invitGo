@@ -1,13 +1,14 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-
-import EventReply from './event-reply';  // for calendar replies
+// import Payment from './Payment';  // for payments made
+// import EventReply from './event-reply';  // for calendar replies
 import { useDispatch } from 'react-redux';
-import { setNotifications } from '../pages/store/notificationsSlice';
+import { setNotifications } from './store/notificationsSlice';
 import Head from 'next/head';
 
 
 const NoticeCenter = () => {
+  // const [notifications, setNotifications] = useState([]);
   // const [notifications, setNotifications] = useState([]);
   const user = useSelector((state) => state.user);
   const notifications = useSelector((state) => state.notifications);
@@ -23,7 +24,15 @@ const NoticeCenter = () => {
       } catch (error) {
         console.error(error);
       }
+      try {
+        const response = await fetch('/api/notifications');
+        const data = await response.json();
+        dispatch(setNotifications(data.notifications));
+      } catch (error) {
+        console.error(error);
+      }
     };
+  
   
     fetchNotifications();
   }, [user, dispatch]);
@@ -54,4 +63,5 @@ const NoticeCenter = () => {
 };
 
 export default NoticeCenter;
+
 

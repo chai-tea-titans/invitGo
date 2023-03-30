@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { uploadVideo } = require('../googleCloudStorage');
-import { addNotification } from '../notificationsSlice';
-const { events } = require('../models/Event');
-const { Expense } = require('../models/Expense');
+import { uploadVideo } from '../../server/database/googleCloudStore';
+import { addNotification } from '../store/notificationsSlice';
+const { events } = require('../../server/database/Event');
+const { Expense } = require('../../server/database/Expense');
 
 
 // Charge endpoint for Stripe

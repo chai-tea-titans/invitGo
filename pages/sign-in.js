@@ -6,6 +6,8 @@ import React, { useState} from 'react'
 import {signIn, signOut } from "next-auth/react"
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import Image from 'next/image'; // Import image component from next/image
+
 
 
 const SignIn = () => {
@@ -55,50 +57,64 @@ const SignIn = () => {
    
   
   // Google Handler function
-  async function handleGoogleSignin(){
-    signIn('google',{callbackUrl:'http://localhost:3000'})
+  async function handleGoogleSignin() {
+    signIn("google", { callbackUrl: "http://localhost:3000" });
   }
-  
-    return (
 
-        
-    
-          <div className='sign-inpage'>
-           <Head> <title>Sign In</title></Head>
-         
-      <h1 className='mainpagearea'>Plan, Budget, Share with your friends</h1>
-  
-           
-            <div className='sign-inarea'>
-            <form onSubmit={handleSubmit}>
-    <div className='signindiv'>
-       
-      
+  return (
+    <div className="sign-inpage">
+      <Head>
+        <title>Sign In</title>
+      </Head>
+      <h1 className="mainpagearea">Plan, Budget, Share with your friends</h1>
+      <div className="sign-inarea">
+        <form onSubmit={handleSubmit}>
+          <div className="signindiv">
+            <div>
+              <h1 className="createhappy">Sign in to your account</h1>
+              <p className="signinarea">Username</p>
+              <input
+                type="text"
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+              <br />
+              <p className="signinarea">Password</p>
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+              <br />
+              <button className="signinarea" type="submit">
+                Sign in
+              </button>
+
+              {errorMessage && <div>{errorMessage}</div>}
+              {profileError && <div>{profileError}</div>}
+            </div>
+          </div>
+        </form>
         <div>
-        <h1 className='createhappy'>Sign in to your account</h1>
-        <p className='signinarea'>Username</p>
-        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)}/><br/>
-        <p className='signinarea'>Password</p>
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} /><br/>
-        <button  className='signinarea'  type="submit">Sign in</button>
-       
-        {errorMessage && <div>{errorMessage}</div>}
-        {profileError && <div>{profileError}</div>}
-    </div>
-      
-        
-        
-    </div>
-    </form>
-        <div>
-          
-        <button type="button"onClick={handleGoogleSignin}> <img className='GoogleSignIn' src='https://www.sociomark.in/assets/img/button/signin_google_logo.png'/></button><br/>
+          <button type="button" onClick={handleGoogleSignin}>
+            <Image
+              className="GoogleSignIn"
+              src="https://www.sociomark.in/assets/img/button/signin_google_logo.png"
+              alt='Sign in with Google' // Add the alt attribute back
+              width={60}
+              height={60}
+            />
+          </button>
+          <br />
+          <p>
+            Don&apos;t have an account?{' '}
+            <Link className="createlinks" href={"/sign-up"}>
+              {" "}
+              🔒Register{" "}
+            </Link>
+          </p>
 
-
-
-<p>Don't have an account? <Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
-
-{/* <br/>
+          {/* <br/>
 <br/>
 <br/>
          <Link href="/calendar">Calendar</Link><br/>
@@ -112,20 +128,9 @@ const SignIn = () => {
          <Link href="/NoticeCenter">Center</Link><br/>
      */}
         </div>
-        
-        </div>
-        
       </div>
-       
-          
-          
-  
-      
-  
-      
-
-  
-    )
+    </div>
+  );
   }
   
   export default SignIn;

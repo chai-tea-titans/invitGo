@@ -96,7 +96,7 @@ const SignIn = () => {
 
 
 
-<Link className='createlinks' href={'/sign-up'}> Register </Link>
+<p>Don't have an account? <Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
 
 {/* <br/>
 <br/>

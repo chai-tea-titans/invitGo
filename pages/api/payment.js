@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 import { uploadVideo } from '../../server/database/googleCloudStore';
-import { addNotification } from '../store/notificationsSlice';
+import { addNotification } from '../../store/notificationsSlice';
 const { events } = require('../../server/database/Event');
 const { Expense } = require('../../server/database/Expense');
 

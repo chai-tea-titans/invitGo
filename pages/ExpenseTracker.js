@@ -5,7 +5,7 @@ import {
   selectSpending,
   createSpendingAsync,
   deleteSpendingAsync,
-} from "./store/spendingSlice";
+} from "../store/spendingSlice";
 function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   const [inputExpense, setInputExpense] = useState("");
   const [inputAmount, setInputAmount] = useState("");

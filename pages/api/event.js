@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-import { addNotification } from "../notificationsSlice";
+import { addNotification } from "../store/notificationsSlice";
 const { events } = require("../../server/database/Event");
 import store from "../../pages/store/store";
 

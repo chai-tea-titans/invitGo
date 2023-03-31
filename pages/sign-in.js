@@ -92,11 +92,11 @@ const SignIn = () => {
     </form>
         <div>
           
-        <button type="button"onClick={handleGoogleSignin}> <img className='GoogleSignIn' src='https://www.sociomark.in/assets/img/button/signin_google_logo.png'/></button><br/>
+        <button type="button"onClick={handleGoogleSignin}> Google Sign in</button><br/>
 
 
 
-<p>Don't have an account? <Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
+<p>Dont have an account? <Link className='createlinks' href={'/sign-up'}> 🔒Register </Link></p>
 
 {/* <br/>
 <br/>

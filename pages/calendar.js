@@ -6,6 +6,7 @@ import PopupWindow from "./PopupWindow";
 // import TestDisplay from "./TestDisplay";
 // import Event from "./../server/database/Event"
 import Graph from "./Graph";
+import Weather from "./Weather";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -142,6 +143,7 @@ const Calendar = () => {
         )}
       </div>
       <Graph />
+      <Weather />
     </div>
   );
 };

@@ -1,15 +1,15 @@
 const Sequelize = require('sequelize');
 const { DATABASE_URL } = process.env;
-// const db = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/invitego', { logging: false });
+const db = new Sequelize(process.env.DATABASE_URL || 'postgres://postgres:123@localhost:5432/invitego', { logging: false });
 const pg = require('pg');
 
 
-  const db = new Sequelize(DATABASE_URL, {
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production'
-    }
-  });
+  // const db = new Sequelize(DATABASE_URL, {
+  //   dialect: 'postgres',
+  //   dialectOptions: {
+  //     ssl: process.env.NODE_ENV === 'production'
+  //   }
+  // });
 
   // Test the database connection
 db.authenticate()

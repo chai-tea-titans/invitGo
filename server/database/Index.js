@@ -1,4 +1,5 @@
 const db = require("./_db");
+const sequelize = require("./_db");
 const User = require("./User");
 const Calendar = require("./calendar");
 // const CoolCalc = require('./coolCalc');
@@ -30,6 +31,7 @@ module.exports = {
   Video,
   CoolScore,
   Spending,
+  sequelize
 };
 // OLD CODE ---- DO NEED ANYTHING FROM HERE???
 

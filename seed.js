@@ -52,26 +52,6 @@ const calendarEventDataArray = [
     addeditems: "St. Patrick's Day",
   },
 ];
-const calendarEventDataArray = [
-  {
-    month: "January",
-    day: 1,
-    year: 2023,
-    addeditems: "New Year's Day",
-  },
-  {
-    month: "February",
-    day: 14,
-    year: 2023,
-    addeditems: "Valentine's Day",
-  },
-  {
-    month: "March",
-    day: 17,
-    year: 2023,
-    addeditems: "St. Patrick's Day",
-  },
-];
 
 // Creating Users
 
@@ -170,7 +150,7 @@ const expenseDataArray = [
 
 async function seed() {
   try {
-    await db.sync({ force: true });
+    await sequelize.sync({ force: true });
     await Event.bulkCreate(eventDataArray);
     await User.bulkCreate(userDataArray);
     //await Video.bulkCreate(videoDataArray);
@@ -181,7 +161,7 @@ async function seed() {
     console.log("seeding successful");
   } catch (err) {
     console.error(err);
-    db.close();
+    sequelize.close();
   }
 }
 

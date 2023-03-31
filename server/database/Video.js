@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
-const db = require("../database/_db");
+const sequelize = require("./_db");
 // const Event = require('./Event');
 // const User = require('./User');
 
-const Video = db.define("video", {
+const Video = sequelize.define("video", {
   url: {
     type: Sequelize.STRING,
     allowNull:true,

@@ -56,7 +56,7 @@ const SignIn = () => {
   
   // Google Handler function
   async function handleGoogleSignin(){
-    signIn('google',{callbackUrl:'https://invitegotea.vercel.app'})
+    signIn('google',{callbackUrl:'https://invitegotea-pwnj1fh7h-invitegotea.vercel.app'})
   }
   
     return (

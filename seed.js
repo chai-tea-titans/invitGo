@@ -52,26 +52,7 @@ const calendarEventDataArray = [
     addeditems: "St. Patrick's Day",
   },
 ];
-const calendarEventDataArray = [
-  {
-    month: "January",
-    day: 1,
-    year: 2023,
-    addeditems: "New Year's Day",
-  },
-  {
-    month: "February",
-    day: 14,
-    year: 2023,
-    addeditems: "Valentine's Day",
-  },
-  {
-    month: "March",
-    day: 17,
-    year: 2023,
-    addeditems: "St. Patrick's Day",
-  },
-];
+
 
 // Creating Users
 

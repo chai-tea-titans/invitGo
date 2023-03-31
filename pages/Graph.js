@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSpendingAsync } from "./store/spendingSlice";
-import LineChart from "./graph/LineChar";
+import { fetchSpendingAsync } from "./api/store/spendingSlice";
+import LineChart from "./api/graph/LineChar";
 
 function Graph() {
   const dispatch = useDispatch();

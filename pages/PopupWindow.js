@@ -2,12 +2,12 @@
 import ExpenseTracker from "./ExpenseTracker";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCalendar } from "../store/testSlice";
+import { selectCalendar } from "./api/store/testSlice";
 import {
   fetchCalendarAsync,
   createEventAsync,
   deleteEventAsync,
-} from "../store/testSlice";
+} from "./api/store/testSlice";
 import Video from "./Video";
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {

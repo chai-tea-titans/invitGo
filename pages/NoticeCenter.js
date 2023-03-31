@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // import Payment from './Payment';  // for payments made
 // import EventReply from './event-reply';  // for calendar replies
 import { useDispatch } from 'react-redux';
-import { setNotifications } from '../store/notificationsSlice';
+import { setNotifications } from './api/store/notificationsSlice';
 import Head from 'next/head';
 
 

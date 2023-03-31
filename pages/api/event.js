@@ -1,15 +1,12 @@
-const express = require("express");
-const router = express.Router();
-import { addNotification } from "../../store/notificationsSlice";
+import { addNotification } from "./store/notificationsSlice";
 const { events } = require("../../server/database/Event");
-import store from "../../store/store";
+import store from "./store/store";
 
 router.post("/createEvent", async (req, res) => {
   try {
     // const { name, date, expenses, videoSent } = req.body;
     // const { title, date, message, invitees, videoMessage } = req.body;  <<< FINAL VERSION
     const { name, date, expenses, videoMessage } = req.body;
-
     // Save the new event to the database
     const event = await events.create({
       name,
@@ -17,7 +14,6 @@ router.post("/createEvent", async (req, res) => {
       expenses,
       videoMessage,
     });
-
     // Add a notification to the Redux store
     store.dispatch(
       addNotification({
@@ -30,7 +26,6 @@ router.post("/createEvent", async (req, res) => {
           expenses,
           read: false,
         },
-
         // event: {
         //   id: event.id,
         //   title,
@@ -41,45 +36,37 @@ router.post("/createEvent", async (req, res) => {
         //  This commented out portion would be the final version  <<<<
       })
     );
-
     res.status(200).send(events);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
 });
-
 router.put("/uploadVideo/:eventId", async (req, res) => {
   try {
     const { eventId } = req.params;
     const { videoMessage } = req.body;
-
     // Find the event in the database and update the short-form video URL
     const event = await Event.findByPk(eventId);
     event.videoMessage = videoMessage;
     await event.save();
-
     res.status(200).send(event);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
 });
-
 router.post("/save-video-url", async (req, res) => {
   try {
     const { eventId, videoMessage } = req.body;
-
     // Save the video URL to the event model
     const event = await events.findByPk(eventId);
     event.videoMessage = videoMessage;
     await event.save();
-
     res.status(200).send(event);
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal server error");
   }
 });
-
 module.exports = router;

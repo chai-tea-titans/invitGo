@@ -1,10 +1,8 @@
 const Sequelize = require("sequelize");
-// const db = require("./_db");
 const sequelize = require("./_db");
 const User=require("./User");
 
 const Event = sequelize.define("event", {
-// const Event = db.define("event", {
   title: {
     type: Sequelize.STRING,
     allowNull: false,

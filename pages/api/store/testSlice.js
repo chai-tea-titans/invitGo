@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const fetchCalendarAsync = createAsyncThunk("AllCalendar", async () => {
   try {
-    const response = await axios.get(`/api/calendar`);
+    const response = await axios.get(`http://localhost:8080/api/calendar`);
     const data = response.data;
     console.log(data);
     return data;
@@ -17,7 +17,7 @@ export const createEventAsync = createAsyncThunk(
   "calendar/add",
   async ({ month, day, year, addeditems }) => {
     try {
-      const { data } = await axios.post(`/api/calendar`, {
+      const { data } = await axios.post(`http://localhost:8080/api/calendar`, {
         month,
         day,
         year,
@@ -36,7 +36,7 @@ export const deleteEventAsync = createAsyncThunk(
   async id => {
     try {
       const { data } = await axios.delete(
-        `/api/calendar/${id}`
+        `http://localhost:8080/api/calendar/${id}`
       );
       return data;
     } catch (error) {

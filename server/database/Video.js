@@ -8,14 +8,14 @@ const Video = sequelize.define("video", {
     type: Sequelize.STRING,
     allowNull:true,
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-  },
-  eventId: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-  },
+  // userId: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: true,
+  // },
+  // eventId: {
+  //   type: Sequelize.INTEGER,
+  //   allowNull: true,
+  // },
   file: {
     type: Sequelize.BLOB('long'),
     allowNull: false,

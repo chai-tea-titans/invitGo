@@ -68,7 +68,6 @@ const userDataArray = [
     // numEvents: 10,
     // numVideos: 10,
     // inviteesConfirmed: 10,
-    // coolnessTracker: 30,
     // history: "",
   },
   {
@@ -81,7 +80,6 @@ const userDataArray = [
     //   numEvents: 5,
     //   numVideos: 5,
     //   inviteesConfirmed: 5,
-    //   coolnessTracker: 15,
     //   history: "",
   },
 ];

@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const sequelize = require("./_db");
-// const CoolScore = require('./CoolScore');
 
 const User = sequelize.define('user', {
   username: {
@@ -38,11 +37,6 @@ const User = sequelize.define('user', {
   //   defaultValue: 0
   // },
   // inviteesConfirmed: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  //   defaultValue: 0
-  // },
-  // coolnessTracker: {
   //   type: Sequelize.INTEGER,
   //   allowNull: false,
   //   defaultValue: 0

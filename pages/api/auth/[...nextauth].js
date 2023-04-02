@@ -8,9 +8,10 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
-      clientId:'26677468679-gtoes9rie186g9nsa8l8quu52obq4hoa.apps.googleusercontent.com',
-      clientSecret:'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'
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
     }),
     // ...add more providers here
   ],
+  debug: true
 })

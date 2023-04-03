@@ -1,12 +1,14 @@
 "use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { supabase } from "../../../lib/supabaseClient"
+ 
 
 export const fetchCalendarAsync = createAsyncThunk("AllCalendar", async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/calendar`);
-    const data = response.data;
-    console.log(data);
+    const { data } = await supabase
+    .from(`calendarEvent`)
+    .select()
     return data;
   } catch (err) {
     console.log(err);
@@ -17,7 +19,9 @@ export const createEventAsync = createAsyncThunk(
   "calendar/add",
   async ({ month, day, year, addeditems }) => {
     try {
-      const { data } = await axios.post(`http://localhost:8080/api/calendar`, {
+      const { data } = await supabase
+      .from(`calendarEvent`)
+      .insert ({
         month,
         day,
         year,
@@ -35,10 +39,11 @@ export const deleteEventAsync = createAsyncThunk(
   "calendar/delete",
   async id => {
     try {
-      const { data } = await axios.delete(
-        `http://localhost:8080/api/calendar/${id}`
-      );
-      return data;
+      const { data } = await supabase
+      .from(`calendarevent`)
+      .delete()
+      .eq('id', id)
+      return {id};
     } catch (error) {
       console.error("Error deleting event: ", error);
     }

@@ -1,12 +1,14 @@
 "use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+
+import { supabase } from "../../../lib/supabaseClient"
 
 export const fetchSpendingAsync = createAsyncThunk("AllSpending", async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/spending`);
-    const data = response.data;
-    console.log(data);
+    const { data } = await supabase
+    .from(`spendingEvent`)
+    .select()
+   
     return data;
   } catch (err) {
     console.log(err);
@@ -17,7 +19,9 @@ export const createSpendingAsync = createAsyncThunk(
   "spending/add",
   async ({ month, day, year, spendingname, spendingamount }) => {
     try {
-      const { data } = await axios.post(`http://localhost:8080/api/spending`, {
+      const { data } = await supabase
+      .from(`spendingEvent`)
+      .insert ({
         month,
         day,
         year,
@@ -36,9 +40,10 @@ export const deleteSpendingAsync = createAsyncThunk(
   "spending/delete",
   async id => {
     try {
-      const { data } = await axios.delete(
-        `http://localhost:8080/api/spending/${id}`
-      );
+      const { data } = await supabase
+      .from(`spendingEvent`)
+      .delete()
+      .eq('id', id)
       return data;
     } catch (error) {
       console.error("Error deleting event: ", error);

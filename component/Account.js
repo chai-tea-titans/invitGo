@@ -1,9 +1,6 @@
-"use client";
-import Head from 'next/head';
-import React from 'react'
-// import { signIn } from "next-auth/react"
 import { useState, useEffect } from 'react'
 import { useUser, useSupabaseClient } from '@supabase/auth-helpers-react'
+import Avatar from './Avatar'
 
 export default function Account({ session }) {
   const supabase = useSupabaseClient()
@@ -12,6 +9,7 @@ export default function Account({ session }) {
   const [username, setUsername] = useState(null)
   const [website, setWebsite] = useState(null)
   const [avatar_url, setAvatarUrl] = useState(null)
+  
 
   useEffect(() => {
     getProfile()
@@ -68,7 +66,17 @@ export default function Account({ session }) {
   }
 
   return (
+
     <div className="form-widget">
+        <Avatar
+      uid={user.id}
+      url={avatar_url}
+      size={150}
+      onUpload={(url) => {
+        setAvatarUrl(url)
+        updateProfile({ username, website, avatar_url: url })
+      }}
+    />
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
@@ -110,25 +118,3 @@ export default function Account({ session }) {
     </div>
   )
 }
-
-
-
-
-
-// const SignIn = () => {
-  
- 
-  // // Google Handler function
-  // async function handleGoogleSignin(){
-  //   signIn('google',{callbackUrl:'https://invitegotea.vercel.app'})
-  // }
-  
-  //   return (
-  //     <div>
-  //       <Head><title>Sign-in</title></Head>
-  //       <button type="button"onClick={handleGoogleSignin}> Google Sign in</button><br/>
-  //     </div>
-  //   )
-  // }
-  
-  // export default SignIn;

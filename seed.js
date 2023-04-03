@@ -1,12 +1,12 @@
 "use strict";
 
-const db = require("./server/database/_db");
-const User = require("./server/database/User");
-const Event = require("./server/database/Event");
+const sequelize = require("./server/database/_db");
+const User = require("./server/database/Models");
+const Event = require("./server/database/Models");
 //const Video = require("./server/database/Video");
-const Expense = require("./server/database/Expense");
-const calendarEvent = require("./server/database/calendar");
-const spending = require("./server/database/spending");
+const Expense = require("./server/database/Models");
+const calendarEvent = require("./server/database/Models");
+const spending = require("./server/database/Models");
 
 const spendingDataArray = [
   {

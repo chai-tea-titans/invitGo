@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from "../../styles/Home.module.css";
+
 import {
  
     GooglePay,
@@ -11,7 +11,7 @@ import {
 
 const Squearepayment = () => {
   return (
-    <div className={styles.container}>
+    <div className='container'>
     <PaymentForm
       applicationId="sandbox-sq0idb-lTs7Fp5EVfD0bRryQ-0cvg"
       cardTokenizeResponseReceived={async (token, verifiedBuyer) => {

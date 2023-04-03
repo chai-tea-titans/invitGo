@@ -51,13 +51,14 @@ import axios from 'axios';
     formData.append('file', blob);
     formData.append('filename', `${Date.now()}.webm`);
     try {
+
     console.log("start of try")
 
       // Send the video to the server to be uploaded
-      // const res = await axios.get('/api/video', formData, {
-        const res = await axios.post('/api/video', formData, {
+        const res = await axios.post('/api/Video', formData, {
         headers: { 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
       });
+
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
       // Update the list of videos

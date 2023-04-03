@@ -16,16 +16,24 @@ const storage = new Storage({
 
 });
 
-// const upload = multer({ storage: multer.memoryStorage() });
+// // const upload = multer({ storage: multer.memoryStorage() });
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, os.tmpdir());
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, Date.now() + '-' + file.originalname);
+//     },
+//   }),
+// });
+
+// Create a Multer instance to handle file uploads
 const upload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, os.tmpdir());
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname);
-    },
-  }),
+  storage: multer.memoryStorage(), // Save the uploaded file to memory
+  limits: {
+    fileSize: 10 * 1024 * 1024, // Limit file size to 10MB
+  },
 });
 
 const handler = nextConnect()

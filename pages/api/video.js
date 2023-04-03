@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+import { NextApiRequest, NextApiResponse } from 'next';
 const { uploadVideo } = require('../../server/database/googleCloudStore');
 // const { Event} = require('../database/Event');
 const { Video } = require('../../server/database/Index')
@@ -11,11 +10,12 @@ const storage = new Storage({
   keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
 });
 
-router.post('/upload-video', async (req, res) => {
-  try {
-    if (!req.files || !req.files.file) {
-      return res.status(400).send('No file uploaded');
-    }
+const handler = async (req, res) => {
+  if (req.method === 'POST') {
+    try {
+      if (!req.files || !req.files.file) {
+        return res.status(400).send('No file uploaded');
+      }
 
     const file = req.files.file;
     const blob = file.data;
@@ -45,6 +45,9 @@ router.post('/upload-video', async (req, res) => {
     console.error(error);
     res.status(500).send('Error uploading video');
   }
-});
+} else {
+  res.status(405).send('Method not allowed');
+}
+};
 
-module.exports = router;
+export default handler;

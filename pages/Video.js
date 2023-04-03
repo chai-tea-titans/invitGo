@@ -10,19 +10,10 @@ import axios from 'axios';
     const [key, setKey] = useState(0);
     const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
     const [videos, setVideos] = useState([]);
+    const [uploadMessage, setUploadMessage] = useState("");
+    const [stopTimeoutId, setStopTimeoutId] = useState(null);
   
-    // useEffect(() => {
-    //   fetchVideos();
-    // }, []);
-  
-    // const fetchVideos = async () => {
-    //   try {
-    //     const res = await axios.get(`/api/video`);
-    //     setVideos(res.data.videos);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
+
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     videoRef.current.srcObject = stream;
@@ -40,26 +31,55 @@ import axios from 'axios';
         videoRef.current.play();
       };
     }
-    setTimeout(() => {
-      handleStopRecording();
-      handleUploadVideo();
-      }, 10000); // 10000 milliseconds = 10 seconds
-    };
+    // Store the timeout ID in a ref
+  const timeoutId = setTimeout(() => {
+    handleStopRecording();
+    handleUploadVideo();
+  }, 10000); // 10000 milliseconds = 10 seconds
+
+  // Clear the timeout if the user stops the recording manually
+  setStopTimeoutId(timeoutId);
+};
+
+  // const handleUploadVideo = async () => {
+  //   const blob = new Blob(recordChunks, { type: 'video/webm' });
+  //   const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
+  //   try {
+  //     // Send the video to the server to be uploaded
+  //     const res = await axios.post('/api/video', formData, {
+  //       headers: { 'Content-Type': 'multipart/form-data' },
+  //     });
+  //     console.log('Video saved:', res.data.videoUrl);
+  //     onVideoUpload(res.data.videoUrl);
+  //     // Update the list of videos
+  //     setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
   const handleUploadVideo = async () => {
     const blob = new Blob(recordChunks, { type: 'video/webm' });
-    
-    const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
+  
+    const formData = new FormData();
+    formData.append('file', blob);
+    formData.append('filename', `${Date.now()}.webm`);
     try {
       // Send the video to the server to be uploaded
-      const res = await axios.post('http://localhost:8080/api/video/upload-video', formData, {
+      const res = await axios.post('/api/video', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
       // Update the list of videos
       setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
+  
+      // Set the success message
+      setUploadMessage("Video upload was successful!");
     } catch (error) {
       console.error(error);
+      // Optionally, you can set an error message as well
+      setUploadMessage("Video upload failed. Please try again.");
     }
   };
   
@@ -89,12 +109,19 @@ import axios from 'axios';
     setRecording(false);
   }
 }
+// Clear the timeout if it exists
+if (stopTimeoutId) {
+  clearTimeout(stopTimeoutId);
+  setStopTimeoutId(null);
+  }
 };
+
 // const handleAttachVideo = () => {
 //   setShowVideoRecordingScreen(false);
 //   onVideoUpload(recordChunks);
 // };
-  return (
+
+return (
   <>
   {showVideoRecordingScreen && (
 <div>
@@ -117,6 +144,7 @@ import axios from 'axios';
 <div>
   <video src=''></video>
 </div>
+<div>{uploadMessage}</div>
 </div>
 )}
 </>

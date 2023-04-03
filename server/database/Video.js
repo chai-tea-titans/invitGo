@@ -18,7 +18,6 @@ const Video = sequelize.define("video", {
   // },
   file: {
     type: Sequelize.BLOB('long'),
-    allowNull: false,
     allowNull: true,
   },
   

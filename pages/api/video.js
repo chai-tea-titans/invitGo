@@ -4,6 +4,9 @@ import nextConnect from 'next-connect';
 import multer from 'multer';
 import path from 'path';
 const { uploadVideo } = require('../../server/database/googleCloudStore');
+const os = require('os');
+const fs = require('fs');
+const fsPromises = require('fs').promises;
 
 
 const storage = new Storage({
@@ -13,7 +16,17 @@ const storage = new Storage({
 
 });
 
-const upload = multer({ storage: multer.memoryStorage() });
+// const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, os.tmpdir());
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + '-' + file.originalname);
+    },
+  }),
+});
 
 const handler = nextConnect()
   .use(upload.single('file'))
@@ -25,6 +38,7 @@ const handler = nextConnect()
 
       const file = req.file;
       const fileName = `${Date.now()}.webm`;
+      const tempFilePath = file.path;
 
       const bucketName = 'invitego';
       const bucket = storage.bucket(bucketName);
@@ -37,6 +51,10 @@ const handler = nextConnect()
       });
 
       const publicUrl = await uploadVideo(req.file.buffer, fileName);
+
+      // Delete the temporary file
+      await fsPromises.unlink(tempFilePath);
+      
     
     // Save the video URL and file data to the database
     const video = await Video.create({

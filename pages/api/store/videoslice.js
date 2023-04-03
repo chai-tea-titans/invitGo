@@ -8,7 +8,7 @@ const apiClient = axios.create({
 
 export const fetchVideoAsync = createAsyncThunk("AllVideo", async () => {
   try {
-    const response = await apiClient.get(`/video`);
+    const response = await apiClient.get(`/Video`);
     const data = response.data;
     console.log(data);
     return data;
@@ -20,7 +20,7 @@ export const createEventAsync = createAsyncThunk(
     "video/add",
     async ({ url, eventId, userId, month, day, year, addeditems }) => {
       try {
-        const { data } = await apiClient.post(`/video`, {
+        const { data } = await apiClient.post(`/Video`, {
           url,
           eventId,
           userId,
@@ -41,7 +41,7 @@ export const createEventAsync = createAsyncThunk(
     "video/delete",
     async id => {
       try {
-        const { data } = await apiClient.delete(`/video/${id}`);
+        const { data } = await apiClient.delete(`/Video/${id}`);
         return data;
       } catch (error) {
         console.error("Error deleting event: ", error);

@@ -1,9 +1,9 @@
-const { uploadVideo } = require('../../server/database/googleCloudStore');
 const { Video } = require('../../server/database/Index')
 const { Storage } = require('@google-cloud/storage');
 import nextConnect from 'next-connect';
 import multer from 'multer';
 import path from 'path';
+const { uploadVideo } = require('../../server/database/googleCloudStore');
 
 
 const storage = new Storage({
@@ -36,12 +36,11 @@ const handler = nextConnect()
         },
       });
 
-    const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}}`;
+      const publicUrl = await uploadVideo(req.file.buffer, fileName);
     
     // Save the video URL and file data to the database
     const video = await Video.create({
       url: publicUrl,
-      file: blob,
     });
 
     res.json({ videoUrl: publicUrl });

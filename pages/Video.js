@@ -41,22 +41,6 @@ import axios from 'axios';
   setStopTimeoutId(timeoutId);
 };
 
-  // const handleUploadVideo = async () => {
-  //   const blob = new Blob(recordChunks, { type: 'video/webm' });
-  //   const formData = new FormData(); formData.append('file', blob); formData.append('filename', `${Date.now()}.webm`);
-  //   try {
-  //     // Send the video to the server to be uploaded
-  //     const res = await axios.post('/api/video', formData, {
-  //       headers: { 'Content-Type': 'multipart/form-data' },
-  //     });
-  //     console.log('Video saved:', res.data.videoUrl);
-  //     onVideoUpload(res.data.videoUrl);
-  //     // Update the list of videos
-  //     setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const handleUploadVideo = async () => {
     const blob = new Blob(recordChunks, { type: 'video/webm' });
@@ -66,7 +50,9 @@ import axios from 'axios';
     formData.append('filename', `${Date.now()}.webm`);
     try {
       // Send the video to the server to be uploaded
-      const res = await axios.post('/api/video', formData);
+      const res = await axios.post('/api/video', formData, {
+        headers: { 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
+      });
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
       // Update the list of videos

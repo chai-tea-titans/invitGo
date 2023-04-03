@@ -99,7 +99,7 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
                 <p>
                   {event.spendingname}: ${event.spendingamount}
                 </p>
-                <p>{event.id}</p>
+                {/* <p>{event.id}</p> */}
                 <button onClick={() => handleRemoveClick(event.id)}>
                   Remove
                 </button>
@@ -109,7 +109,7 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
             <div>No matching events found</div>
           )}
         </>
-        <p>Total amount: ${totalAmount.toFixed(2)}</p>{" "}
+        <p>Total amount: ${+totalAmount.toFixed(2)}</p>{}
         {/* display total amount */}
       </div>
     </div>

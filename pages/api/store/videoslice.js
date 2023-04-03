@@ -2,9 +2,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const apiClient = axios.create({
+  baseURL: '/api',
+});
+
 export const fetchVideoAsync = createAsyncThunk("AllVideo", async () => {
   try {
-    const response = await axios.get(`/api/video`);
+    const response = await apiClient.get(`/video`);
     const data = response.data;
     console.log(data);
     return data;
@@ -14,35 +18,36 @@ export const fetchVideoAsync = createAsyncThunk("AllVideo", async () => {
 });
 export const createEventAsync = createAsyncThunk(
     "video/add",
-    async ({ month, day, year, addeditems }) => {
+    async ({ url, eventId, userId, month, day, year, addeditems }) => {
       try {
-        const { data } = await axios.post(`/api/upload-video`, {
+        const { data } = await apiClient.post(`/video`, {
           url,
           eventId,
           userId,
-          
+          month,
+          day,
+          year,
+          addeditems
         });
         return data;
       } catch (error) {
         console.error("Error creating event fail: ", error);
-        throw error; // re-throw the error to trigger the rejected state of the thunk
+        throw error; 
       }
     }
   );
 
-//   export const deleteEventAsync = createAsyncThunk(
-//     "video/delete",
-//     async id => {
-//       try {
-//         const { data } = await axios.delete(
-//           `http://localhost:8080/api/video/${id}`
-//         );
-//         return data;
-//       } catch (error) {
-//         console.error("Error deleting event: ", error);
-//       }
-//     }
-//   );
+  export const deleteEventAsync = createAsyncThunk(
+    "video/delete",
+    async id => {
+      try {
+        const { data } = await apiClient.delete(`/video/${id}`);
+        return data;
+      } catch (error) {
+        console.error("Error deleting event: ", error);
+      }
+    }
+  );
 
 
   const VideoSlice = createSlice({
@@ -56,16 +61,14 @@ export const createEventAsync = createAsyncThunk(
       builder.addCase(createEventAsync.fulfilled, (state, action) => {
         state.push(action.payload);
       });
-      // builder.addCase(deleteEventAsync.fulfilled, (state, action) => {
-      //   return state.filter(video => video.id !== action.payload.id);
-      // });
+      builder.addCase(deleteEventAsync.fulfilled, (state, action) => {
+        return state.filter(video => video.id !== action.payload.id);
+      });
     },
   });
-  
+
   export const { setVideo } = VideoSlice.actions;
   export const selectVideo = state => {
     return state.video;
-  };
-  export default VideoSlice.reducer;
-  
+  };  
 

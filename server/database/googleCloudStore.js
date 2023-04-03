@@ -15,10 +15,8 @@ try {
   const options = {
     destination: `${fileName}`,
     public: true, 
-    destination: `${fileName}`,
-    public: true, 
     metadata: {
-      contentType: ['video/mp4', 'video/webm'],   
+      contentType: 'video/webm',   
     },
   };
 
@@ -27,7 +25,7 @@ try {
   const publicUrl = `https://storage.googleapis.com/invitego/${fileName}`;
   return publicUrl;
 } catch (error) {
-  console.error(error);
+  console.error('Error uploading video to Google Cloud Storage:', error);
   throw new Error('Error uploading video to Google Cloud Storage');
 }
 

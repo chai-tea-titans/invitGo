@@ -4,12 +4,12 @@ const path = require('path');
 
 const storage = new Storage({
   keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
-    keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
 });
 
 const bucketName = 'invitego';
 
 async function uploadVideo(filePath, fileName) {
+  console.log("uploadVideo function is being executed.");
 try {
     const bucket = storage.bucket(bucketName);
   const options = {

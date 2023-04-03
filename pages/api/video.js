@@ -51,6 +51,7 @@ const handler = nextConnect()
       });
 
       const publicUrl = await uploadVideo(req.file.buffer, fileName);
+      console.log("publicUrl value: ", publicUrl);
 
       // Delete the temporary file
       await fsPromises.unlink(tempFilePath);
@@ -60,6 +61,9 @@ const handler = nextConnect()
     const video = await Video.create({
       url: publicUrl,
     });
+
+    console.log('Video object:', video);
+
 
     res.json({ videoUrl: publicUrl });
   } catch (error) {

@@ -22,7 +22,8 @@ export const createSpendingAsync = createAsyncThunk(
         year,
         spendingname,
         spendingamount,
-      });
+      })
+      .single()
       return data;
     } catch (error) {
       console.error("Error creating event fail: ", error);

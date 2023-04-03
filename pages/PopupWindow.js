@@ -19,6 +19,7 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   const isLoading = useSelector(state => state.loading);
   useEffect(() => {
     dispatch(fetchCalendarAsync());
+
   }, [dispatch]);
 
   if (isLoading) {

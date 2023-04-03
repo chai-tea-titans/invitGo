@@ -4,6 +4,7 @@ import { useState } from "react";
 import PopupWindow from "./PopupWindow";
 import Graph from "./Graph";
 import Weather from "./Weather";
+import Link from "next/link";
 
 //test case ******************* remember to delete after uses
 // import TestDisplay from "./TestDisplay";
@@ -134,7 +135,7 @@ const Calendar = () => {
             ))}
           </tr>
         </thead>
-        <tbody>{renderCalendarCells()}</tbody>
+        <tbody className="cellbody">{renderCalendarCells()}</tbody>
       </table>
       <div>
         {showNote && (
@@ -148,6 +149,11 @@ const Calendar = () => {
       </div>
       <Graph />
       <Weather />
+      <footer className="footer">
+      <Link className='Logo' href="/calendar">✉️</Link>
+      <Link className='Logo' href="/">Go</Link>
+      <Link className='Logo' href="/calendar">📅</Link>
+      </footer>
     </div>
   );
 };

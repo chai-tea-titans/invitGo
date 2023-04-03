@@ -154,7 +154,7 @@ function Graph() {
   };
 
   return (
-    <div style={{ width: 700 }}>
+    <div className="Graph">
       <LineChart chartData={chartData} />
     </div>
   );

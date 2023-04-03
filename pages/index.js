@@ -6,7 +6,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import NoticeCenter from './NoticeCenter';
-import Squearepayment from './api/payments/Squearepayment';
+
 
 const Home = () => {
   const session = useSession()
@@ -21,17 +21,19 @@ const Home = () => {
          <main className='homepageimg'>
              <div className='navbardesk navbarmobile'>
             <Link className='Logo' href="/">InviteGo</Link>
+            <div className='notifications'><NoticeCenter /></div>
           
            <div className="dropdown">
+           
          <button className="dropbtn">Menu</button>
         <div className="dropdown-content">
              <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">Account</Link></div>
         
               <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
                
-               <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
+               
         
-                <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
+                
         
                <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
         
@@ -39,7 +41,7 @@ const Home = () => {
                 <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/event-reply">Event Reply</Link></div>
         
             
-               <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/user-info">Profile</Link></div>
+     
 
                
         
@@ -48,8 +50,8 @@ const Home = () => {
         
                </div>
            </div>
-           <h3>Welcome {session.user.name} </h3>
-           <NoticeCenter />
+           
+         
         
         
         
@@ -61,9 +63,12 @@ const Home = () => {
             
            </div>
           
-               <Squearepayment/>
+            
           </main>
       )}
+      <footer>
+      
+      </footer>
     </div>
   )
 }

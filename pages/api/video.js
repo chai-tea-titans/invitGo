@@ -3,10 +3,14 @@ const { Video } = require('../../server/database/Index')
 const { Storage } = require('@google-cloud/storage');
 import nextConnect from 'next-connect';
 import multer from 'multer';
+import path from 'path';
+
 
 const storage = new Storage({
   projectId: 'invitegoreflecting-surf-380816',
-  keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
+  // keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
+  keyFilename: path.join(process.cwd(), 'secrets/reflecting-surf-380816-251f309b734b.json'),
+
 });
 
 const upload = multer({ storage: multer.memoryStorage() });

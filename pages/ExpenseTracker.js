@@ -10,29 +10,16 @@ import {
 function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   const [inputExpense, setInputExpense] = useState("");
   const [inputAmount, setInputAmount] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0); // new state variable for total amount
+  const [totalAmount, setTotalAmount] = useState(0);
   const dispatch = useDispatch();
   const spending = useSelector(selectSpending);
-  // console.log("this is popup window : " + monthName);
-  // console.log("this is popup window : " + dayOfMonth);
-  // console.log("this is popup window : " + currentYear);
   useEffect(() => {
     dispatch(fetchSpendingAsync());
   }, [dispatch]);
 
   useEffect(() => {
-    //update total amount whenever spending changes
-    // const filteredExpenses = spending.filter(event => {
-    //   // console.log("IMPORTANT " + event.month);
-    //   return (
-    //     event.month === monthName &&
-    //     event.day === dayOfMonth &&
-    //     event.year === currentYear
-    //   );
-    // });
     const filteredExpenses = spending.filter(event => {
       if (event && event.month) {
-        console.log("IMPORTANT " + event.month);
         return (
           event.month === monthName &&
           event.day === dayOfMonth &&
@@ -42,6 +29,7 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
         return false;
       }
     });
+
     const total = filteredExpenses.reduce(
       (acc, curr) => acc + parseFloat(curr.spendingamount),
       0
@@ -49,18 +37,8 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
     setTotalAmount(total);
   }, [spending, dayOfMonth, monthName, currentYear]);
 
-  // const filteredExpenses = spending.filter(event => {
-  //   console.log("IMPORTANT " + event.month);
-  //   return (
-  //     event.month &&
-  //     event.month === monthName &&
-  //     event.day === dayOfMonth &&
-  //     event.year === currentYear
-  //   );
-  // });
   const filteredExpenses = spending.filter(event => {
     if (event && event.month) {
-      console.log("IMPORTANT " + event.month);
       return (
         event.month === monthName &&
         event.day === dayOfMonth &&
@@ -80,10 +58,6 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   };
 
   const handleOnClick = async () => {
-    if (!inputAmount) {
-      console.log("Amount cannot be empty");
-      return;
-    }
     try {
       await dispatch(
         createSpendingAsync({
@@ -94,6 +68,7 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
           spendingamount: inputAmount,
         })
       );
+      await dispatch(fetchSpendingAsync());
       setInputExpense("");
       setInputAmount("");
     } catch (error) {
@@ -102,8 +77,6 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   };
 
   const handleRemoveClick = async id => {
-    console.log("this is the id: " + id);
-    //dispatch(deleteSpendingAsync(id));
     try {
       await dispatch(deleteSpendingAsync(id));
       dispatch(fetchSpendingAsync());
@@ -133,9 +106,8 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
             filteredExpenses.map((event, index) => (
               <div key={event.id}>
                 <p>
-                  {event.spendingname}: ${event.spendingamount}
+                  {event.spendingname}:  ${event.spendingamount}
                 </p>
-                <p>{event.id}</p>
                 <button onClick={() => handleRemoveClick(event.id)}>
                   Remove
                 </button>
@@ -147,7 +119,6 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
         </>
         <p>Total amount: ${+totalAmount.toFixed(2)}</p>
         {}
-        {/* display total amount */}
       </div>
     </div>
   );

@@ -58,7 +58,6 @@ const SpendingSlice = createSlice({
       state.push(action.payload);
     });
     builder.addCase(deleteSpendingAsync.fulfilled, (state, action) => {
-      //console.log("this is the Spending slicepage" + action.payload.id);
       return state.filter(spending => spending.id !== action.payload.id);
     });
   },

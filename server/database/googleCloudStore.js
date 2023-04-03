@@ -22,7 +22,7 @@ try {
 
   await bucket.upload(filePath, options);
   const fileName = bucket.file(fileName);
-  const publicUrl = `https://storage.googleapis.com/invitego/${fileName}`;
+const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
   return publicUrl;
 } catch (error) {
   console.error('Error uploading video to Google Cloud Storage:', error);

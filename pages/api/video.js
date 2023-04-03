@@ -1,36 +1,36 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 const { uploadVideo } = require('../../server/database/googleCloudStore');
-// const { Event} = require('../database/Event');
 const { Video } = require('../../server/database/Index')
 const { Storage } = require('@google-cloud/storage');
-
+import nextConnect from 'next-connect';
+import multer from 'multer';
 
 const storage = new Storage({
   projectId: 'invitegoreflecting-surf-380816',
   keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
 });
 
-const handler = async (req, res) => {
-  if (req.method === 'POST') {
+const upload = multer({ storage: multer.memoryStorage() });
+
+const handler = nextConnect()
+  .use(upload.single('file'))
+  .post(async (req, res) => {
     try {
       if (!req.files || !req.files.file) {
         return res.status(400).send('No file uploaded');
       }
 
-    const file = req.files.file;
-    const blob = file.data;
-    const fileName = `${Date.now()}.webm`;
+      const file = req.file;
+      const fileName = `${Date.now()}.webm`;
 
-    const bucketName = 'invitego';
-    const bucket = storage.bucket(bucketName);
-    const options = { resumable: false };
+      const bucketName = 'invitego';
+      const bucket = storage.bucket(bucketName);
 
-    await bucket.upload(blob, {
-      destination: fileName,
-      metadata: {
-        contentType: file.mimetype,
-      },
-    });
+      await bucket.upload(file.buffer, {
+        destination: fileName,
+        metadata: {
+          contentType: file.mimetype,
+        },
+      });
 
     const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}}`;
     
@@ -45,9 +45,7 @@ const handler = async (req, res) => {
     console.error(error);
     res.status(500).send('Error uploading video');
   }
-} else {
-  res.status(405).send('Method not allowed');
-}
-};
+
+});
 
 export default handler;

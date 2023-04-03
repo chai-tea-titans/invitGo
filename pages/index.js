@@ -30,9 +30,7 @@ const Home = () => {
               <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
                
                <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
-        
-                <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
-        
+                
                <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
         
               

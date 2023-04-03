@@ -66,9 +66,7 @@ import axios from 'axios';
     formData.append('filename', `${Date.now()}.webm`);
     try {
       // Send the video to the server to be uploaded
-      const res = await axios.post('/api/video', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await axios.post('/api/video', formData);
       console.log('Video saved:', res.data.videoUrl);
       onVideoUpload(res.data.videoUrl);
       // Update the list of videos

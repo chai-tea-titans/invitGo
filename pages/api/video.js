@@ -19,8 +19,8 @@ const handler = nextConnect()
   .use(upload.single('file'))
   .post(async (req, res) => {
     try {
-      if (!req.file) {
-        return res.status(400).send('No file uploaded');
+      if (!req.file || !req.file.buffer) { 
+        return res.status(400).send('No file uploaded or incomplete request');
       }
 
       const file = req.file;
@@ -46,7 +46,7 @@ const handler = nextConnect()
     res.json({ videoUrl: publicUrl });
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error uploading video');
+    res.status(500).send(`Error uploading video: ${error.message}`);
   }
 
 });

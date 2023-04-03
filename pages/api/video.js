@@ -11,7 +11,6 @@ const fsPromises = require('fs').promises;
 
 const storage = new Storage({
   projectId: 'reflecting-surf-380816', 
-  // keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
   keyFilename: path.join(process.cwd(), 'secrets/reflecting-surf-380816-251f309b734b.json'),
 
 });
@@ -40,6 +39,7 @@ const handler = nextConnect()
   .use(upload.single('file'))
   .post(async (req, res) => {
     try {
+      console.log('start of try')
       if (!req.file || !req.file.buffer) { 
         return res.status(400).send('No file uploaded or incomplete request');
       }

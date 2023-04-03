@@ -86,20 +86,22 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   };
 
   return (
-    <div>
+    <div className="expensetrackerdiv">
       <div>
         <label>
-          Expense Name:
-          <input type="text" value={inputExpense} onChange={handleNameChange} />
+          
+          <input type="text" value={inputExpense} placeholder="Expense Name" onChange={handleNameChange} />
         </label>
+        
         <label>
-          Expense Amount:
+         
           <input
             type="number"
             value={inputAmount}
             onChange={handleAmountChange}
+            placeholder="Expense ammount $"
           />
-        </label>
+        </label><br/>
         <button onClick={handleOnClick}>Add Expense</button>
         <>
           {filteredExpenses.length > 0 ? (

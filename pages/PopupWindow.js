@@ -66,12 +66,13 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
     <div className="popup-window">
       <div className="popup-header">
         <div>
-          <button className="popup-close" onClick={onClose}>
-            CLOSE
-          </button>
+          
         </div>
       </div>
       <div className="popup-content">
+      <button className="popup-close" onClick={onClose}>
+            X
+          </button>
         <p>
           Enter note for day {monthName}/{dayOfMonth}:
         </p>
@@ -93,13 +94,14 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         <span>
           <button onClick={handleSaveClick}>Save</button>
         </span>
-      </div>
-
-      <ExpenseTracker
+        <ExpenseTracker
         dayOfMonth={dayOfMonth}
         monthName={monthName}
         currentYear={currentYear}
       />
+      </div>
+
+      
     </div>
   );
 };

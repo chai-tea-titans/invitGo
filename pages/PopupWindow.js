@@ -25,9 +25,7 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  if (!calendarData || calendarData.length === 0) {
-    return <div>No data available</div>;
-  }
+  
 
   const filteredData =
     calendarData?.filter(event => {

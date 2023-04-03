@@ -55,7 +55,7 @@ import axios from 'axios';
     console.log("start of try")
 
       // Send the video to the server to be uploaded
-        const res = await axios.post('/api/Video', formData, {
+        const res = await axios.post('/api/video', formData, {
         headers: { 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
       });
 

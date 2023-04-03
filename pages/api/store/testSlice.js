@@ -21,7 +21,8 @@ export const createEventAsync = createAsyncThunk(
         day,
         year,
         addeditems,
-      });
+      })
+      .single();
       return data;
     } catch (error) {
       console.error("Error creating event fail: ", error);

@@ -104,12 +104,15 @@ const Calendar = () => {
   };
 
   const handleNoteClick = (dayOfMonth, monthName) => {
-    setCreateNote({
-      dayOfMonth: dayOfMonth,
-      monthName: monthName,
-      currentYear: currentYear,
-      // eventId: newEvent.id, // pass the new event's ID to PopupWindow
-    });
+    if (!dayOfMonth || !monthName) {
+      setCreateNote(null);
+    } else {
+      setCreateNote({
+        dayOfMonth: dayOfMonth,
+        monthName: monthName,
+        currentYear: currentYear,
+      });
+    }
     setShowNote(true);
   };
 
@@ -142,7 +145,7 @@ const Calendar = () => {
           />
         )}
       </div>
-      {/* <Graph /> */}
+      <Graph />
       <Weather />
     </div>
   );

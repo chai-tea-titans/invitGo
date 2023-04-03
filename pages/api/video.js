@@ -42,8 +42,10 @@ const handler = nextConnect()
 
       const bucketName = 'invitego';
       const bucket = storage.bucket(bucketName);
+
 console.log("I am here")
-      await bucket.upload(file.buffer, {
+      
+await bucket.upload(file.buffer, {
         destination: fileName,
         metadata: {
           contentType: file.mimetype,

@@ -41,13 +41,12 @@ font-size: 12px;
 }
 
 .calendar-grid{
-  max-width: 500px;
-  min-height: 175px;
+ width: 100vw;
 }
 
 button{
  
- font-size: 8px;
+ font-size: 12px;
   background-color: #101010;
   
 }

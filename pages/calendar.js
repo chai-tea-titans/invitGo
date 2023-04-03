@@ -142,7 +142,7 @@ const Calendar = () => {
           />
         )}
       </div>
-      <Graph />
+      {/* <Graph /> */}
       <Weather />
     </div>
   );

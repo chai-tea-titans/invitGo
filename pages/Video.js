@@ -49,54 +49,10 @@ import { supabase } from '../lib/supabaseClient';
     try{
    console.log("start video upload") 
 
-
-    // const blob = new Blob(recordChunks, { type: 'video/webm' });
-  
-    // const formData = new FormData();
-    // formData.append('file', blob);
-    // formData.append('filename', `${Date.now()}.webm`);
-
-    // console.log("start of try")
-
-   
-      // // Send the video to the server to be uploaded
-      //   const res = await axios.post('https://jegrrxcwskznudgdebik.supabase.co/video', formData, {
-      //   headers: { 
-      //     // 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
-      //     'Content-Type':'multipart/form-data'},
-      // });
-
-    //   console.log('Video saved:', res.data.videoUrl);
-  //   // const publicUrl = await uploadVideo(blob, res.data.videoUrl);
-  //   const publicUrl = await uploadVideo(res.data.videoUrl);
-  //   console.log('Video uploaded to Google Cloud Bucket:', publicUrl);
-
-  //     // onVideoUpload(res.data.videoUrl);
-  //     // Update the list of videos
-
-  //     onVideoUpload(publicUrl);
-
-  //     // Update the list of videos
-  //     setVideos((prevVideos) => [...prevVideos, publicUrl]);
-  //     // setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
-  
-  //     // Set the success message
-  //     setUploadMessage("Video upload was successful!");
-  //   } catch (error) {
-  //     console.error(error);
-  //     setUploadMessage("Video upload failed. Please try again.");
-  //   } 
-  // };
-
-  //  // Convert the recorded video to a Blob object
-  //  const blob = new Blob(recordChunks, { type: 'video/webm' })
-
-  //  // Generate a unique filename for the video
-  //  const fileName = `${Date.now()}.webm`
-
    // Upload the video to Supabase Storage
    const { data, error } = await supabase.storage.
-   from('videos').upload(fileName, blob)
+   from('video')
+   .upload(fileName, blob)
    if (error) {
      throw new Error('Error uploading video to Supabase Storage')
    }
@@ -109,7 +65,7 @@ import { supabase } from '../lib/supabaseClient';
 //    throw new Error('Error getting public URL for uploaded video')
 //  }
 
-const { publicURL } = supabase.storage.from('videos').getPublicUrl(fileName);
+const { publicUrl } = supabase.storage.from('video').getPublicUrl(fileName);
 
       // Call the onVideoUpload callback with the public URL of the uploaded video
       onVideoUpload(publicUrl)

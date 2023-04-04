@@ -8,29 +8,29 @@ const storage = new Storage({
 
 const bucketName = 'invitego';
 
-async function uploadVideo(filePath, fileName) {
-try {
+async function uploadVideo(file) {
+  try {
     const bucket = storage.bucket(bucketName);
   const options = {
-    destination: `${fileName}`,
+    destination: `${Date.now()}_${file.originalname}`,
     public: true, 
     metadata: {
       contentType: 'video/webm',   
     },
   };
 
-  await bucket.upload(filePath, options);
+  await bucket.upload(file.path, options);
 
   // const fileObj = bucket.file(fileName);
   // const publicUrl = `https://storage.googleapis.com/invitego/${fileObj}`;
   
-  const file = bucket.file(fileName);
-  const publicUrl = await file.getSignedUrl({
+  const fileObj = bucket.file(options.destination);
+  const publicUrl = await fileObj.getSignedUrl({
     action: 'read',
     expires: '01-01-2050', // expiry date of the signed URL
   });
 
-  return publicUrl;
+  return publicUrl[0];
 } catch (error) {
   console.error(error);
   throw new Error('Error uploading video to Google Cloud Storage');

@@ -3,9 +3,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-import { uploadVideo } from '../server/database/googleCloudStore';
+import { createClient } from '@supabase/supabase-js'
 
-
+const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co', 
+'TawwGHrsbPnG8NYi+WInQpRHTK6J22vntHtIJNT/lujF9J3v9ARzdv+4GhK+fPnDxrXqgUHsFSbv7GpnPVJiYQ==')
 
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
@@ -60,34 +61,65 @@ import { uploadVideo } from '../server/database/googleCloudStore';
     // console.log("start of try")
 
     try{
-      // Send the video to the server to be uploaded
-        const res = await axios.post('https://jegrrxcwskznudgdebik.supabase.co/video', formData, {
-        headers: { 
-          // 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
-          'Content-Type': 'multipart/form-data'},
-      });
+      // // Send the video to the server to be uploaded
+      //   const res = await axios.post('https://jegrrxcwskznudgdebik.supabase.co/video', formData, {
+      //   headers: { 
+      //     // 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
+      //     'Content-Type':'multipart/form-data'},
+      // });
 
-    console.log('Video saved:', res.data.videoUrl);
-    // const publicUrl = await uploadVideo(blob, res.data.videoUrl);
-    const publicUrl = await uploadVideo(res.data.videoUrl);
-    console.log('Video uploaded to Google Cloud Bucket:', publicUrl);
+    //   console.log('Video saved:', res.data.videoUrl);
+  //   // const publicUrl = await uploadVideo(blob, res.data.videoUrl);
+  //   const publicUrl = await uploadVideo(res.data.videoUrl);
+  //   console.log('Video uploaded to Google Cloud Bucket:', publicUrl);
 
-      // onVideoUpload(res.data.videoUrl);
-      // Update the list of videos
+  //     // onVideoUpload(res.data.videoUrl);
+  //     // Update the list of videos
 
-      onVideoUpload(publicUrl);
+  //     onVideoUpload(publicUrl);
 
-      // Update the list of videos
-      setVideos((prevVideos) => [...prevVideos, publicUrl]);
-      // setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
+  //     // Update the list of videos
+  //     setVideos((prevVideos) => [...prevVideos, publicUrl]);
+  //     // setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
   
-      // Set the success message
-      setUploadMessage("Video upload was successful!");
-    } catch (error) {
-      console.error(error);
-      setUploadMessage("Video upload failed. Please try again.");
-    } 
-  };
+  //     // Set the success message
+  //     setUploadMessage("Video upload was successful!");
+  //   } catch (error) {
+  //     console.error(error);
+  //     setUploadMessage("Video upload failed. Please try again.");
+  //   } 
+  // };
+
+   // Convert the recorded video to a Blob object
+   const blob = new Blob(recordChunks, { type: 'video/webm' })
+
+   // Generate a unique filename for the video
+   const fileName = `${Date.now()}.webm`
+
+   // Upload the video to Supabase Storage
+   const { data, error } = await supabase.storage.from('videos').upload(fileName, blob)
+   if (error) {
+     throw new Error('Error uploading video to Supabase Storage')
+   }
+
+   // Get the public URL of the uploaded video
+   const publicUrl = supabase.storage.from('videos').getPublicUrl(fileName)
+
+   // Call the onVideoUpload callback with the public URL of the uploaded video
+   onVideoUpload(publicUrl)
+
+   // Update the list of videos
+   setVideos((prevVideos) => [...prevVideos, publicUrl])
+
+   // Set the success message
+   setUploadMessage('Video upload was successful!')
+ } catch (error) {
+   console.error(error)
+   setUploadMessage('Video upload failed. Please try again.')
+ }
+}
+
+
   
   const handlePlayRecording = () => {
     if (videoRef.current) {

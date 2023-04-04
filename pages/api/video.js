@@ -1,4 +1,4 @@
-const { Video } = require('../../server/database/Index')
+const { Video } = require('../../server/database/Models')
 const { Storage } = require('@google-cloud/storage');
 import nextConnect from 'next-connect';
 import multer from 'multer';

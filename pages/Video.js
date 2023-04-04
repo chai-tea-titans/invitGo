@@ -2,10 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-import { createClient } from '@supabase/supabase-js'
-
-const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co', 
-'TawwGHrsbPnG8NYi+WInQpRHTK6J22vntHtIJNT/lujF9J3v9ARzdv+4GhK+fPnDxrXqgUHsFSbv7GpnPVJiYQ==')
+import { supabase } from './lib/supabaseClient';
 
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
@@ -112,7 +109,7 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
 //    throw new Error('Error getting public URL for uploaded video')
 //  }
 
- const publicUrl = supabase.storage.from('videos').getPublicUrl(fileName);
+const { publicURL } = supabase.storage.from('videos').getPublicUrl(fileName);
 
       // Call the onVideoUpload callback with the public URL of the uploaded video
       onVideoUpload(publicUrl)

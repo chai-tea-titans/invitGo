@@ -115,13 +115,13 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
  const publicUrl = supabase.storage.from('videos').getPublicUrl(fileName);
 
       // Call the onVideoUpload callback with the public URL of the uploaded video
-      onVideoUpload(publicURL)
+      onVideoUpload(publicUrl)
 
 
    // Update the list of videos
   
    setVideos((prevVideos) => [...prevVideos, publicUrl])
-   
+
    // Set the success message
    setUploadMessage('Video upload was successful!')
  } catch (error) {
@@ -143,11 +143,13 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
       };
     }
   };
+
   const handleRecordAgain = () => {
     setRecording(false);
     setRecordChunks([]);
     setKey(key + 1);
   };
+
   const handleStopRecording = async () => {
     if (videoRef.current !== null) {
   const stream = videoRef.current.srcObject;
@@ -173,30 +175,33 @@ if (stopTimeoutId) {
 return (
   <>
   {showVideoRecordingScreen && (
-<div>
-<video ref={videoRef} width="400" height="300" />
-<div>
-  {!recording && recordChunks.length === 0 && (
-    <button onClick={handleStartRecording}>Start Recording</button>
+    <div>
+      <video ref={videoRef} width="400" height="300" />
+      <div>
+        {!recording && recordChunks.length === 0 && (
+          <button onClick={handleStartRecording}>Start Recording</button>
+        )}
+        {recording && (
+          <button onClick={handleStopRecording}>Stop Recording</button>
+        )}
+        {!recording && recordChunks.length > 0 && (
+          <>
+            <button onClick={handlePlayRecording}>Play Recording</button>
+            <button onClick={handleUploadVideo}>Attach Video to Invite</button>
+            <button onClick={handleRecordAgain}>Record Again</button>
+          </>
+        )}
+      </div>
+      <div>
+        {uploadMessage && <div>{uploadMessage}</div>}
+        {videos.map((video) => (
+          <video key={video} src={video} width="400" height="300" controls />
+        ))}
+      </div>
+    </div>
   )}
-  {recording && (
-    <button onClick={handleStopRecording}>Stop Recording</button>
-  )}
-  {!recording && recordChunks.length > 0 && (
-    <>
-      <button onClick={handlePlayRecording}>Play Recording</button>
-      <button onClick={handleUploadVideo}>Attach Video to Invite</button>
-      <button onClick={handleRecordAgain}>Record Again</button>
-    </>
-  )}
-</div>
-<div>
-  <video src=''></video>
-</div>
-<div>{uploadMessage}</div>
-</div>
-)}
-</>
-);
-};
+  </>
+)};
+
+
 export default Video;

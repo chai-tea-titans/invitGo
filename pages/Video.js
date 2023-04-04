@@ -73,7 +73,7 @@ console.log(videos)
 
    const { data, error } = await storage
    .from('video')
-   .upload(`${Date.now()}.mp4`, recordChunks )
+   .upload(`${Date.now()}.webm`, recordChunks )
 
    if (error) {
     console.log(error)
@@ -102,7 +102,7 @@ setVideos((prevVideos) => [...prevVideos, publicUrl]);
   const handlePlayRecording = () => {
     if (videoRef.current) {
       const videoBlob = new Blob(recordChunks, {
-        type: 'video/mp4',
+        type: 'video/webm',
       });
       videoRef.current.src = URL.createObjectURL(videoBlob);
       videoRef.current.onloadedmetadata = () => {
@@ -166,7 +166,7 @@ return (
           if (video.name === ".emptyFolderPlaceholder") return null;
           return (
           <video key={video} src={video} width="400" height="300" controls >
-            <source src={CDNURL + video.name} type="video/mp4" />
+            <source src={CDNURL + video.name} type="video/webm" />
           </video>
           );
           })}

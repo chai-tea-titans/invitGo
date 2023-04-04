@@ -73,7 +73,7 @@ console.log(videos)
 
    const { data, error } = await storage
    .from('video')
-   .upload(`${Date.now()}.webm`, recordChunks )
+   .upload(`${Date.now()}.mp4`, recordChunks )
 
    if (error) {
     console.log(error)

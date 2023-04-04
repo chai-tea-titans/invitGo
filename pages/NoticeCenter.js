@@ -40,7 +40,7 @@ const NoticeCenter = () => {
   return (
     <div>
       <Head><title>Notifications</title></Head>
-      <h3><span>(0)</span>Notifications</h3>
+      <h3><span>(0)</span>🔔</h3>
       {notifications.length > 0 ? (
   notifications.map((notification) => (
     <div key={notification.id}>
@@ -56,7 +56,7 @@ const NoticeCenter = () => {
     </div>
   ))
 ) : (
-  <p>No new notifications</p>
+  <p></p>
       )}
     </div>
   );

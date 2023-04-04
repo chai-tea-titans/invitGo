@@ -1,14 +1,11 @@
 "use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { supabase } from "../../../lib/supabaseClient"
- 
+import { supabase } from "../../../lib/supabaseClient";
 
 export const fetchCalendarAsync = createAsyncThunk("AllCalendar", async () => {
   try {
-    const { data } = await supabase
-    .from(`calendarEvent`)
-    .select()
+    const { data } = await supabase.from(`calendarevent`).select();
     return data;
   } catch (err) {
     console.log(err);
@@ -19,14 +16,13 @@ export const createEventAsync = createAsyncThunk(
   "calendar/add",
   async ({ month, day, year, addeditems }) => {
     try {
-      const { data } = await supabase
-      .from(`calendarEvent`)
-      .insert ({
+      const { data } = await supabase.from(`calendarevent`).insert({
         month,
         day,
         year,
         addeditems,
-      });
+      })
+      .single();
       return data;
     } catch (error) {
       console.error("Error creating event fail: ", error);
@@ -40,10 +36,10 @@ export const deleteEventAsync = createAsyncThunk(
   async id => {
     try {
       const { data } = await supabase
-      .from(`calendarevent`)
-      .delete()
-      .eq('id', id)
-      return {id};
+        .from(`calendarevent`)
+        .delete()
+        .eq("id", id);
+      return { id };
     } catch (error) {
       console.error("Error deleting event: ", error);
     }

@@ -1,14 +1,11 @@
 "use client";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { supabase } from "../../../lib/supabaseClient"
+import { supabase } from "../../../lib/supabaseClient";
 
 export const fetchSpendingAsync = createAsyncThunk("AllSpending", async () => {
   try {
-    const { data } = await supabase
-    .from(`spendingEvent`)
-    .select()
-   
+    const { data } = await supabase.from(`spendingevent`).select();
     return data;
   } catch (err) {
     console.log(err);
@@ -19,15 +16,14 @@ export const createSpendingAsync = createAsyncThunk(
   "spending/add",
   async ({ month, day, year, spendingname, spendingamount }) => {
     try {
-      const { data } = await supabase
-      .from(`spendingEvent`)
-      .insert ({
+      const { data } = await supabase.from(`spendingevent`).insert({
         month,
         day,
         year,
         spendingname,
         spendingamount,
-      });
+      })
+      .single()
       return data;
     } catch (error) {
       console.error("Error creating event fail: ", error);
@@ -41,10 +37,10 @@ export const deleteSpendingAsync = createAsyncThunk(
   async id => {
     try {
       const { data } = await supabase
-      .from(`spendingEvent`)
-      .delete()
-      .eq('id', id)
-      return data;
+        .from(`spendingevent`)
+        .delete()
+        .eq("id", id);
+      return { id };
     } catch (error) {
       console.error("Error deleting event: ", error);
     }
@@ -63,7 +59,6 @@ const SpendingSlice = createSlice({
       state.push(action.payload);
     });
     builder.addCase(deleteSpendingAsync.fulfilled, (state, action) => {
-      console.log("this is the Spending slicepage" + action.payload.id);
       return state.filter(spending => spending.id !== action.payload.id);
     });
   },

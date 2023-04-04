@@ -10,7 +10,7 @@ import {
 function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   const [inputExpense, setInputExpense] = useState("");
   const [inputAmount, setInputAmount] = useState("");
-  const [totalAmount, setTotalAmount] = useState(0); // new state variable for total amount
+  const [totalAmount, setTotalAmount] = useState(0);
   const dispatch = useDispatch();
   const spending = useSelector(selectSpending);
   useEffect(() => {
@@ -18,14 +18,18 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   }, [dispatch]);
 
   useEffect(() => {
-    // update total amount whenever spending changes
     const filteredExpenses = spending.filter(event => {
-      return (
-        event.month === monthName &&
-        event.day === dayOfMonth &&
-        event.year === currentYear
-      );
+      if (event && event.month) {
+        return (
+          event.month === monthName &&
+          event.day === dayOfMonth &&
+          event.year === currentYear
+        );
+      } else {
+        return false;
+      }
     });
+
     const total = filteredExpenses.reduce(
       (acc, curr) => acc + parseFloat(curr.spendingamount),
       0
@@ -34,11 +38,15 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   }, [spending, dayOfMonth, monthName, currentYear]);
 
   const filteredExpenses = spending.filter(event => {
-    return (
-      event.month === monthName &&
-      event.day === dayOfMonth &&
-      event.year === currentYear
-    );
+    if (event && event.month) {
+      return (
+        event.month === monthName &&
+        event.day === dayOfMonth &&
+        event.year === currentYear
+      );
+    } else {
+      return false;
+    }
   });
 
   const handleNameChange = event => {
@@ -50,10 +58,6 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   };
 
   const handleOnClick = async () => {
-    if (!inputAmount) {
-      console.log("Amount cannot be empty");
-      return;
-    }
     try {
       await dispatch(
         createSpendingAsync({
@@ -64,6 +68,7 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
           spendingamount: inputAmount,
         })
       );
+      await dispatch(fetchSpendingAsync());
       setInputExpense("");
       setInputAmount("");
     } catch (error) {
@@ -72,34 +77,39 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
   };
 
   const handleRemoveClick = async id => {
-    //console.log("this is the id: " + id);
-    dispatch(deleteSpendingAsync(id));
+    try {
+      await dispatch(deleteSpendingAsync(id));
+      dispatch(fetchSpendingAsync());
+    } catch (error) {
+      console.error("Error removing spending: ", error);
+    }
   };
 
   return (
-    <div>
+    <div className="expensetrackerdiv">
       <div>
         <label>
-          Expense Name:
-          <input type="text" value={inputExpense} onChange={handleNameChange} />
+          
+          <input type="text" value={inputExpense} placeholder="Expense Name" onChange={handleNameChange} />
         </label>
+        
         <label>
-          Expense Amount:
+         
           <input
             type="number"
             value={inputAmount}
             onChange={handleAmountChange}
+            placeholder="Expense ammount $"
           />
-        </label>
+        </label><br/>
         <button onClick={handleOnClick}>Add Expense</button>
         <>
           {filteredExpenses.length > 0 ? (
             filteredExpenses.map((event, index) => (
               <div key={event.id}>
                 <p>
-                  {event.spendingname}: ${event.spendingamount}
+                  {event.spendingname}:  ${event.spendingamount}
                 </p>
-                {/* <p>{event.id}</p> */}
                 <button onClick={() => handleRemoveClick(event.id)}>
                   Remove
                 </button>
@@ -109,8 +119,8 @@ function ExpenseTracker({ dayOfMonth, monthName, currentYear }) {
             <div>No matching events found</div>
           )}
         </>
-        <p>Total amount: ${+totalAmount.toFixed(2)}</p>{}
-        {/* display total amount */}
+        <p>Total amount: ${+totalAmount.toFixed(2)}</p>
+        {}
       </div>
     </div>
   );

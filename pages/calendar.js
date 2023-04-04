@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import PopupWindow from "./PopupWindow";
+import Graph from "./Graph";
+import Weather from "./Weather";
+import Link from "next/link";
+
 //test case ******************* remember to delete after uses
 // import TestDisplay from "./TestDisplay";
 // import Event from "./../server/database/Event"
-import Graph from "./Graph";
-import Weather from "./Weather";
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -104,12 +106,15 @@ const Calendar = () => {
   };
 
   const handleNoteClick = (dayOfMonth, monthName) => {
-    setCreateNote({
-      dayOfMonth: dayOfMonth,
-      monthName: monthName,
-      currentYear: currentYear,
-      // eventId: newEvent.id, // pass the new event's ID to PopupWindow
-    });
+    if (!dayOfMonth || !monthName) {
+      setCreateNote(null);
+    } else {
+      setCreateNote({
+        dayOfMonth: dayOfMonth,
+        monthName: monthName,
+        currentYear: currentYear,
+      });
+    }
     setShowNote(true);
   };
 
@@ -130,7 +135,7 @@ const Calendar = () => {
             ))}
           </tr>
         </thead>
-        <tbody>{renderCalendarCells()}</tbody>
+        <tbody className="cellbody">{renderCalendarCells()}</tbody>
       </table>
       <div>
         {showNote && (
@@ -144,6 +149,11 @@ const Calendar = () => {
       </div>
       <Graph />
       <Weather />
+      <footer className="footer">
+      <Link className='Logo' href="/calendar">✉️</Link>
+      <Link className='Logo' href="/">Go</Link>
+      <Link className='Logo' href="/calendar">📅</Link>
+      </footer>
     </div>
   );
 };

@@ -26,73 +26,87 @@ function Graph() {
     "December",
   ];
 
-  const januarySpending = spending.filter(data => data.month === "January");
+  const januarySpending = spending.filter(
+    data => data && data.month === "January"
+  );
   const januaryTotal = januarySpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const februarySpending = spending.filter(data => data.month === "February");
+  const februarySpending = spending.filter(
+    data => data && data.month === "February"
+  );
   const februaryTotal = februarySpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const marchSpending = spending.filter(data => data.month === "March");
+  const marchSpending = spending.filter(data => data && data.month === "March");
   const marchTotal = marchSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const aprilSpending = spending.filter(data => data.month === "April");
+  const aprilSpending = spending.filter(data => data && data.month === "April");
   const aprilTotal = aprilSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const maySpending = spending.filter(data => data.month === "May");
+  const maySpending = spending.filter(data => data && data.month === "May");
   const mayTotal = maySpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const juneSpending = spending.filter(data => data.month === "June");
+  const juneSpending = spending.filter(data => data && data.month === "June");
   const juneTotal = juneSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const julySpending = spending.filter(data => data.month === "July");
+  const julySpending = spending.filter(data => data && data.month === "July");
   const julyTotal = julySpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const augustSpending = spending.filter(data => data.month === "August");
+  const augustSpending = spending.filter(
+    data => data && data.month === "August"
+  );
   const augustTotal = augustSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const septemberSpending = spending.filter(data => data.month === "September");
+  const septemberSpending = spending.filter(
+    data => data && data.month === "September"
+  );
   const septemberTotal = septemberSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const octoberSpending = spending.filter(data => data.month === "October");
+  const octoberSpending = spending.filter(
+    data => data && data.month === "October"
+  );
   const octoberTotal = octoberSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const novemberSpending = spending.filter(data => data.month === "November");
+  const novemberSpending = spending.filter(
+    data => data && data.month === "November"
+  );
   const novemberTotal = novemberSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
   );
 
-  const decemberSpending = spending.filter(data => data.month === "December");
+  const decemberSpending = spending.filter(
+    data => data && data.month === "December"
+  );
   const decemberTotal = decemberSpending.reduce(
     (total, data) => total + data.spendingamount,
     0
@@ -140,7 +154,7 @@ function Graph() {
   };
 
   return (
-    <div style={{ width: 700 }}>
+    <div className="Graph">
       <LineChart chartData={chartData} />
     </div>
   );

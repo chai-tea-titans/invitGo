@@ -65,8 +65,12 @@ import { supabase } from '../lib/supabaseClient';
 //    throw new Error('Error getting public URL for uploaded video')
 //  }
 
-const { publicUrl } = supabase.storage.from('video').getPublicUrl(fileName);
-
+const { publicURL, error: urlError } = await supabase.storage
+.from('video')
+.getPublicUrl(fileName);
+if (urlError) {
+throw new Error('Error getting public URL for uploaded video');
+}
       // Call the onVideoUpload callback with the public URL of the uploaded video
       onVideoUpload(publicUrl)
 

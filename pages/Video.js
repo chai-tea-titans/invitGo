@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-import { supabase } from './lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient';
 
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);

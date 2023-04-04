@@ -1,9 +1,6 @@
 {
-  "version": 2,
-  "build": {
-    "env": {
-      "FS": "empty"
-    }
-  }
+  "version": 2
+
 }
+
   

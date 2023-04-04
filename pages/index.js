@@ -5,7 +5,7 @@ import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
 import Head from 'next/head'
 import Link from 'next/link'
 
-import NoticeCenter from './NoticeCenter';
+
 
 
 const Home = () => {
@@ -21,7 +21,7 @@ const Home = () => {
          <main className='homepageimg'>
              <div className='navbardesk navbarmobile'>
             <Link className='Logo' href="/">InviteGo</Link>
-            <div className='notifications'><NoticeCenter /></div>
+           
           
            <div className="dropdown">
            

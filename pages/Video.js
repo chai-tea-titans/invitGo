@@ -1,18 +1,15 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
-// import { fetchVideoAsync, createEventAsync } from './store/videoslice';
-// import { useDispatch, useSelector } from 'react-redux';
-import { createClient } from '@supabase/supabase-js';
+
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
 
-const supabaseUrl = 'https://jegrrxcwskznudgdebik.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3JyeGN3c2t6bnVkZ2RlYmlrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDIwODI5MywiZXhwIjoxOTk1Nzg0MjkzfQ.IPx8_xoz7bfnFb1usJUs0sM8wSVpCUpsdmCWMSYPcTo';
-const supabase = createClient(supabaseUrl, supabaseKey);
-const storage = supabase.storage;
-const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
 
 
   const Video = ({ onVideoUpload }) => {
+const supabase = useSupabaseClient()
+
+
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
     const [recordChunks, setRecordChunks] = useState([]);
@@ -77,7 +74,7 @@ console.log(videos)
 
    if (error) {
     console.log(error)
-     throw new Error('Error uploading video to Supabase Storage')
+     alert('Error uploading video to Supabase Storage');
    }
   
    const publicUrl = `${CDNURL}${data.Key}`;

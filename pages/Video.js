@@ -6,7 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 
 
 const supabaseUrl = 'https://jegrrxcwskznudgdebik.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3JyeGN3c2t6bnVkZ2RlYmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODAyMDgyOTMsImV4cCI6MTk5NTc4NDI5M30._doAzzn9qvhXUF_hRpbib-EftdeFIxrcIUOz12l3KQA';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3JyeGN3c2t6bnVkZ2RlYmlrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MDIwODI5MywiZXhwIjoxOTk1Nzg0MjkzfQ.IPx8_xoz7bfnFb1usJUs0sM8wSVpCUpsdmCWMSYPcTo';
 const supabase = createClient(supabaseUrl, supabaseKey);
 const storage = supabase.storage;
 const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
@@ -143,7 +143,7 @@ return (
   <>
   {showVideoRecordingScreen && (
     <div>
-      <video ref={videoRef} width="400" height="300" />
+      <video ref={videoRef} width="600" height="425" />
       <div>
         {!recording && recordChunks.length === 0 && (
           <button onClick={handleStartRecording}>Start Recording</button>
@@ -165,7 +165,7 @@ return (
           console.log(video);
           if (video.name === ".emptyFolderPlaceholder") return null;
           return (
-          <video key={video} src={video} width="400" height="300" controls >
+          <video key={video} src={video} width="600" height="425" controls >
             <source src={CDNURL + video.name} type="video/webm" />
           </video>
           );

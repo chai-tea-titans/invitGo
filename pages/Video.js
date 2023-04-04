@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
-import axios from 'axios';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
 import { createClient } from '@supabase/supabase-js'
@@ -14,10 +13,10 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
     const [recordChunks, setRecordChunks] = useState([]);
     const [key, setKey] = useState(0);
     const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
-    const [videos, setVideos] = useState([]);
     const [uploadMessage, setUploadMessage] = useState("");
     const [stopTimeoutId, setStopTimeoutId] = useState(null);
-  
+    const [videos, setVideos] = useState([]);
+
 
   const handleStartRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -48,7 +47,9 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
 
 
   const handleUploadVideo = async () => {
-
+    const blob = new Blob(recordChunks, { type: 'video/webm' });
+    const fileName = `${Date.now()}.webm`;
+    try{
    console.log("start video upload") 
 
 
@@ -60,7 +61,7 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
 
     // console.log("start of try")
 
-    try{
+   
       // // Send the video to the server to be uploaded
       //   const res = await axios.post('https://jegrrxcwskznudgdebik.supabase.co/video', formData, {
       //   headers: { 
@@ -90,27 +91,37 @@ const supabase = createClient('https://jegrrxcwskznudgdebik.supabase.co',
   //   } 
   // };
 
-   // Convert the recorded video to a Blob object
-   const blob = new Blob(recordChunks, { type: 'video/webm' })
+  //  // Convert the recorded video to a Blob object
+  //  const blob = new Blob(recordChunks, { type: 'video/webm' })
 
-   // Generate a unique filename for the video
-   const fileName = `${Date.now()}.webm`
+  //  // Generate a unique filename for the video
+  //  const fileName = `${Date.now()}.webm`
 
    // Upload the video to Supabase Storage
-   const { data, error } = await supabase.storage.from('videos').upload(fileName, blob)
+   const { data, error } = await supabase.storage.
+   from('videos').upload(fileName, blob)
    if (error) {
      throw new Error('Error uploading video to Supabase Storage')
    }
 
    // Get the public URL of the uploaded video
-   const publicUrl = supabase.storage.from('videos').getPublicUrl(fileName)
+//    const { publicURL, error: urlError } = await supabase.storage
+//    .from('videos')
+//    .getPublicUrl(fileName)
+//  if (urlError) {
+//    throw new Error('Error getting public URL for uploaded video')
+//  }
 
-   // Call the onVideoUpload callback with the public URL of the uploaded video
-   onVideoUpload(publicUrl)
+ const publicUrl = supabase.storage.from('videos').getPublicUrl(fileName);
+
+      // Call the onVideoUpload callback with the public URL of the uploaded video
+      onVideoUpload(publicURL)
+
 
    // Update the list of videos
+  
    setVideos((prevVideos) => [...prevVideos, publicUrl])
-
+   
    // Set the success message
    setUploadMessage('Video upload was successful!')
  } catch (error) {

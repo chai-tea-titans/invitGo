@@ -4,6 +4,9 @@ import React, { useRef, useState, useEffect } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
 import { supabase } from '../lib/supabaseClient';
 
+const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
+
+
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
@@ -42,42 +45,55 @@ import { supabase } from '../lib/supabaseClient';
   setStopTimeoutId(timeoutId);
 };
 
+async function getVideo() {
+  const {data, error} = await supabase
+  .storage.from('video').list('')
 
-  const handleUploadVideo = async () => {
-    const blob = new Blob(recordChunks, { type: 'video/webm' });
-    const fileName = `${Date.now()}.webm`;
-    try{
-   console.log("start video upload") 
+  if (data !==null) {
+    setVideos(data);
+  } else {
+    console.log(error)
+  }
+  getVideo();
+}
 
-   // Upload the video to Supabase Storage
-   const { data, error } = await supabase.storage.
-   from('video')
-   .upload(fileName, blob)
+useEffect(() => {
+  getVideo()
+}, [videos]);
+
+console.log(vi)
+
+  const handleUploadVideo = async() => {
+  try {
+    console.log("start video upload") 
+
+   const { data, error } = await supabase.storage
+   .from('video')
+   .upload(`${Date.now()}.webm`, recordChunks )
+
    if (error) {
+    console.log(error)
      throw new Error('Error uploading video to Supabase Storage')
    }
 
-   // Get the public URL of the uploaded video
-//    const { publicURL, error: urlError } = await supabase.storage
-//    .from('videos')
-//    .getPublicUrl(fileName)
-//  if (urlError) {
-//    throw new Error('Error getting public URL for uploaded video')
-//  }
+// const { publicUrl, error: urlError } = await supabase.storage
+// .from('video')
+// .getPublicUrl(fileName);
+// if (urlError) {
+// throw new Error('Error getting public URL for uploaded video');
+// }
+//       // Call the onVideoUpload callback with the public URL of the uploaded video
+//       onVideoUpload(publicUrl)
 
-const { publicURL, error: urlError } = await supabase.storage
-.from('video')
-.getPublicUrl(fileName);
-if (urlError) {
-throw new Error('Error getting public URL for uploaded video');
-}
-      // Call the onVideoUpload callback with the public URL of the uploaded video
-      onVideoUpload(publicUrl)
 
+//    // Update the list of videos
+//    setVideos((prevVideos) => [...prevVideos, publicUrl])
+
+   // Call the onVideoUpload callback with the public URL of the uploaded video
+   onVideoUpload(data);
 
    // Update the list of videos
-  
-   setVideos((prevVideos) => [...prevVideos, publicUrl])
+   getVideo();
 
    // Set the success message
    setUploadMessage('Video upload was successful!')
@@ -85,7 +101,8 @@ throw new Error('Error getting public URL for uploaded video');
    console.error(error)
    setUploadMessage('Video upload failed. Please try again.')
  }
-}
+ getVideo();
+  }
 
 
   
@@ -151,9 +168,15 @@ return (
       </div>
       <div>
         {uploadMessage && <div>{uploadMessage}</div>}
-        {videos.map((video) => (
-          <video key={video} src={video} width="400" height="300" controls />
-        ))}
+        {videos.map((video) => {
+          console.log(video);
+          if (video.name === ".emptyFolderPlaceholder") return null;
+          return (
+          <video key={video} src={video} width="400" height="300" controls >
+            <source src={CDNURL + video.name} type="video/webm" />
+          </video>
+          );
+          })}
       </div>
     </div>
   )}

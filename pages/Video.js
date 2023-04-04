@@ -102,7 +102,7 @@ setVideos((prevVideos) => [...prevVideos, publicUrl]);
   const handlePlayRecording = () => {
     if (videoRef.current) {
       const videoBlob = new Blob(recordChunks, {
-        type: 'video/webm',
+        type: 'video/mp4',
       });
       videoRef.current.src = URL.createObjectURL(videoBlob);
       videoRef.current.onloadedmetadata = () => {
@@ -166,7 +166,7 @@ return (
           if (video.name === ".emptyFolderPlaceholder") return null;
           return (
           <video key={video} src={video} width="400" height="300" controls >
-            <source src={CDNURL + video.name} type="video/webm" />
+            <source src={CDNURL + video.name} type="video/mp4" />
           </video>
           );
           })}

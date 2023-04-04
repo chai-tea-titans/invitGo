@@ -1,7 +1,7 @@
 import { addNotification } from "./store/notificationsSlice";
-const { events } = require("../../server/database/Event");
+const { Event } = require("../../server/database/Models");
 import store from "./store/store";
-const { Video } = require("../../server/database/Video");
+const { Video } = require("../../server/database/Models");
 
 
 router.post("/createEvent", async (req, res) => {

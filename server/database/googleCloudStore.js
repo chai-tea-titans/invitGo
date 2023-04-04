@@ -4,7 +4,6 @@ const path = require('path');
 
 const storage = new Storage({
   keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
-    keyFilename: './secrets/reflecting-surf-380816-251f309b734b.json',
 });
 
 const bucketName = 'invitego';
@@ -15,16 +14,22 @@ try {
   const options = {
     destination: `${fileName}`,
     public: true, 
-    destination: `${fileName}`,
-    public: true, 
     metadata: {
-      contentType: ['video/mp4', 'video/webm'],   
+      contentType: 'video/webm',   
     },
   };
 
   await bucket.upload(filePath, options);
-  const fileName = bucket.file(fileName);
-  const publicUrl = `https://storage.googleapis.com/invitego/${fileName}`;
+
+  // const fileObj = bucket.file(fileName);
+  // const publicUrl = `https://storage.googleapis.com/invitego/${fileObj}`;
+  
+  const file = bucket.file(fileName);
+  const publicUrl = await file.getSignedUrl({
+    action: 'read',
+    expires: '01-01-2050', // expiry date of the signed URL
+  });
+
   return publicUrl;
 } catch (error) {
   console.error(error);
@@ -32,10 +37,5 @@ try {
 }
 
 }
-
-
-
-
-module.exports = { uploadVideo };
 
 module.exports = { uploadVideo };

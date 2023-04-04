@@ -3,6 +3,10 @@ import React, { useRef, useState, useEffect } from 'react';
 import axios from 'axios';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
+import { uploadVideo } from '../server/database/googleCloudStore';
+
+
+
   const Video = ({ onVideoUpload }) => {
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
@@ -45,32 +49,44 @@ import axios from 'axios';
   const handleUploadVideo = async () => {
 
    console.log("start video upload") 
-    const blob = new Blob(recordChunks, { type: 'video/webm' });
+
+
+    // const blob = new Blob(recordChunks, { type: 'video/webm' });
   
-    const formData = new FormData();
-    formData.append('file', blob);
-    formData.append('filename', `${Date.now()}.webm`);
-    try {
+    // const formData = new FormData();
+    // formData.append('file', blob);
+    // formData.append('filename', `${Date.now()}.webm`);
 
-    console.log("start of try")
+    // console.log("start of try")
 
+    try{
       // Send the video to the server to be uploaded
-        const res = await axios.post('/api/video', formData, {
-        headers: { 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
+        const res = await axios.post('https://jegrrxcwskznudgdebik.supabase.co/video', formData, {
+        headers: { 
+          // 'Content-Type': `multipart/form-data; boundary=${formData._boundary}` },
+          'Content-Type': 'multipart/form-data'},
       });
 
-      console.log('Video saved:', res.data.videoUrl);
-      onVideoUpload(res.data.videoUrl);
+    console.log('Video saved:', res.data.videoUrl);
+    // const publicUrl = await uploadVideo(blob, res.data.videoUrl);
+    const publicUrl = await uploadVideo(res.data.videoUrl);
+    console.log('Video uploaded to Google Cloud Bucket:', publicUrl);
+
+      // onVideoUpload(res.data.videoUrl);
       // Update the list of videos
-      setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
+
+      onVideoUpload(publicUrl);
+
+      // Update the list of videos
+      setVideos((prevVideos) => [...prevVideos, publicUrl]);
+      // setVideos((prevVideos) => [...prevVideos, res.data.videoUrl]);
   
       // Set the success message
       setUploadMessage("Video upload was successful!");
     } catch (error) {
       console.error(error);
-      // Optionally, you can set an error message as well
       setUploadMessage("Video upload failed. Please try again.");
-    }
+    } 
   };
   
   const handlePlayRecording = () => {

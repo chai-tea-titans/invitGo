@@ -2,8 +2,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 // import { fetchVideoAsync, createEventAsync } from './store/videoslice';
 // import { useDispatch, useSelector } from 'react-redux';
-import { supabase } from '../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
 
+
+const supabaseUrl = 'https://jegrrxcwskznudgdebik.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImplZ3JyeGN3c2t6bnVkZ2RlYmlrIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODAyMDgyOTMsImV4cCI6MTk5NTc4NDI5M30._doAzzn9qvhXUF_hRpbib-EftdeFIxrcIUOz12l3KQA';
+const supabase = createClient(supabaseUrl, supabaseKey);
+const storage = supabase.storage;
 const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
 
 
@@ -54,12 +59,11 @@ async function getVideo() {
   } else {
     console.log(error)
   }
-  getVideo();
 }
 
 useEffect(() => {
   getVideo()
-}, [videos]);
+}, []);
 
 console.log(videos)
 
@@ -67,7 +71,7 @@ console.log(videos)
   try {
     console.log("start video upload") 
 
-   const { data, error } = await supabase.storage
+   const { data, error } = await storage
    .from('video')
    .upload(`${Date.now()}.webm`, recordChunks )
 
@@ -75,25 +79,14 @@ console.log(videos)
     console.log(error)
      throw new Error('Error uploading video to Supabase Storage')
    }
-
-// const { publicUrl, error: urlError } = await supabase.storage
-// .from('video')
-// .getPublicUrl(fileName);
-// if (urlError) {
-// throw new Error('Error getting public URL for uploaded video');
-// }
-//       // Call the onVideoUpload callback with the public URL of the uploaded video
-//       onVideoUpload(publicUrl)
-
-
-//    // Update the list of videos
-//    setVideos((prevVideos) => [...prevVideos, publicUrl])
+  
+   const publicUrl = `${CDNURL}${data.Key}`;
 
    // Call the onVideoUpload callback with the public URL of the uploaded video
-   onVideoUpload(data);
+   onVideoUpload([publicUrl]);
 
    // Update the list of videos
-   getVideo();
+setVideos((prevVideos) => [...prevVideos, publicUrl]);
 
    // Set the success message
    setUploadMessage('Video upload was successful!')

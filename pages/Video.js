@@ -61,7 +61,7 @@ useEffect(() => {
   getVideo()
 }, [videos]);
 
-console.log(vi)
+console.log(videos)
 
   const handleUploadVideo = async() => {
   try {

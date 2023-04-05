@@ -21,6 +21,7 @@ export const createEventAsync = createAsyncThunk(
         day,
         year,
         addeditems,
+        
       })
       .single();
       return data;

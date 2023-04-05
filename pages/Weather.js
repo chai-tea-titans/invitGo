@@ -23,7 +23,7 @@ function Weather() {
   }, []);
 
   return (
-    <div>
+    <div >
       {location && (
         <div>
           <h2>
@@ -33,7 +33,7 @@ function Weather() {
         </div>
       )}
       {weatherData && (
-        <div>
+        <div className="weather">
           <p>{weatherData.main.temp}°F</p>
           <p>{weatherData.weather[0].description}</p>
           <img

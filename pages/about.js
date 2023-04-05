@@ -18,7 +18,7 @@ const About = () => {
         
       )}
       <footer className="footer">
-      <Link className='Logo' href="/calendar">✉️</Link>
+      <Link className='Logo' href="/about">👤</Link>
       <Link className='Logo' href="/">Go</Link>
       <Link className='Logo' href="/calendar">📅</Link>
       </footer>

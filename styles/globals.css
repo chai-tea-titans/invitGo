@@ -1,337 +1,6 @@
-
-/* for smaller screens  */
- @media only screen and (max-width: 500px) { 
-
-
-  /* INDEX PAGE */
-body{
-  top: 0;
-  align-items: center;
-  text-align: center;
-
-}
-.Logo{
-  font-size: 50px;
-  text-decoration: none;
-  color:#034956;
-  font-weight: bold;
-  
-}
-.notifications{
-  display: none;
-}
-
-
-
-
-
-
-/* CALENDAR PAGE */
-
-.homepageimg{
-  background-image: url('https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-  background-size: cover;
-  height: 100vh;
-  top:0;
-  background-repeat: no-repeat;
-}
-
-.calendar{
-  width: 100vw;
-flex-wrap: wrap;
-font-size: 12px;
-}
-
-.calendar-header{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.calendar-grid{
- width: 100vw;
-}
-
-button{
- 
- font-size: 12px;
-  background-color: #101010;
-  
-}
-.cellbody{
-  flex-wrap: wrap;
-}
-tr{
-  flex-wrap: wrap;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* POP UP WINDOW  */
-.popup-window {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-
-}
-
-.popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  color: #101010;
-  z-index: 2;
-}
-.popup-close{
-  background-color: rgb(200, 88, 88);
-  color:black;
- 
-}
-.popup-close:hover{
- color: #e2f1f2;
-background-color: red;
- 
-}
-
-.expensearea{
-  margin-top: 25px;
-}
-
-
-
-/* EXPENSETRACKER */
-
-
-
-
-/* GRAPH */
-.Graph{
-  width: 100vw;
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* VIDEO */
-
-
-
-
-
-/* FOOTER */
-.footer{
-  position:fixed;
-  bottom: 0;
-  background-color: black;
-  width: 100vw;
-  display: flex;
-  justify-content: space-around;
-  height: 60px;
-  align-items: center;
-  
-}
-
-
-
-
-
- }
-
- @media only screen and ( min-width: 501px) { 
- body {
-    top: 0;
-    align-items: center;
-    text-align: center;
-  }
-  .Logo {
-    font-size: 50px;
-    text-decoration: none;
-    color: #034956;
-    font-weight: bold;
-  }
-  .notifications {
-    display: none;
-  }
-  .homepageimg {
-    background-image: url("https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
-    background-size: cover;
-    height: 100vh;
-    top: 0;
-    background-repeat: no-repeat;
-  }
-
-  .calendar {
-    width: 100vw;
-    flex-wrap: wrap;
-    font-size: 12px;
-  }
-
-  .calendar-header {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .calendar-grid {
-    width: 100vw;
-  }
-
-  button {
-    font-size: 12px;
-    background-color: #101010;
-  }
-  .cellbody {
-    flex-wrap: wrap;
-  }
-  tr {
-    flex-wrap: wrap;
-  }
-
-  .popup-window {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-
-  .popup-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-    color: #101010;
-    z-index: 2;
-  }
-  .popup-close {
-    background-color: rgb(200, 88, 88);
-    color: black;
-  }
-  .popup-close:hover {
-    color: #e2f1f2;
-    background-color: red;
-  }
-
-  .expensearea {
-    margin-top: 25px;
-  }
-
-  .Graph {
-    width: 100%;
-  }
-  .footer {
-    position: fixed;
-    bottom: 0;
-    background-color: black;
-    width: 100vw;
-    display: flex;
-    justify-content: space-around;
-    height: 60px;
-    align-items: center;
-  }
-
-
-
- }
-
-
-
-
- @media only screen and ( min-width:751) { 
-
-
-
-
- }
-
-
-
-
- @media only screen and ( min-width:1000) { 
-
-
-
-
- }
-
-
-
-
-
-
-
-/* 
+   /* 
   Style the dropdown content */
-  .dropdown-content {
-    display: none;
-
-    z-index: 1;
-  }
-
-  /* Show the dropdown content when the button is clicked */
-  .dropdown:hover .dropdown-content {
-    display: block;
-    align-items: center;
-    animation-name: dropdown;
-    animation-duration: 1s;
-  }
-
-  /* Define the animation */
-  @keyframes dropdown {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  .dropdownlinksdiv {
-    margin-top: 10px;
-    width: 100%;
-    border: 3px solid #034956;
-    background-color: #034956;
-  }
-
-  .dropdownlinks {
-    text-decoration: none;
-    color: #e2f1f2;
-  }
+  
 
 
 .popup-window {
@@ -359,10 +28,10 @@ html,
 body {
   --custom-font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
     Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  --custom-bg-color: #101010;
+  --custom-bg-color: white;
   --custom-panel-color: #222;
   --custom-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.8);
-  --custom-color: #fff;
+  
   --custom-color-brand: #24b47e;
   --custom-color-secondary: #666;
   --custom-border: 1px solid #333;
@@ -415,6 +84,12 @@ button.primary,
 }
 
 /* Widgets */
+.form-widget{
+  align-items: center;
+  margin-left: 30%;
+  margin-right:30%;
+  width: 40%;
+}
 
 .card {
   width: 100%;
@@ -423,6 +98,10 @@ button.primary,
   border-radius: var(--custom-border-radius);
   padding: var(--custom-spacing);
 }
+
+
+
+
 
 .avatar {
   border-radius: var(--custom-border-radius);
@@ -436,6 +115,12 @@ button.primary,
   background-color: #333;
   border: 1px solid rgb(200, 200, 200);
   border-radius: 5px;
+  
+  
+}
+.avatar-div{
+  align-items: center;
+  text-align: center;
 }
 
 
@@ -541,4 +226,410 @@ button.primary,
   margin-bottom: 10px;
   text-decoration: none;
 }
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* for smaller screens  */
+ @media only screen and (max-width: 500px) { 
+
+
+  /* INDEX PAGE */
+body{
+  top: 0;
+  align-items: center;
+  text-align: center;
+
+}
+.Logo{
+  font-size: 50px;
+  text-decoration: none;
+  color:#034956;
+  font-weight: bold;
+  
+}
+.notifications{
+  display: none;
+}
+
+
+
+
+
+
+/* CALENDAR PAGE */
+
+.homepageimg{
+  background-image: url('https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  background-size: cover;
+  height: 100%;
+  top:0;
+  background-repeat: no-repeat;
+}
+
+.calendar{
+  width: 100vw;
+flex-wrap: wrap;
+font-size: 12px;
+}
+
+.calendar-header{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.calendar-grid{
+ width: 100vw;
+}
+
+button{
+ 
+ font-size: 12px;
+  
+  
+}
+.cellbody{
+  flex-wrap: wrap;
+}
+tr{
+  flex-wrap: wrap;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* POP UP WINDOW  */
+.popup-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  color: #101010;
+  z-index: 2;
+}
+.popup-close{
+  background-color: rgb(200, 88, 88);
+  color:black;
+ 
+}
+.popup-close:hover{
+ color: #e2f1f2;
+background-color: red;
+ 
+}
+
+.expensearea{
+  margin-top: 25px;
+}
+
+
+
+/* EXPENSETRACKER */
+
+
+
+
+/* GRAPH */
+.Graph{
+  width: 100vw;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* VIDEO */
+
+.videos{
+  width: 100%;
+   margin-top: 0px;
+   border: 1px solid lightgray;
+   padding: 10px;
+   
+ }
+ .video-input{
+ border: 1px solid lightslategray;
+ margin-left: 15%;
+ margin-right: 15%;
+ color: #034956;
+ font-style:italic;
+ font-size: 20px;
+   
+ }
+ .insert-video-div{
+   max-height: 80px;
+   background-color: antiquewhite;
+   width: 70%;
+   margin-left: 15%;
+ margin-right: 15%;
+ }
+
+
+
+
+
+/* FOOTER */
+.footer{
+  position:fixed;
+  bottom: 0;
+  background-color: black;
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  align-items: center;
+  
+}
+
+
+.dropdown-content {
+  display: none;
+
+  z-index: 1;
+}
+
+/* Show the dropdown content when the button is clicked */
+.dropdown:hover .dropdown-content {
+  display: block;
+  align-items: center;
+  animation-name: dropdown;
+  animation-duration: 1s;
+}
+
+/* Define the animation */
+@keyframes dropdown {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.dropdownlinksdiv {
+  margin-top: 10px;
+  width: 100%;
+  border: 3px solid #034956;
+  background-color: #034956;
+}
+
+.dropdownlinks {
+  text-decoration: none;
+  color: #e2f1f2;
+}
+
+
+
+
+ }
+
+ @media only screen and ( min-width: 501px) { 
+ body {
+    top: 0;
+    align-items: center;
+    text-align: center;
+  }
+ .dropdown{
+  margin-left: 30%;
+  margin-right: 30%;
+  width: 40%;
+ }
+
+
+  .Logo {
+    font-size: 50px;
+    text-decoration: none;
+    color: #034956;
+    font-weight: bold;
+  }
+  .notifications {
+    display: none;
+  }
+  .homepageimg {
+    background-image: url("https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+    height: 100%;
+    top: 0;
+    background-repeat: no-repeat;
+  }
+
+  .calendar {
+    width: 40%;
+    flex-wrap: wrap;
+    font-size: 12px;
+    align-items: center;
+    text-align: center;
+    margin-right: 30%;
+    margin-left: 30%;
+  }
+
+  .calendar-header {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .calendar-grid {
+    width: 100%;
+  }
+
+  button {
+    font-size: 12px;
+    
+  }
+  .cellbody {
+    flex-wrap: wrap;
+  }
+  tr {
+    flex-wrap: wrap;
+  }
+
+  .popup-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    color: #101010;
+    z-index: 2;
+  }
+  .popup-close {
+    background-color: rgb(200, 88, 88);
+    color: black;
+  }
+  .popup-close:hover {
+    color: #e2f1f2;
+    background-color: red;
+  }
+
+  .expensearea {
+    margin-top: 25px;
+  }
+
+  .Graph {
+    width: 100%;
+  }
+  .footer {
+ display: none;
+  }
+
+  /* Videos  */
+.videos{
+ width: 100%;
+  margin-top: 25px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  padding-bottom: 40px;
+}
+.video-input{
+border: 1px solid lightslategray;
+margin-left: 30%;
+margin-right: 30%;
+  
+}
+.insert-video-div{
+  max-height: 80px;
+  background-color: antiquewhite;
+  width: 40%;
+  margin-left: 30%;
+margin-right: 30%;
+}
+
+/* Weather */
+
+
+
+ }
+
+
+
+
+ @media only screen and ( min-width:751) { 
+
+
+
+
+ }
+
+
+
+
+ @media only screen and ( min-width:1000) { 
+
+
+
+
+ }
+
+
+
+
+
+
 

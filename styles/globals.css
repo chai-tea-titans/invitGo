@@ -167,8 +167,104 @@ background-color: red;
 
  }
 
- @media only screen and ( min-width:501) { 
+ @media only screen and ( min-width: 501px) { 
+ body {
+    top: 0;
+    align-items: center;
+    text-align: center;
+  }
+  .Logo {
+    font-size: 50px;
+    text-decoration: none;
+    color: #034956;
+    font-weight: bold;
+  }
+  .notifications {
+    display: none;
+  }
+  .homepageimg {
+    background-image: url("https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+    height: 100vh;
+    top: 0;
+    background-repeat: no-repeat;
+  }
 
+  .calendar {
+    width: 100vw;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+
+  .calendar-header {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .calendar-grid {
+    width: 100vw;
+  }
+
+  button {
+    font-size: 12px;
+    background-color: #101010;
+  }
+  .cellbody {
+    flex-wrap: wrap;
+  }
+  tr {
+    flex-wrap: wrap;
+  }
+
+  .popup-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    color: #101010;
+    z-index: 2;
+  }
+  .popup-close {
+    background-color: rgb(200, 88, 88);
+    color: black;
+  }
+  .popup-close:hover {
+    color: #e2f1f2;
+    background-color: red;
+  }
+
+  .expensearea {
+    margin-top: 25px;
+  }
+
+  .Graph {
+    width: 100%;
+  }
+  .footer {
+    position: fixed;
+    bottom: 0;
+    background-color: black;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+    align-items: center;
+  }
 
 
 

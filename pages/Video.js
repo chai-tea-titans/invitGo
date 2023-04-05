@@ -1,23 +1,20 @@
 "use client";
 import React, { useRef, useState, useEffect } from 'react';
-
+import { supabase } from '../lib/supabaseClient';
+import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 
-
-
-
-  const Video = ({ onVideoUpload }) => {
-const supabase = useSupabaseClient()
-
-
+const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
+const Video = () => {
     const videoRef = useRef(null);
     const [recording, setRecording] = useState(false);
     const [recordChunks, setRecordChunks] = useState([]);
-    const [key, setKey] = useState(0);
     const [showVideoRecordingScreen, setShowVideoRecordingScreen] = useState(true);
     const [uploadMessage, setUploadMessage] = useState("");
     const [stopTimeoutId, setStopTimeoutId] = useState(null);
     const [videos, setVideos] = useState([]);
+    const router = useRouter();
+    const supabaseClient = useSupabaseClient();
 
 
   const handleStartRecording = async () => {
@@ -47,94 +44,120 @@ const supabase = useSupabaseClient()
   setStopTimeoutId(timeoutId);
 };
 
-async function getVideo() {
-  const {data, error} = await supabase
-  .storage.from('video').list('')
 
-  if (data !==null) {
-    setVideos(data);
-  } else {
-    console.log(error)
-  }
-}
-
-useEffect(() => {
-  getVideo()
-}, []);
-
-console.log(videos)
-
-  const handleUploadVideo = async() => {
-  try {
-    console.log("start video upload") 
-
-   const { data, error } = await storage
-   .from('video')
-   .upload(`${Date.now()}.webm`, recordChunks )
-
-   if (error) {
-    console.log(error)
-     alert('Error uploading video to Supabase Storage');
-   }
-  
-   const publicUrl = `${CDNURL}${data.Key}`;
-
-   // Call the onVideoUpload callback with the public URL of the uploaded video
-   onVideoUpload([publicUrl]);
-
-   // Update the list of videos
-setVideos((prevVideos) => [...prevVideos, publicUrl]);
-
-   // Set the success message
-   setUploadMessage('Video upload was successful!')
- } catch (error) {
-   console.error(error)
-   setUploadMessage('Video upload failed. Please try again.')
- }
- getVideo();
-  }
-
-
-  
-  const handlePlayRecording = () => {
-    if (videoRef.current) {
-      const videoBlob = new Blob(recordChunks, {
-        type: 'video/webm',
-      });
-      videoRef.current.src = URL.createObjectURL(videoBlob);
-      videoRef.current.onloadedmetadata = () => {
-        videoRef.current.play();
-      };
-    }
-  };
-
-  const handleRecordAgain = () => {
-    setRecording(false);
-    setRecordChunks([]);
-    setKey(key + 1);
-  };
-
-  const handleStopRecording = async () => {
-    if (videoRef.current !== null) {
-  const stream = videoRef.current.srcObject;
-  if (stream !== null) {
-    const tracks = stream.getTracks();
-    tracks.forEach((track) => track.stop());
-    videoRef.current.srcObject = null;
-    setRecording(false);
-  }
-}
-// Clear the timeout if it exists
-if (stopTimeoutId) {
-  clearTimeout(stopTimeoutId);
-  setStopTimeoutId(null);
+const handlePlayRecording = () => {
+  if (videoRef.current) {
+    const videoBlob = new Blob(recordChunks, {
+      type: 'video/webm',
+    });
+    videoRef.current.src = URL.createObjectURL(videoBlob);
+    videoRef.current.onloadedmetadata = () => {
+      videoRef.current.play();
+    };
   }
 };
 
-// const handleAttachVideo = () => {
-//   setShowVideoRecordingScreen(false);
-//   onVideoUpload(recordChunks);
-// };
+const handleRecordAgain = () => {
+  setRecording(false);
+  setRecordChunks([]);
+  setKey(key + 1);
+};
+
+const handleStopRecording = async () => {
+  if (videoRef.current !== null) {
+const stream = videoRef.current.srcObject;
+if (stream !== null) {
+  const tracks = stream.getTracks();
+  tracks.forEach((track) => track.stop());
+  videoRef.current.srcObject = null;
+  setRecording(false);
+}
+}
+    // Clear the timeout if it exists
+    if (stopTimeoutId) {
+      clearTimeout(stopTimeoutId);
+      setStopTimeoutId(null);
+    }
+  }
+
+const handleUploadVideo = async () => {
+  if (recordChunks.length > 0 || fileInputRef.current.files.length > 0) {
+    const videoFile = recordChunks.length > 0 ? new Blob(recordChunks, { type: 'video/webm' }) : fileInputRef.current.files[0];
+    const fileName = uuidv4() + '.webm';
+    const { data, error } = await supabase.storage
+    .from('video').upload(fileName, videoFile, {
+      cacheControl: '3600',
+      metadata: {
+        filetype: 'video',
+        encoding: 'webm',
+      },
+    });
+    if (error) {
+    console.error(error);
+    setUploadMessage('Video upload failed. Please try again.');
+    } else {
+    const publicUrl = `${CDNURL}${data.Key}`;
+    // Call the onVideoUpload callback with the public URL of the uploaded video
+    onVideoUpload([publicUrl]);
+
+      // Set the success message
+      setUploadMessage('Video upload was successful!');
+    }
+    // Reset the recording and chunks
+    setRecording(false);
+    setRecordChunks([]);
+  } else {
+    setUploadMessage('Please select a video to upload');
+  }
+};
+
+
+
+// async function getVideo() {
+//   const {data, error} = await supabase
+//   .storage.from('video').list('')
+
+//   if (data !==null) {
+//     setVideos(data);
+//   } else {
+//     console.log(error)
+//   }
+// }
+
+// useEffect(() => {
+//   getVideo()
+// }, []);
+
+// console.log(videos)
+
+async function getVideo() {
+  const { data, error } = await supabase.storage.from('video').list('');
+  if (error) {
+    console.error(error);
+    return;
+  }
+  
+  const videosWithMetadata = await Promise.all(
+    data.map(async (video) => {
+      const { data: metadata, error: metadataError } = await supabase
+        .storage.from('video')
+        .getMetadata(video.name);
+  
+      if (metadataError) {
+        console.error(metadataError);
+        return null;
+      }
+  
+      return { ...video, metadata };
+    })
+  );
+  
+  setVideos(videosWithMetadata.filter((video) => video !== null));
+}
+useEffect(() => {
+getVideo();
+}, []);
+
 
 return (
   <>

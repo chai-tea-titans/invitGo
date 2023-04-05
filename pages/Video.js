@@ -99,8 +99,8 @@ const handleUploadVideo = async () => {
     setUploadMessage('Video upload failed. Please try again.');
     } else {
     const publicUrl = `${CDNURL}${data.Key}`;
-    // Call the onVideoUpload callback with the public URL of the uploaded video
-    onVideoUpload([publicUrl]);
+    // // Call the onVideoUpload callback with the public URL of the uploaded video
+    // onVideoUpload([publicUrl]);
 
       // Set the success message
       setUploadMessage('Video upload was successful!');
@@ -142,8 +142,7 @@ async function getVideo() {
   const videosWithMetadata = await Promise.all(
     data.map(async (video) => {
       const { data: metadata, error: metadataError } = await supabase
-        .storage.from('video').getMetadata();
-  
+        .storage.from('video')
       if (metadataError) {
         console.error(metadataError);
         return null;

@@ -2,9 +2,9 @@
 
 Deployment, SupaBase, Login System and Next.js: Delvis Soto
 
-Calendar, PopupWindows, To-do List, Expenstive tracker, Graph and Weather API: Xiaolei Jiang
+Calendar, PopupWindows, To-do List, Expenses tracker, Graph and Weather API: Xiaolei Jiang
 
-Video, Design, Supabase, and Cloud: Carlos Zepeda
+Video, Supabase, Cloud, and Design: Carlos Zepeda
 
 ## inviteGo
 A website that will track ur daily useage by graphing it out and to-do lists, futhermore it has feature of video recording.

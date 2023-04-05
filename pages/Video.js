@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import {v4 as uuidv4} from 'uuid'
+
 
 const CDNURL = "https://jegrrxcwskznudgdebik.supabase.co/storage/v1/object/public/video/"
 const Video = () => {
@@ -140,8 +142,7 @@ async function getVideo() {
   const videosWithMetadata = await Promise.all(
     data.map(async (video) => {
       const { data: metadata, error: metadataError } = await supabase
-        .storage.from('video')
-        .getMetadata(video.name);
+        .storage.from('video').getMetadata();
   
       if (metadataError) {
         console.error(metadataError);

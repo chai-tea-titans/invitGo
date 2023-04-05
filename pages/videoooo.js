@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { supabase } from '../lib/supabaseClient';
 import {v4 as uuidv4} from 'uuid'
 
 
 const videoooo = () => {
-  const supabase = useSupabaseClient()
+ 
     async function uploadFile(e){
       const videoFile= e.target.files[0];
         console.log("upload");

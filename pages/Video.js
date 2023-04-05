@@ -180,15 +180,14 @@ return (
         )}
       </div>
       <div>{uploadMessage && <div>{uploadMessage}</div>}
-        {/* {videos.map((video) => {
+        {videos.map((video) => {
           console.log(video);
-          if (video.name === ".emptyFolderPlaceholder") return null;
           return (
           <video key={video} src={video} width="600" height="425" controls >
             <source src={CDNURL + video.name} type="video/webm" />
           </video>
           );
-          })} */}
+          })}
       </div>
     </div>
   )}

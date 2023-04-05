@@ -1,7 +1,7 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import Video from "../component/videoooo";
+import Video from "../component/Video";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -38,10 +38,11 @@ const Home = () => {
                     Calendar
                   </Link>
                 </div>
+                <>
+                  <Link className="dropdownlinks" href="/Videos">Videos </Link>
+                </>
               </div>
             </div>
-
-            <Video />
           </div>
         </main>
       )}

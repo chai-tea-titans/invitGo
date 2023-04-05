@@ -9,6 +9,7 @@ import {
   createEventAsync,
   deleteEventAsync,
 } from "./api/store/testSlice";
+import Video from "../component/Video"
 
 const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
   const router = useRouter();
@@ -99,9 +100,10 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         monthName={monthName}
         currentYear={currentYear}
       />
-      </div>
-
-      
+      <>
+      <Video />
+      </>
+      </div>    
     </div>
   );
 };

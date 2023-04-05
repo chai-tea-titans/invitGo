@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import {v4 as uuidv4} from 'uuid'
 import { useRouter } from 'next/router';
+import Video from "../component/Video"
 
 
-
-const Video = () => {
+const Videoo = () => {
  const [video, setVideo]=useState([])
  const [post, setPost]=useState('')
  const router=useRouter();
@@ -53,10 +53,10 @@ async function getVideo() {
   return (
    <div>
     <div className='insert-video-div' >
-       <input type='text' value={post} onChange={(e)=> setPost(e.target.value)}/>
-       
-        <input type='file' placeholder='Upload Video' accept='Video/mp4'
-        onChange={(e) => uploadFile(e)}/>
+       {/* <input type='text' value={post} onChange={(e)=> setPost(e.target.value)}/> */}
+       <Video />
+        {/* <input type='file' placeholder='Upload Video' accept='Video/mp4'
+        onChange={(e) => uploadFile(e)}/> */}
    
     </div >
     <div className='video-input'>
@@ -82,4 +82,4 @@ async function getVideo() {
   )
 }
 
-export default Video
+export default Videoo

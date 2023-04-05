@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCalendar } from "./api/store/testSlice";
 import { useRouter } from "next/router";
+
 import {
   fetchCalendarAsync,
   createEventAsync,
@@ -100,7 +101,7 @@ const PopupWindow = ({ onClose, dayOfMonth, monthName, currentYear }) => {
         currentYear={currentYear}
       />
       </div>
-
+      <Video />
       
     </div>
   );

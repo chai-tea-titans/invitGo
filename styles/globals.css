@@ -515,9 +515,7 @@ button.primary,
     margin-left: 30%;
     margin-right: 30%;
   }
-  #__next {
-    /* justify-content: center;
-    align-items: center; */
+  .container {
     margin-left: 38%;
     margin-right: 38%;
     width: 20%;

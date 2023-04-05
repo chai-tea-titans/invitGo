@@ -1,7 +1,7 @@
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react'
-import Video from "../component/Vi";
+import Video from "../pages/Video";
 import Head from 'next/head'
 import Link from 'next/link'
 

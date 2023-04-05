@@ -54,18 +54,18 @@ export default function Avatar({ uid, url, size, onUpload }) {
   }
 
   return (
-    <div className='avatar-div'>
+    <div >
       {avatarUrl ? (
         <img
           src={avatarUrl}
           alt="Avatar"
-          className="avatar image"
+          className="avatarimage"
           style={{ height: size, width: size }}
         />
       ) : (
         <div className="avatar no-image" style={{ height: size, width: size }} />
       )}
-      <div className=''>
+      <div className='avatar-div'>
         <label className="button primary block" htmlFor="single">
           {uploading ? 'Uploading ...' : 'Upload'}
         </label>

@@ -114,22 +114,22 @@ const handleUploadVideo = async () => {
 
 
 
-// async function getVideo() {
-//   const {data, error} = await supabase
-//   .storage.from('video').list('')
+async function getVideo() {
+  const {data, error} = await supabase
+  .storage.from('video').list('')
 
-//   if (data !==null) {
-//     setVideos(data);
-//   } else {
-//     console.log(error)
-//   }
-// }
+  if (data !==null) {
+    setVideos(data);
+  } else {
+    console.log(error)
+  }
+}
 
-// useEffect(() => {
-//   getVideo()
-// }, []);
+useEffect(() => {
+  getVideo()
+}, []);
 
-// console.log(videos)
+console.log(videos)
 
 async function getVideo() {
   const { data, error } = await supabase.storage.from('video').list('');
@@ -162,7 +162,7 @@ return (
   <>
   {showVideoRecordingScreen && (
     <div>
-      <video ref={videoRef} width="600" height="425" />
+      <video ref={videoRef} className='videopopup' />
       <div>
         {!recording && recordChunks.length === 0 && (
           <button onClick={handleStartRecording}>Start Recording</button>

@@ -1,16 +1,133 @@
+"use client";
+
+import { useState } from "react";
+import PopupWindow from "./PopupWindow";
+import Graph from "./Graph";
+import Weather from "./Weather";
+import Link from "next/link";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
-import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import Video from "../component/Video";
-import Head from "next/head";
-import Link from "next/link";
+import { useSession, useSupabaseClient} from "@supabase/auth-helpers-react";
 
-const Home = () => {
+
+//test case ******************* remember to delete after uses
+// import TestDisplay from "./TestDisplay";
+// import Event from "./../server/database/Event"
+
+const Calendar = () => {
   const session = useSession();
   const supabase = useSupabaseClient();
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentYear] = useState(new Date().getFullYear());
+  const [showNote, setShowNote] = useState(false);
+  const [createNote, setCreateNote] = useState("");
+
+  const weekdaysShort = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+  const daysInMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  ).getDate();
+  const startingDay = firstDayOfMonth.getDay();
+  const monthName = months[currentDate.getMonth()];
+  const year = currentDate.getFullYear();
+
+  const renderCalendarCells = () => {
+    const calendarCells = [];
+    let day = 1;
+
+    for (let i = 0; i < 6; i++) {
+      const calendarRow = [];
+
+      for (let j = 0; j < 7; j++) {
+        if (i === 0 && j < startingDay) {
+          calendarRow.push(
+            <td key={`${i}-${j}`} className="empty">
+              {" "}
+            </td>
+          );
+        } else if (day > daysInMonth) {
+          break;
+        } else {
+          calendarRow.push(
+            <td key={`${i}-${j}`}>
+              <button
+                onClick={() =>
+                  handleNoteClick(i * 7 + j + 1 - startingDay, monthName)
+                }
+                // onClick={() =>
+                //   handleNoteClick(
+                //     i * 7 + j + 1 - startingDay,
+                //     monthName,
+                //     currentYear,
+                //     // pass the eventId as an argument
+                //     event ? event.id : null
+                //   )
+                // }
+              >
+                {day}
+              </button>
+            </td>
+          );
+          day++;
+        }
+      }
+
+      calendarCells.push(<tr key={i}>{calendarRow}</tr>);
+    }
+
+    return calendarCells;
+  };
+
+  const onPrevButtonClick = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+    );
+  };
+
+  const onNextButtonClick = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    );
+  };
+
+  const handleNoteClick = (dayOfMonth, monthName) => {
+    if (!dayOfMonth || !monthName) {
+      setCreateNote(null);
+    } else {
+      setCreateNote({
+        dayOfMonth: dayOfMonth,
+        monthName: monthName,
+        currentYear: currentYear,
+      });
+    }
+    setShowNote(true);
+  };
 
   return (
-    <div className="container">
+
+    <div className="">
+    <div className="">
       {!session ? (
         <Auth
           supabaseClient={supabase}
@@ -18,122 +135,92 @@ const Home = () => {
           theme="dark"
         />
       ) : (
-        <main className="homepageimg">
-          <div className="navbardesk navbarmobile">
-            <Link className="Logo" href="/">
-              InviteGo
-            </Link>
-
-            <div className="dropdown">
-              <button className="dropbtn">Menu</button>
-              <div className="dropdown-content">
-                <div className="dropdownlinksdiv">
-                  <Link className="dropdownlinks" href="/about">
-                    Account
-                  </Link>
-                </div>
-
-                <div className="dropdownlinksdiv">
-                  <Link className="dropdownlinks" href="/calendar">
-                    Calendar
-                  </Link>
-                </div>
-                <>
-                  <Link className="dropdownlinks" href="/Videos">Videos </Link>
-                </>
-              </div>
-            </div>
+        
+        <div className="calendar">
+        <nav className="fullscreenNavbar">
+          <div>
+        <Link className="Logo" href="/">
+            InviteGo
+          </Link> 
           </div>
-        </main>
+  
+          <div className="insidenavbar">
+            <div className="innav">
+          <Link className="Logo" href="/about">
+            My Account 
+          </Link> 
+          </div>
+            <div className="innav">
+          <Link className="Logo" href="/Publicpost">
+            PublicPost 
+          </Link> 
+          </div>
+            <div className="innav">
+          <Link className="Logo" href="/Videos">
+            Videos
+          </Link>
+          </div>
+          </div>
+  
+        </nav>
+        <div className="calendar-header">
+          <button onClick={onPrevButtonClick}>{"<"}</button>
+          <div className="calendar-month-year">
+            {monthName} {year}
+          </div>
+          <button onClick={onNextButtonClick}>{">"}</button>
+        </div>
+        <table className="calendar-grid">
+          <thead>
+            <tr>
+              {weekdaysShort.map(weekday => (
+                <th key={weekday}>{weekday}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="cellbody">{renderCalendarCells()}</tbody>
+        </table>
+        <div>
+          {showNote && (
+            <PopupWindow
+              dayOfMonth={createNote.dayOfMonth}
+              monthName={createNote.monthName}
+              currentYear={createNote.currentYear}
+              onClose={() => setShowNote(false)}
+            />
+          )}
+        </div>
+        <Graph />
+        <Weather />
+        <footer className="footer">
+          <Link className="Logo" href="/about">
+            👤
+          </Link>
+          <Link className="Logo" href="/">
+            Go
+          </Link>
+          <Link className="Logo" href="/Publicpost">
+          ❌
+          </Link>
+          <Link className="Logo" href="/Videos">
+          🎥
+          </Link>
+        </footer>
+      </div>
       )}
-      <footer></footer>
+    
     </div>
+  </div>
+
+
+
+
+
+
+
+
+    
   );
 };
 
-export default Home;
-
-// "use client";
-
-// export default function Home() {
-//   const {data:session} = useSession()
-
-//   function handleSignOut(){
-//     signOut()
-//   }
-//   return (
-//       <div >
-//        <Head><title>Home</title></Head>
-
-//         {session ? AuthorizedUser({session, handleSignOut}) :Guest()}
-
-//       </div>
-
-//   )
-// }
-//  // Guest
-//  const Guest= ()=>{
-//   return(
-//     <main>
-//       <h1>Guest Page</h1>
-//       <Link href="/sign-in">Sign in</Link><br/>
-//     </main>
-//   )
-//  }
-
-//  //Authorized User
-//  const AuthorizedUser = ({session, handleSignOut})=>{
-//   return(
-//     <main className='homepageimg'>
-//     <div className='navbardesk navbarmobile'>
-//     <Link className='Logo' href="/">InviteGo</Link>
-
-//     <div className="dropdown">
-//  <button className="dropbtn">Menu</button>
-//   <div className="dropdown-content">
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/about">About</Link></div>
-
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/calendar">Calendar</Link></div>
-
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/contacts">Contacts</Link></div>
-
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/coolness-tracker">Coolness Tracker</Link></div>
-
-//        <div className='dropdownlinksdiv'> <Link className='dropdownlinks' href="/Video">Video</Link></div>
-
-//        {/* TEMPORARY LINK FOR VIDEO */}
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/event-reply">Event Reply</Link></div>
-
-//        <div className='dropdownlinksdiv'><Link className='dropdownlinks' href="/user-info">Profile</Link></div>
-
-//        <div className='dropdownlinksdiv'><a className='dropdownlinks' onClick={handleSignOut}>Sign Out</a></div>
-
-//        </div>
-//   </div>
-//   <h3>Welcome {session.user.name} </h3>
-//   <NoticeCenter />
-
-//   </div>
-
-//       <Squearepayment/>
-//   </main>
-//   )
-//  }
-
-//  export async function getServerSideProps ({req}) {
-// const session = await getSession({req})
-
-// if(!session){
-//   return {
-//     redirect: {
-//       permanent:false,
-//       destination:'/sign-in',
-
-//     },
-//   }
-// }
-
-// return{
-//   props:{session}
-// }
-//  }
+export default Calendar;

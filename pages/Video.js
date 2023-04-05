@@ -179,9 +179,8 @@ return (
           </>
         )}
       </div>
-      {/* <div>
-        {uploadMessage && <div>{uploadMessage}</div>}
-        {videos.map((video) => {
+      <div>{uploadMessage && <div>{uploadMessage}</div>}
+        {/* {videos.map((video) => {
           console.log(video);
           if (video.name === ".emptyFolderPlaceholder") return null;
           return (
@@ -189,8 +188,8 @@ return (
             <source src={CDNURL + video.name} type="video/webm" />
           </video>
           );
-          })}
-      </div> */}
+          })} */}
+      </div>
     </div>
   )}
   </>

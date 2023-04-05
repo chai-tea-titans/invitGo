@@ -1,3 +1,11 @@
+## GroupName: Chai TeaTitans
+
+Deployment, SupaBase, Login System and Next.js: Delvis Soto
+
+Calendar, PopupWindows, To-do List, Expenstive tracker, Graph and Weather API: Xiaolei Jiang
+
+Video and Cloud: Carlos Zepeda
+
 ## inviteGo
 A website that will track ur daily useage by graphing it out and to-do lists, futhermore it has feature of video recording.
 ![WeChat Screenshot_20230405154658](https://user-images.githubusercontent.com/64209943/230190203-b6b16c38-670c-4278-b218-f75a4bcc4b39.png)

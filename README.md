@@ -9,3 +9,7 @@ User could enter their inputs and daily spending/video in this screen.
 ## Video
 We can play back the video recording in the video tap
 ![image](https://user-images.githubusercontent.com/64209943/230192005-6af05ca0-a819-4b13-978d-732acfa38cab.png)
+## Source
+Open Weather API
+
+Graph template: https://github.com/machadop1407/chartjs-react-tutorial

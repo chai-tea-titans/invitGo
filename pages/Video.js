@@ -179,13 +179,13 @@ return (
         )}
       </div>
       <div>{uploadMessage && <div>{uploadMessage}</div>}
-        {videos.map((video) => {
+        {/* {videos.map((video) => {
           return (
           <video key={video.publicUrl} src={video.publicUrl} width="600" height="425" controls >
             <source src={video.publicUrl} type="video/webm" />
           </video>
           );
-          })}
+          })} */}
       </div>
     </div>
   )}

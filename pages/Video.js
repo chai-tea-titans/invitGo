@@ -99,8 +99,7 @@ const handleUploadVideo = async () => {
     setUploadMessage('Video upload failed. Please try again.');
     } else {
     const publicUrl = `${CDNURL}${data.Key}`;
-    // // Call the onVideoUpload callback with the public URL of the uploaded video
-    // onVideoUpload([publicUrl]);
+    setVideos((prevVideos) => [...prevVideos, { name: fileName, publicUrl }]);
 
       // Set the success message
       setUploadMessage('Video upload was successful!');
@@ -181,10 +180,9 @@ return (
       </div>
       <div>{uploadMessage && <div>{uploadMessage}</div>}
         {videos.map((video) => {
-          console.log(video);
           return (
-          <video key={video} src={video} width="600" height="425" controls >
-            <source src={CDNURL + video.name} type="video/webm" />
+          <video key={video.publicUrl} src={video.publicUrl} width="600" height="425" controls >
+            <source src={video.publicUrl} type="video/webm" />
           </video>
           );
           })}

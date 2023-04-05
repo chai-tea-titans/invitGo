@@ -120,6 +120,12 @@ const Calendar = () => {
 
   return (
     <div className="calendar">
+      <nav>
+        {" "}
+        <Link className="Logo" href="/">
+          InviteGo
+        </Link>
+      </nav>
       <div className="calendar-header">
         <button onClick={onPrevButtonClick}>{"<"}</button>
         <div className="calendar-month-year">
@@ -150,9 +156,15 @@ const Calendar = () => {
       <Graph />
       <Weather />
       <footer className="footer">
-      <Link className='Logo' href="/about">👤</Link>
-      <Link className='Logo' href="/">Go</Link>
-      <Link className='Logo' href="/calendar">📅</Link>
+        <Link className="Logo" href="/about">
+          👤
+        </Link>
+        <Link className="Logo" href="/">
+          Go
+        </Link>
+        <Link className="Logo" href="/calendar">
+          📅
+        </Link>
       </footer>
     </div>
   );
